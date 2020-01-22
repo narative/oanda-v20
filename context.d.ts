@@ -1,4 +1,4 @@
-declare module '@oanda/v20/context' {
+declare module '@narative/oanda-v20/context' {
   export class Context {
     constructor(hostname: any, port: any, ssl: any, application: any)
     username: string

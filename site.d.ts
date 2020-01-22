@@ -1,4 +1,4 @@
-declare module '@oanda/v20/site' {
+declare module '@narative/oanda-v20/site' {
 
 declare const MT4TransactionHeartbeat_base: typeof import('./base').Definition
 export class MT4TransactionHeartbeat extends MT4TransactionHeartbeat_base {

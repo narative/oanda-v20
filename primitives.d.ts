@@ -1,4 +1,4 @@
-declare module '@oanda/v20/primitives' {
+declare module '@narative/oanda-v20/primitives' {
 
 declare const Instrument_base: typeof import('./base').Definition
 export class Instrument extends Instrument_base {

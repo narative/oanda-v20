@@ -1,4 +1,4 @@
-declare module '@oanda/v20/instrument' {
+declare module '@narative/oanda-v20/instrument' {
 
 declare const Candlestick_base: typeof import('./base').Definition
 export class Candlestick extends Candlestick_base {

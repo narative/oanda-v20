@@ -1,4 +1,4 @@
-declare module '@oanda/v20/transaction' {
+declare module '@narative/oanda-v20/transaction' {
   declare const Transaction_base: typeof import('./base').Definition
   export class Transaction extends Transaction_base {
     static create(

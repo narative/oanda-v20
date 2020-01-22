@@ -1,4 +1,4 @@
-declare module '@oanda/v20/account' {
+declare module '@narative/oanda-v20/account' {
   declare const Account_base: typeof import('./base').Definition
   export class Account extends Account_base {
     constructor(data: any)

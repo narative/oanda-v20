@@ -1,4 +1,4 @@
-declare module '@oanda/v20/order' {
+declare module '@narative/oanda-v20/order' {
 
 declare const OrderIdentifier_base: typeof import('./base').Definition
 export class OrderIdentifier extends OrderIdentifier_base {

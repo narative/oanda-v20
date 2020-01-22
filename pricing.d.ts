@@ -1,4 +1,4 @@
-declare module '@oanda/v20/pricing' {
+declare module '@narative/oanda-v20/pricing' {
   declare const PricingBucket: typeof import('./pricing_common').PriceBucket
 
   declare const ClientPrice_base: typeof import('./base').Definition

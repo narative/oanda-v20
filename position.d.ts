@@ -1,4 +1,4 @@
-declare module '@oanda/v20/position' {
+declare module '@narative/oanda-v20/position' {
 
 declare const Position_base: typeof import('./base').Definition
 export class Position extends Position_base {

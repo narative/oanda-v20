@@ -1,4 +1,4 @@
-declare module '@oanda/v20/trade' {
+declare module '@narative/oanda-v20/trade' {
 
 declare const Trade_base: typeof import('./base').Definition
 export class Trade extends Trade_base {
