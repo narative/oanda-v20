@@ -655,12 +655,12 @@ class EntitySpec {
                 }
                 else if (msg.type == "PRICE")
                 {
-                    streamChunkHandler(new Price(msg));
+                    streamChunkHandler(new ClientPrice(msg));
                 }
             }
         }
 
-        this.context.request(
+        return this.context.request(
             'GET',
             path,
             body,
@@ -670,6 +670,7 @@ class EntitySpec {
     }
 
     candles(
+        accountID,
         instrument,
         queryParams,
         responseHandler
@@ -685,6 +686,7 @@ class EntitySpec {
 
         queryParams = queryParams || {};
 
+        path = path.replace('{' + 'accountID' + '}', accountID)
         path = path.replace('{' + 'instrument' + '}', instrument);
 
         path = path + "?";
