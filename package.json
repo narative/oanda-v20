@@ -1,0 +1,9 @@
+{
+  "name": "@oanda/v20",
+  "version": "0.0.1",
+  "repository": "git@github.com:narative/v20-javascript.git",
+  "author": "Narative <engineering@feyapp.com>",
+  "license": "Unlicensed",
+  "private": true,
+  "files": ["src/**/*"]
+}
