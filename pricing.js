@@ -8,7 +8,7 @@ var Field = require('./base').Field;
 
 var pricing_common = require('./pricing_common');
 var order = require('./order');
-var instrument = require('./instrument');
+var instrumentModule = require('./instrument');
 
 
 
@@ -744,7 +744,7 @@ class EntitySpec {
                     }
 
                     if (msg['candles'] !== undefined) {
-                        response.body.candles = msg['candles'].map(x => new instrument.Candlestick(x));
+                        response.body.candles = msg['candles'].map(x => new instrumentModule.Candlestick(x));
                     }
 
                 }
