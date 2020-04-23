@@ -520,7 +520,7 @@ class EntitySpec {
         };
 
 
-        this.context.request(
+        return this.context.request(
             'GET',
             path,
             body,
@@ -599,7 +599,7 @@ class EntitySpec {
         };
 
 
-        this.context.request(
+        return this.context.request(
             'GET',
             path,
             body,
@@ -681,7 +681,7 @@ class EntitySpec {
         };
 
 
-        this.context.request(
+        return this.context.request(
             'GET',
             path,
             body,
@@ -760,7 +760,7 @@ class EntitySpec {
         };
 
 
-        this.context.request(
+        return this.context.request(
             'GET',
             path,
             body,
@@ -839,7 +839,7 @@ class EntitySpec {
         };
 
 
-        this.context.request(
+        return this.context.request(
             'GET',
             path,
             body,
