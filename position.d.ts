@@ -41,10 +41,10 @@ export class EntitySpec {
   Position: typeof Position
   PositionSide: typeof PositionSide
   CalculatedPositionState: typeof CalculatedPositionState
-  list(accountID: any, responseHandler: any): void
-  listOpen(accountID: any, responseHandler: any): void
-  get(accountID: any, instrument: any, responseHandler: any): void
-  close(accountID: any, instrument: any, bodyParams: any, responseHandler: any): void
+  list(accountID: any, responseHandler: any): ClientRequest
+  listOpen(accountID: any, responseHandler: any): ClientRequest
+  get(accountID: any, instrument: any, responseHandler: any): ClientRequest
+  close(accountID: any, instrument: any, bodyParams: any, responseHandler: any): ClientRequest
 }
 export {}
 }

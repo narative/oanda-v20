@@ -146,6 +146,7 @@ class Context {
                     if (responseHandler)
                     {
                         responseHandler(
+                            null,
                             new Response(
                                 method,
                                 path,
@@ -159,6 +160,13 @@ class Context {
                 });
             }
         );
+
+        req.on('error', (err) => {
+            if (responseHandler) {
+                responseHandler(err, null)
+                req.abort()
+            }
+        })
 
         if (postData.length > 0)
         {

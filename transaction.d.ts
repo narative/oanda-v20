@@ -875,11 +875,11 @@ declare module '@narative/oanda-v20/transaction' {
     OpenTradeFinancing: typeof OpenTradeFinancing
     PositionFinancing: typeof PositionFinancing
     TransactionHeartbeat: typeof TransactionHeartbeat
-    list(accountID: any, queryParams: any, responseHandler: any): void
-    get(accountID: any, transactionID: any, responseHandler: any): void
-    range(accountID: any, queryParams: any, responseHandler: any): void
-    since(accountID: any, queryParams: any, responseHandler: any): void
-    stream(accountID: any, streamChunkHandler: any, responseHandler: any): void
+    list(accountID: any, queryParams: any, responseHandler: any): ClientRequest
+    get(accountID: any, transactionID: any, responseHandler: any): ClientRequest
+    range(accountID: any, queryParams: any, responseHandler: any): ClientRequest
+    since(accountID: any, queryParams: any, responseHandler: any): ClientRequest
+    stream(accountID: any, streamChunkHandler: any, responseHandler: any): ClientRequest
   }
   export {}
 }

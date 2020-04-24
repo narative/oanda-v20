@@ -59,11 +59,11 @@ export class EntitySpec {
   OrderBookBucket: typeof OrderBookBucket
   PositionBook: typeof PositionBook
   PositionBookBucket: typeof PositionBookBucket
-  candles(instrument: any, queryParams: any, responseHandler: any): void
-  price(instrument: any, queryParams: any, responseHandler: any): void
-  prices(instrument: any, queryParams: any, responseHandler: any): void
-  orderBook(instrument: any, queryParams: any, responseHandler: any): void
-  positionBook(instrument: any, queryParams: any, responseHandler: any): void
+  candles(instrument: any, queryParams: any, responseHandler: any): ClientRequest
+  price(instrument: any, queryParams: any, responseHandler: any): ClientRequest
+  prices(instrument: any, queryParams: any, responseHandler: any): ClientRequest
+  orderBook(instrument: any, queryParams: any, responseHandler: any): ClientRequest
+  positionBook(instrument: any, queryParams: any, responseHandler: any): ClientRequest
 }
 export {}
 

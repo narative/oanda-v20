@@ -59,22 +59,22 @@ export class EntitySpec {
   Trade: typeof Trade
   TradeSummary: typeof TradeSummary
   CalculatedTradeState: typeof CalculatedTradeState
-  list(accountID: any, queryParams: any, responseHandler: any): void
-  listOpen(accountID: any, responseHandler: any): void
-  get(accountID: any, tradeSpecifier: any, responseHandler: any): void
-  close(accountID: any, tradeSpecifier: any, bodyParams: any, responseHandler: any): void
+  list(accountID: any, queryParams: any, responseHandler: any): ClientRequest
+  listOpen(accountID: any, responseHandler: any): ClientRequest
+  get(accountID: any, tradeSpecifier: any, responseHandler: any): ClientRequest
+  close(accountID: any, tradeSpecifier: any, bodyParams: any, responseHandler: any): ClientRequest
   setClientExtensions(
     accountID: any,
     tradeSpecifier: any,
     bodyParams: any,
     responseHandler: any,
-  ): void
+  ): ClientRequest
   setDependentOrders(
     accountID: any,
     tradeSpecifier: any,
     bodyParams: any,
     responseHandler: any,
-  ): void
+  ): ClientRequest
 }
 export {}
 }

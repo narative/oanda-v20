@@ -1,18 +1,14 @@
-The OANDA v20 REST API provides programmatic access to OANDA's next generation
-v20 trading engine.
+# OANDA v20 (Narative fork)
+
+## Why
+
+- Typescript friendly (WIP)
+- Bug fixing
 
 ## Installation
 
-If you have the node package manager, npm, installed:
-
 ```shell
-npm install @narative/oanda-v20
-```
-
-Leave off the `-g` if you don't wish to install globally. If you don't wish to use npm:
-
-```
-git clone https://github.com/narative/oanda-v20.git
+yarn add @narative/oanda-v20
 ```
 
 ## Documentation

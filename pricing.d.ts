@@ -44,10 +44,10 @@ declare module '@narative/oanda-v20/pricing' {
     HomeConversions: typeof HomeConversions
     PricingHeartbeat: typeof PricingHeartbeat
     basePrices(queryParams: any, responseHandler: any): void
-    getPriceRange(instrument: any, queryParams: any, responseHandler: any): void
-    get(accountID: any, queryParams: any, responseHandler: any): void
-    stream(accountID: any, queryParams: any, streamChunkHandler: any, responseHandler: any): void
-    candles(accountID: any, instrument: any, queryParams: any, responseHandler: any): void
+    getPriceRange(instrument: any, queryParams: any, responseHandler: any): ClientRequest
+    get(accountID: any, queryParams: any, responseHandler: any): ClientRequest
+    stream(accountID: any, queryParams: any, streamChunkHandler: any, responseHandler: any): ClientRequest
+    candles(accountID: any, instrument: any, queryParams: any, responseHandler: any): ClientRequest
   }
   export {}
 }

@@ -412,31 +412,31 @@ export class EntitySpec {
   UnitsAvailableDetails: typeof UnitsAvailableDetails
   UnitsAvailable: typeof UnitsAvailable
   GuaranteedStopLossOrderEntryData: typeof GuaranteedStopLossOrderEntryData
-  create(accountID: any, bodyParams: any, responseHandler: any): void
-  list(accountID: any, queryParams: any, responseHandler: any): void
-  listPending(accountID: any, responseHandler: any): void
-  get(accountID: any, orderSpecifier: any, responseHandler: any): void
-  replace(accountID: any, orderSpecifier: any, bodyParams: any, responseHandler: any): void
-  cancel(accountID: any, orderSpecifier: any, responseHandler: any): void
+  create(accountID: any, bodyParams: any, responseHandler: any): ClientRequest
+  list(accountID: any, queryParams: any, responseHandler: any): ClientRequest
+  listPending(accountID: any, responseHandler: any): ClientRequest
+  get(accountID: any, orderSpecifier: any, responseHandler: any): ClientRequest
+  replace(accountID: any, orderSpecifier: any, bodyParams: any, responseHandler: any): ClientRequest
+  cancel(accountID: any, orderSpecifier: any, responseHandler: any): ClientRequest
   setClientExtensions(
     accountID: any,
     orderSpecifier: any,
     bodyParams: any,
     responseHandler: any,
-  ): void
-  market(accountID: any, orderSpec: any, responseCallback: any): void
-  limit(accountID: any, orderSpec: any, responseCallback: any): void
-  limitReplace(accountID: any, orderID: any, orderSpec: any, responseCallback: any): void
-  stop(accountID: any, orderSpec: any, responseCallback: any): void
-  stopReplace(accountID: any, orderID: any, orderSpec: any, responseCallback: any): void
-  marketIfTouched(accountID: any, orderSpec: any, responseCallback: any): void
-  marketIfTouchedReplace(accountID: any, orderID: any, orderSpec: any, responseCallback: any): void
-  takeProfit(accountID: any, orderSpec: any, responseCallback: any): void
-  takeProfitReplace(accountID: any, orderID: any, orderSpec: any, responseCallback: any): void
-  stopLoss(accountID: any, orderSpec: any, responseCallback: any): void
-  stopLossReplace(accountID: any, orderID: any, orderSpec: any, responseCallback: any): void
-  trailingStopLoss(accountID: any, orderSpec: any, responseCallback: any): void
-  trailingStopLossReplace(accountID: any, orderID: any, orderSpec: any, responseCallback: any): void
+  ): ClientRequest
+  market(accountID: any, orderSpec: any, responseCallback: any): ClientRequest
+  limit(accountID: any, orderSpec: any, responseCallback: any): ClientRequest
+  limitReplace(accountID: any, orderID: any, orderSpec: any, responseCallback: any): ClientRequest
+  stop(accountID: any, orderSpec: any, responseCallback: any): ClientRequest
+  stopReplace(accountID: any, orderID: any, orderSpec: any, responseCallback: any): ClientRequest
+  marketIfTouched(accountID: any, orderSpec: any, responseCallback: any): ClientRequest
+  marketIfTouchedReplace(accountID: any, orderID: any, orderSpec: any, responseCallback: any): ClientRequest
+  takeProfit(accountID: any, orderSpec: any, responseCallback: any): ClientRequest
+  takeProfitReplace(accountID: any, orderID: any, orderSpec: any, responseCallback: any): ClientRequest
+  stopLoss(accountID: any, orderSpec: any, responseCallback: any): ClientRequest
+  stopLossReplace(accountID: any, orderID: any, orderSpec: any, responseCallback: any): ClientRequest
+  trailingStopLoss(accountID: any, orderSpec: any, responseCallback: any): ClientRequest
+  trailingStopLossReplace(accountID: any, orderID: any, orderSpec: any, responseCallback: any): ClientRequest
 }
 export {}
 

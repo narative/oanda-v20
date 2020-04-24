@@ -1426,7 +1426,11 @@ class EntitySpec {
 
         let body = {};
 
-        let handleResponse = (response) => {
+        let handleResponse = (err, response) => {
+            if (err) {
+                responseHandler(err, null)
+                return
+            }
             if (response.contentType.startsWith("application/json"))
             {
                 let msg = JSON.parse(response.rawBody);
@@ -1493,7 +1497,11 @@ class EntitySpec {
 
         let body = {};
 
-        let handleResponse = (response) => {
+        let handleResponse = (err, response) => {
+            if (err) {
+                responseHandler(err, null)
+                return
+            }
             if (response.contentType.startsWith("application/json"))
             {
                 let msg = JSON.parse(response.rawBody);
@@ -1567,7 +1575,11 @@ class EntitySpec {
 
         let body = {};
 
-        let handleResponse = (response) => {
+        let handleResponse = (err, response) => {
+            if (err) {
+                responseHandler(err, null)
+                return
+            }
             if (response.contentType.startsWith("application/json"))
             {
                 let msg = JSON.parse(response.rawBody);
@@ -1647,7 +1659,11 @@ class EntitySpec {
 
         let body = {};
 
-        let handleResponse = (response) => {
+        let handleResponse = (err, response) => {
+            if (err) {
+                responseHandler(err, null)
+                return
+            }
             if (response.contentType.startsWith("application/json"))
             {
                 let msg = JSON.parse(response.rawBody);
@@ -1733,7 +1749,11 @@ class EntitySpec {
             body['marginRate'] = bodyParams['marginRate'];
         }
 
-        let handleResponse = (response) => {
+        let handleResponse = (err, response) => {
+            if (err) {
+                responseHandler(err, null)
+                return
+            }
             if (response.contentType.startsWith("application/json"))
             {
                 let msg = JSON.parse(response.rawBody);
@@ -1851,7 +1871,11 @@ class EntitySpec {
 
         let body = {};
 
-        let handleResponse = (response) => {
+        let handleResponse = (err, response) => {
+            if (err) {
+                responseHandler(err, null)
+                return
+            }
             if (response.contentType.startsWith("application/json"))
             {
                 let msg = JSON.parse(response.rawBody);

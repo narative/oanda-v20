@@ -19,8 +19,8 @@ declare module '@narative/oanda-v20/user' {
     context: any
     UserInfo: typeof UserInfo
     UserInfoExternal: typeof UserInfoExternal
-    getInfo(userSpecifier: any, responseHandler: any): void
-    getExternalInfo(userSpecifier: any, responseHandler: any): void
+    getInfo(userSpecifier: any, responseHandler: any): ClientRequest
+    getExternalInfo(userSpecifier: any, responseHandler: any): ClientRequest
   }
   export {}
 }

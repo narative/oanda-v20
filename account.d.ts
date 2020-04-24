@@ -148,12 +148,12 @@ declare module '@narative/oanda-v20/account' {
     AccountSummary: typeof AccountSummary
     CalculatedAccountState: typeof CalculatedAccountState
     AccountChanges: typeof AccountChanges
-    list(responseHandler: any): void
-    get(accountID: any, responseHandler: any): void
-    summary(accountID: any, responseHandler: any): void
-    instruments(accountID: any, queryParams: any, responseHandler: any): void
-    configure(accountID: any, bodyParams: any, responseHandler: any): void
-    changes(accountID: any, queryParams: any, responseHandler: any): void
+    list(responseHandler: any): ClientRequest
+    get(accountID: any, responseHandler: any): ClientRequest
+    summary(accountID: any, responseHandler: any): ClientRequest
+    instruments(accountID: any, queryParams: any, responseHandler: any): ClientRequest
+    configure(accountID: any, bodyParams: any, responseHandler: any): ClientRequest
+    changes(accountID: any, queryParams: any, responseHandler: any): ClientRequest
   }
   export {}
 }

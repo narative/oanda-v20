@@ -22,7 +22,7 @@ declare module '@narative/oanda-v20/context' {
     order: import('./order').EntitySpec
     instrument: import('./instrument').EntitySpec
     setToken(token: any): void
-    request(method: any, path: any, body: any, streamChunkHandler: any, responseHandler: any): void
+    request(method: any, path: any, body: any, streamChunkHandler: any, responseHandler: any): ClientRequest
   }
   export class Response {
     constructor(
