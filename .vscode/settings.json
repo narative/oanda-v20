@@ -1,0 +1,30 @@
+{
+  "editor.formatOnSave": true,
+  "eslint.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    }
+  ],
+  "files.exclude": {
+    "**/__pycache__": true
+  },
+  "search.exclude": {
+    "**/charting_library": true,
+    "**/datafeeds": true,
+    "**/libs/vx": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/storybook-static": true,
+    "**/tests/data": true,
+    "**/env": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

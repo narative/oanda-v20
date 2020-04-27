@@ -1,0 +1,96 @@
+{
+  "parser": "@typescript-eslint/parser",
+
+  "extends": [
+    "plugin:react/recommended", // Uses the recommended rules from @eslint-plugin-react
+    "plugin:@typescript-eslint/recommended", // Uses the recommended rules from @typescript-eslint/eslint-plugin
+    "prettier/@typescript-eslint", // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+    "plugin:import/errors", // For import orders
+    "plugin:import/warnings", // For import orders
+    "plugin:import/typescript" // For import orders
+  ],
+
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+
+  "rules": {
+    // const over let
+    "prefer-const": 1,
+
+    // allow empty interface e.g. `interface Dummy {}`
+    "@typescript-eslint/no-empty-interface": "off",
+
+    // allow `foo.bar!.includes('baz')`
+    "@typescript-eslint/no-non-null-assertion": "off",
+
+    // force camelcase except for things like `UNSAFE_componentWillMount()`
+    "@typescript-eslint/camelcase": [
+      "error",
+      {
+        "properties": "never",
+        "allow": ["^UNSAFE_"],
+        "ignoreDestructuring": true
+      }
+    ],
+
+    // allow declaration of function and classes after call
+    "@typescript-eslint/no-use-before-define": [
+      "error",
+      {
+        "functions": false,
+        "classes": false
+      }
+    ],
+
+    // don't force explicit return type from function
+    "@typescript-eslint/explicit-function-return-type": "off",
+
+    // force public keyword except for constructors
+    "@typescript-eslint/explicit-member-accessibility": [
+      "warn",
+      {
+        "overrides": {
+          "constructors": "off"
+        }
+      }
+    ],
+
+    // allow explicit any e.g. `payloar: any`
+    "@typescript-eslint/no-explicit-any": "off",
+
+    // allow GraphQL CodeGen duplicate imports
+    "no-duplicate-imports": "off",
+    "import/no-duplicates": "off",
+
+    // allow unused args
+    "no-unused-vars": "off", // must disable this to override
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "args": "none"
+      }
+    ],
+
+    // force import to be in order
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"]
+      }
+    ],
+
+    // react display-name
+    "react/display-name": "off",
+
+    // escape
+    "react/no-unescaped-entities": "off",
+
+    // allow () => {}
+    "no-empty-function": "off",
+    "@typescript-eslint/no-empty-function": ["off"]
+  }
+}

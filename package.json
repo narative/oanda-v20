@@ -1,9 +1,32 @@
 {
-    "name": "@narative/oanda-v20",
-    "description": "OANDA v20 bindings for Javascript",
-    "version": "3.0.30",
-    "author": "OANDA Corporation",
-    "repository": "https://github.com/narative/v20-javascript",
-    "license": "MIT",
-    "homepage": "http://developer.oanda.com/rest-live-v20/introduction"
+  "name": "@narative/oanda-v20",
+  "description": "OANDA v20 bindings for Javascript",
+  "version": "3.0.31",
+  "author": "OANDA Corporation",
+  "repository": "https://github.com/narative/v20-javascript",
+  "license": "MIT",
+  "homepage": "http://developer.oanda.com/rest-live-v20/introduction",
+  "main": "dist/index.js",
+  "exports": {
+    "./": "./dist/"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon --watch 'src' --ext 'ts' --exec 'ts-node src/debug.ts'"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.2",
+    "child_process": "^1.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "nodemon": "^2.0.3",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.9.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@types/cheerio": "^0.22.18",
+    "cheerio": "^1.0.0-rc.3",
+    "request": "^2.88.2"
+  }
 }
