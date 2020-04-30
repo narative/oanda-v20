@@ -166,6 +166,8 @@ class Context {
         }
 
         req.end();
+
+        return req
     }
 }
 

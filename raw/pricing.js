@@ -8,7 +8,7 @@ var Field = require('./base').Field;
 
 var pricing_common = require('./pricing_common');
 var order = require('./order');
-var instrument = require('./instrument');
+var instrumentModule = require('./instrument');
 
 
 
@@ -655,12 +655,12 @@ class EntitySpec {
                 }
                 else if (msg.type == "PRICE")
                 {
-                    streamChunkHandler(new Price(msg));
+                    streamChunkHandler(new ClientPrice(msg));
                 }
             }
         }
 
-        this.context.request(
+        return this.context.request(
             'GET',
             path,
             body,
@@ -670,6 +670,7 @@ class EntitySpec {
     }
 
     candles(
+        accountID,
         instrument,
         queryParams,
         responseHandler
@@ -685,6 +686,7 @@ class EntitySpec {
 
         queryParams = queryParams || {};
 
+        path = path.replace('{' + 'accountID' + '}', accountID)
         path = path.replace('{' + 'instrument' + '}', instrument);
 
         path = path + "?";
@@ -742,7 +744,7 @@ class EntitySpec {
                     }
 
                     if (msg['candles'] !== undefined) {
-                        response.body.candles = msg['candles'].map(x => new instrument.Candlestick(x));
+                        response.body.candles = msg['candles'].map(x => new instrumentModule.Candlestick(x));
                     }
 
                 }

@@ -6,13 +6,13 @@ v20 trading engine.
 If you have the node package manager, npm, installed:
 
 ```shell
-npm install -g @oanda/v20
+npm install @narative/oanda-v20
 ```
 
 Leave off the `-g` if you don't wish to install globally. If you don't wish to use npm:
 
 ```
-git clone https://github.com/oanda/v20-javascript.git
+git clone https://github.com/narative/oanda-v20.git
 ```
 
 ## Documentation
