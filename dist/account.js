@@ -1,4 +1,17 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,13 +21,40 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const base_1 = require("./base");
-const trade = require("./trade");
-const position = require("./position");
-const order = require("./order");
-const transaction = require("./transaction");
-const primitives = require("./primitives");
+var base_1 = require("./base");
+var trade = require("./trade");
+var position = require("./position");
+var order = require("./order");
+var transaction = require("./transaction");
+var primitives = require("./primitives");
 exports.Account_Properties = [
     new base_1.Property('id', 'Account ID', "The Account's identifier", 'primitive', 'account.AccountID'),
     new base_1.Property('alias', 'Alias', 'Client-assigned alias for the Account. Only provided if the Account has an alias set', 'primitive', 'string'),
@@ -56,132 +96,135 @@ exports.Account_Properties = [
     new base_1.Property('positions', 'Positions', 'The details all Account Positions.', 'array_object', 'Position'),
     new base_1.Property('orders', 'Pending Orders', 'The details of the Orders currently pending in the Account.', 'array_object', 'Order'),
 ];
-class Account extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Account {id}';
-        this._nameFormat = '';
-        this._properties = exports.Account_Properties;
+var Account = /** @class */ (function (_super) {
+    __extends(Account, _super);
+    function Account(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Account {id}';
+        _this._nameFormat = '';
+        _this._properties = exports.Account_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['alias'] !== undefined) {
-            this.alias = data['alias'];
+            _this.alias = data['alias'];
         }
         if (data['currency'] !== undefined) {
-            this.currency = data['currency'];
+            _this.currency = data['currency'];
         }
         if (data['balance'] !== undefined) {
-            this.balance = data['balance'];
+            _this.balance = data['balance'];
         }
         if (data['createdByUserID'] !== undefined) {
-            this.createdByUserID = data['createdByUserID'];
+            _this.createdByUserID = data['createdByUserID'];
         }
         if (data['createdTime'] !== undefined) {
-            this.createdTime = data['createdTime'];
+            _this.createdTime = data['createdTime'];
         }
         if (data['guaranteedStopLossOrderMode'] !== undefined) {
-            this.guaranteedStopLossOrderMode = data['guaranteedStopLossOrderMode'];
+            _this.guaranteedStopLossOrderMode = data['guaranteedStopLossOrderMode'];
         }
         if (data['pl'] !== undefined) {
-            this.pl = data['pl'];
+            _this.pl = data['pl'];
         }
         if (data['resettablePL'] !== undefined) {
-            this.resettablePL = data['resettablePL'];
+            _this.resettablePL = data['resettablePL'];
         }
         if (data['resettablePLTime'] !== undefined) {
-            this.resettablePLTime = data['resettablePLTime'];
+            _this.resettablePLTime = data['resettablePLTime'];
         }
         if (data['financing'] !== undefined) {
-            this.financing = data['financing'];
+            _this.financing = data['financing'];
         }
         if (data['commission'] !== undefined) {
-            this.commission = data['commission'];
+            _this.commission = data['commission'];
         }
         if (data['guaranteedExecutionFees'] !== undefined) {
-            this.guaranteedExecutionFees = data['guaranteedExecutionFees'];
+            _this.guaranteedExecutionFees = data['guaranteedExecutionFees'];
         }
         if (data['marginRate'] !== undefined) {
-            this.marginRate = data['marginRate'];
+            _this.marginRate = data['marginRate'];
         }
         if (data['marginCallEnterTime'] !== undefined) {
-            this.marginCallEnterTime = data['marginCallEnterTime'];
+            _this.marginCallEnterTime = data['marginCallEnterTime'];
         }
         if (data['marginCallExtensionCount'] !== undefined) {
-            this.marginCallExtensionCount = data['marginCallExtensionCount'];
+            _this.marginCallExtensionCount = data['marginCallExtensionCount'];
         }
         if (data['lastMarginCallExtensionTime'] !== undefined) {
-            this.lastMarginCallExtensionTime = data['lastMarginCallExtensionTime'];
+            _this.lastMarginCallExtensionTime = data['lastMarginCallExtensionTime'];
         }
         if (data['openTradeCount'] !== undefined) {
-            this.openTradeCount = data['openTradeCount'];
+            _this.openTradeCount = data['openTradeCount'];
         }
         if (data['openPositionCount'] !== undefined) {
-            this.openPositionCount = data['openPositionCount'];
+            _this.openPositionCount = data['openPositionCount'];
         }
         if (data['pendingOrderCount'] !== undefined) {
-            this.pendingOrderCount = data['pendingOrderCount'];
+            _this.pendingOrderCount = data['pendingOrderCount'];
         }
         if (data['hedgingEnabled'] !== undefined) {
-            this.hedgingEnabled = data['hedgingEnabled'];
+            _this.hedgingEnabled = data['hedgingEnabled'];
         }
         if (data['lastOrderFillTimestamp'] !== undefined) {
-            this.lastOrderFillTimestamp = data['lastOrderFillTimestamp'];
+            _this.lastOrderFillTimestamp = data['lastOrderFillTimestamp'];
         }
         if (data['unrealizedPL'] !== undefined) {
-            this.unrealizedPL = data['unrealizedPL'];
+            _this.unrealizedPL = data['unrealizedPL'];
         }
         if (data['NAV'] !== undefined) {
-            this.NAV = data['NAV'];
+            _this.NAV = data['NAV'];
         }
         if (data['marginUsed'] !== undefined) {
-            this.marginUsed = data['marginUsed'];
+            _this.marginUsed = data['marginUsed'];
         }
         if (data['marginAvailable'] !== undefined) {
-            this.marginAvailable = data['marginAvailable'];
+            _this.marginAvailable = data['marginAvailable'];
         }
         if (data['positionValue'] !== undefined) {
-            this.positionValue = data['positionValue'];
+            _this.positionValue = data['positionValue'];
         }
         if (data['marginCloseoutUnrealizedPL'] !== undefined) {
-            this.marginCloseoutUnrealizedPL = data['marginCloseoutUnrealizedPL'];
+            _this.marginCloseoutUnrealizedPL = data['marginCloseoutUnrealizedPL'];
         }
         if (data['marginCloseoutNAV'] !== undefined) {
-            this.marginCloseoutNAV = data['marginCloseoutNAV'];
+            _this.marginCloseoutNAV = data['marginCloseoutNAV'];
         }
         if (data['marginCloseoutMarginUsed'] !== undefined) {
-            this.marginCloseoutMarginUsed = data['marginCloseoutMarginUsed'];
+            _this.marginCloseoutMarginUsed = data['marginCloseoutMarginUsed'];
         }
         if (data['marginCloseoutPercent'] !== undefined) {
-            this.marginCloseoutPercent = data['marginCloseoutPercent'];
+            _this.marginCloseoutPercent = data['marginCloseoutPercent'];
         }
         if (data['marginCloseoutPositionValue'] !== undefined) {
-            this.marginCloseoutPositionValue = data['marginCloseoutPositionValue'];
+            _this.marginCloseoutPositionValue = data['marginCloseoutPositionValue'];
         }
         if (data['withdrawalLimit'] !== undefined) {
-            this.withdrawalLimit = data['withdrawalLimit'];
+            _this.withdrawalLimit = data['withdrawalLimit'];
         }
         if (data['marginCallMarginUsed'] !== undefined) {
-            this.marginCallMarginUsed = data['marginCallMarginUsed'];
+            _this.marginCallMarginUsed = data['marginCallMarginUsed'];
         }
         if (data['marginCallPercent'] !== undefined) {
-            this.marginCallPercent = data['marginCallPercent'];
+            _this.marginCallPercent = data['marginCallPercent'];
         }
         if (data['lastTransactionID'] !== undefined) {
-            this.lastTransactionID = data['lastTransactionID'];
+            _this.lastTransactionID = data['lastTransactionID'];
         }
         if (data['trades'] !== undefined) {
-            this.trades = data['trades'].map((x) => new trade.TradeSummary(x));
+            _this.trades = data['trades'].map(function (x) { return new trade.TradeSummary(x); });
         }
         if (data['positions'] !== undefined) {
-            this.positions = data['positions'].map((x) => new position.Position(x));
+            _this.positions = data['positions'].map(function (x) { return new position.Position(x); });
         }
         if (data['orders'] !== undefined) {
-            this.orders = data['orders'].map((x) => order.Order.create(x));
+            _this.orders = data['orders'].map(function (x) { return order.Order.create(x); });
         }
+        return _this;
     }
-}
+    return Account;
+}(base_1.Definition));
 exports.Account = Account;
 exports.AccountChangesState_Properties = [
     new base_1.Property('unrealizedPL', 'Unrealized Profit/Loss', 'The total unrealized profit/loss for all Trades currently open in the Account.', 'primitive', 'primitives.AccountUnits'),
@@ -201,87 +244,93 @@ exports.AccountChangesState_Properties = [
     new base_1.Property('trades', 'Trade States', 'The price-dependent state for each open Trade in the Account.', 'array_object', 'CalculatedTradeState'),
     new base_1.Property('positions', 'Position States', 'The price-dependent state for each open Position in the Account.', 'array_object', 'CalculatedPositionState'),
 ];
-class AccountChangesState extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.AccountChangesState_Properties;
+var AccountChangesState = /** @class */ (function (_super) {
+    __extends(AccountChangesState, _super);
+    function AccountChangesState(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.AccountChangesState_Properties;
         data = data || {};
         if (data['unrealizedPL'] !== undefined) {
-            this.unrealizedPL = data['unrealizedPL'];
+            _this.unrealizedPL = data['unrealizedPL'];
         }
         if (data['NAV'] !== undefined) {
-            this.NAV = data['NAV'];
+            _this.NAV = data['NAV'];
         }
         if (data['marginUsed'] !== undefined) {
-            this.marginUsed = data['marginUsed'];
+            _this.marginUsed = data['marginUsed'];
         }
         if (data['marginAvailable'] !== undefined) {
-            this.marginAvailable = data['marginAvailable'];
+            _this.marginAvailable = data['marginAvailable'];
         }
         if (data['positionValue'] !== undefined) {
-            this.positionValue = data['positionValue'];
+            _this.positionValue = data['positionValue'];
         }
         if (data['marginCloseoutUnrealizedPL'] !== undefined) {
-            this.marginCloseoutUnrealizedPL = data['marginCloseoutUnrealizedPL'];
+            _this.marginCloseoutUnrealizedPL = data['marginCloseoutUnrealizedPL'];
         }
         if (data['marginCloseoutNAV'] !== undefined) {
-            this.marginCloseoutNAV = data['marginCloseoutNAV'];
+            _this.marginCloseoutNAV = data['marginCloseoutNAV'];
         }
         if (data['marginCloseoutMarginUsed'] !== undefined) {
-            this.marginCloseoutMarginUsed = data['marginCloseoutMarginUsed'];
+            _this.marginCloseoutMarginUsed = data['marginCloseoutMarginUsed'];
         }
         if (data['marginCloseoutPercent'] !== undefined) {
-            this.marginCloseoutPercent = data['marginCloseoutPercent'];
+            _this.marginCloseoutPercent = data['marginCloseoutPercent'];
         }
         if (data['marginCloseoutPositionValue'] !== undefined) {
-            this.marginCloseoutPositionValue = data['marginCloseoutPositionValue'];
+            _this.marginCloseoutPositionValue = data['marginCloseoutPositionValue'];
         }
         if (data['withdrawalLimit'] !== undefined) {
-            this.withdrawalLimit = data['withdrawalLimit'];
+            _this.withdrawalLimit = data['withdrawalLimit'];
         }
         if (data['marginCallMarginUsed'] !== undefined) {
-            this.marginCallMarginUsed = data['marginCallMarginUsed'];
+            _this.marginCallMarginUsed = data['marginCallMarginUsed'];
         }
         if (data['marginCallPercent'] !== undefined) {
-            this.marginCallPercent = data['marginCallPercent'];
+            _this.marginCallPercent = data['marginCallPercent'];
         }
         if (data['orders'] !== undefined) {
-            this.orders = data['orders'].map((x) => new order.DynamicOrderState(x));
+            _this.orders = data['orders'].map(function (x) { return new order.DynamicOrderState(x); });
         }
         if (data['trades'] !== undefined) {
-            this.trades = data['trades'].map((x) => new trade.CalculatedTradeState(x));
+            _this.trades = data['trades'].map(function (x) { return new trade.CalculatedTradeState(x); });
         }
         if (data['positions'] !== undefined) {
-            this.positions = data['positions'].map((x) => new position.CalculatedPositionState(x));
+            _this.positions = data['positions'].map(function (x) { return new position.CalculatedPositionState(x); });
         }
+        return _this;
     }
-}
+    return AccountChangesState;
+}(base_1.Definition));
 exports.AccountChangesState = AccountChangesState;
 exports.AccountProperties_Properties = [
     new base_1.Property('id', 'ID', "The Account's identifier", 'primitive', 'account.AccountID'),
     new base_1.Property('mt4AccountID', 'MT4 Account ID', "The Account's associated MT4 Account ID. This field will not be present if the Account is not an MT4 account.", 'primitive', 'integer'),
     new base_1.Property('tags', 'Account Tags', "The Account's tags", 'array_primitive', 'string'),
 ];
-class AccountProperties extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.AccountProperties_Properties;
+var AccountProperties = /** @class */ (function (_super) {
+    __extends(AccountProperties, _super);
+    function AccountProperties(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.AccountProperties_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['mt4AccountID'] !== undefined) {
-            this.mt4AccountID = data['mt4AccountID'];
+            _this.mt4AccountID = data['mt4AccountID'];
         }
         if (data['tags'] !== undefined) {
-            this.tags = data['tags'];
+            _this.tags = data['tags'];
         }
+        return _this;
     }
-}
+    return AccountProperties;
+}(base_1.Definition));
 exports.AccountProperties = AccountProperties;
 exports.AccountSummary_Properties = [
     new base_1.Property('id', 'Account ID', "The Account's identifier", 'primitive', 'account.AccountID'),
@@ -321,123 +370,126 @@ exports.AccountSummary_Properties = [
     new base_1.Property('marginCallPercent', 'Margin Call Percentage', "The Account's margin call percentage. When this value is 1.0 or above the Account is in a margin call situation.", 'primitive', 'primitives.DecimalNumber'),
     new base_1.Property('lastTransactionID', 'Last Transaction ID', 'The ID of the last Transaction created for the Account.', 'primitive', 'transaction.TransactionID'),
 ];
-class AccountSummary extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.AccountSummary_Properties;
+var AccountSummary = /** @class */ (function (_super) {
+    __extends(AccountSummary, _super);
+    function AccountSummary(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.AccountSummary_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['alias'] !== undefined) {
-            this.alias = data['alias'];
+            _this.alias = data['alias'];
         }
         if (data['currency'] !== undefined) {
-            this.currency = data['currency'];
+            _this.currency = data['currency'];
         }
         if (data['balance'] !== undefined) {
-            this.balance = data['balance'];
+            _this.balance = data['balance'];
         }
         if (data['createdByUserID'] !== undefined) {
-            this.createdByUserID = data['createdByUserID'];
+            _this.createdByUserID = data['createdByUserID'];
         }
         if (data['createdTime'] !== undefined) {
-            this.createdTime = data['createdTime'];
+            _this.createdTime = data['createdTime'];
         }
         if (data['guaranteedStopLossOrderMode'] !== undefined) {
-            this.guaranteedStopLossOrderMode = data['guaranteedStopLossOrderMode'];
+            _this.guaranteedStopLossOrderMode = data['guaranteedStopLossOrderMode'];
         }
         if (data['pl'] !== undefined) {
-            this.pl = data['pl'];
+            _this.pl = data['pl'];
         }
         if (data['resettablePL'] !== undefined) {
-            this.resettablePL = data['resettablePL'];
+            _this.resettablePL = data['resettablePL'];
         }
         if (data['resettablePLTime'] !== undefined) {
-            this.resettablePLTime = data['resettablePLTime'];
+            _this.resettablePLTime = data['resettablePLTime'];
         }
         if (data['financing'] !== undefined) {
-            this.financing = data['financing'];
+            _this.financing = data['financing'];
         }
         if (data['commission'] !== undefined) {
-            this.commission = data['commission'];
+            _this.commission = data['commission'];
         }
         if (data['guaranteedExecutionFees'] !== undefined) {
-            this.guaranteedExecutionFees = data['guaranteedExecutionFees'];
+            _this.guaranteedExecutionFees = data['guaranteedExecutionFees'];
         }
         if (data['marginRate'] !== undefined) {
-            this.marginRate = data['marginRate'];
+            _this.marginRate = data['marginRate'];
         }
         if (data['marginCallEnterTime'] !== undefined) {
-            this.marginCallEnterTime = data['marginCallEnterTime'];
+            _this.marginCallEnterTime = data['marginCallEnterTime'];
         }
         if (data['marginCallExtensionCount'] !== undefined) {
-            this.marginCallExtensionCount = data['marginCallExtensionCount'];
+            _this.marginCallExtensionCount = data['marginCallExtensionCount'];
         }
         if (data['lastMarginCallExtensionTime'] !== undefined) {
-            this.lastMarginCallExtensionTime = data['lastMarginCallExtensionTime'];
+            _this.lastMarginCallExtensionTime = data['lastMarginCallExtensionTime'];
         }
         if (data['openTradeCount'] !== undefined) {
-            this.openTradeCount = data['openTradeCount'];
+            _this.openTradeCount = data['openTradeCount'];
         }
         if (data['openPositionCount'] !== undefined) {
-            this.openPositionCount = data['openPositionCount'];
+            _this.openPositionCount = data['openPositionCount'];
         }
         if (data['pendingOrderCount'] !== undefined) {
-            this.pendingOrderCount = data['pendingOrderCount'];
+            _this.pendingOrderCount = data['pendingOrderCount'];
         }
         if (data['hedgingEnabled'] !== undefined) {
-            this.hedgingEnabled = data['hedgingEnabled'];
+            _this.hedgingEnabled = data['hedgingEnabled'];
         }
         if (data['lastOrderFillTimestamp'] !== undefined) {
-            this.lastOrderFillTimestamp = data['lastOrderFillTimestamp'];
+            _this.lastOrderFillTimestamp = data['lastOrderFillTimestamp'];
         }
         if (data['unrealizedPL'] !== undefined) {
-            this.unrealizedPL = data['unrealizedPL'];
+            _this.unrealizedPL = data['unrealizedPL'];
         }
         if (data['NAV'] !== undefined) {
-            this.NAV = data['NAV'];
+            _this.NAV = data['NAV'];
         }
         if (data['marginUsed'] !== undefined) {
-            this.marginUsed = data['marginUsed'];
+            _this.marginUsed = data['marginUsed'];
         }
         if (data['marginAvailable'] !== undefined) {
-            this.marginAvailable = data['marginAvailable'];
+            _this.marginAvailable = data['marginAvailable'];
         }
         if (data['positionValue'] !== undefined) {
-            this.positionValue = data['positionValue'];
+            _this.positionValue = data['positionValue'];
         }
         if (data['marginCloseoutUnrealizedPL'] !== undefined) {
-            this.marginCloseoutUnrealizedPL = data['marginCloseoutUnrealizedPL'];
+            _this.marginCloseoutUnrealizedPL = data['marginCloseoutUnrealizedPL'];
         }
         if (data['marginCloseoutNAV'] !== undefined) {
-            this.marginCloseoutNAV = data['marginCloseoutNAV'];
+            _this.marginCloseoutNAV = data['marginCloseoutNAV'];
         }
         if (data['marginCloseoutMarginUsed'] !== undefined) {
-            this.marginCloseoutMarginUsed = data['marginCloseoutMarginUsed'];
+            _this.marginCloseoutMarginUsed = data['marginCloseoutMarginUsed'];
         }
         if (data['marginCloseoutPercent'] !== undefined) {
-            this.marginCloseoutPercent = data['marginCloseoutPercent'];
+            _this.marginCloseoutPercent = data['marginCloseoutPercent'];
         }
         if (data['marginCloseoutPositionValue'] !== undefined) {
-            this.marginCloseoutPositionValue = data['marginCloseoutPositionValue'];
+            _this.marginCloseoutPositionValue = data['marginCloseoutPositionValue'];
         }
         if (data['withdrawalLimit'] !== undefined) {
-            this.withdrawalLimit = data['withdrawalLimit'];
+            _this.withdrawalLimit = data['withdrawalLimit'];
         }
         if (data['marginCallMarginUsed'] !== undefined) {
-            this.marginCallMarginUsed = data['marginCallMarginUsed'];
+            _this.marginCallMarginUsed = data['marginCallMarginUsed'];
         }
         if (data['marginCallPercent'] !== undefined) {
-            this.marginCallPercent = data['marginCallPercent'];
+            _this.marginCallPercent = data['marginCallPercent'];
         }
         if (data['lastTransactionID'] !== undefined) {
-            this.lastTransactionID = data['lastTransactionID'];
+            _this.lastTransactionID = data['lastTransactionID'];
         }
+        return _this;
     }
-}
+    return AccountSummary;
+}(base_1.Definition));
 exports.AccountSummary = AccountSummary;
 exports.CalculatedAccountState_Properties = [
     new base_1.Property('unrealizedPL', 'Unrealized Profit/Loss', 'The total unrealized profit/loss for all Trades currently open in the Account.', 'primitive', 'primitives.AccountUnits'),
@@ -454,54 +506,57 @@ exports.CalculatedAccountState_Properties = [
     new base_1.Property('marginCallMarginUsed', 'Margin Call Margin Used', "The Account's margin call margin used.", 'primitive', 'primitives.AccountUnits'),
     new base_1.Property('marginCallPercent', 'Margin Call Percentage', "The Account's margin call percentage. When this value is 1.0 or above the Account is in a margin call situation.", 'primitive', 'primitives.DecimalNumber'),
 ];
-class CalculatedAccountState extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.CalculatedAccountState_Properties;
+var CalculatedAccountState = /** @class */ (function (_super) {
+    __extends(CalculatedAccountState, _super);
+    function CalculatedAccountState(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.CalculatedAccountState_Properties;
         data = data || {};
         if (data['unrealizedPL'] !== undefined) {
-            this.unrealizedPL = data['unrealizedPL'];
+            _this.unrealizedPL = data['unrealizedPL'];
         }
         if (data['NAV'] !== undefined) {
-            this.NAV = data['NAV'];
+            _this.NAV = data['NAV'];
         }
         if (data['marginUsed'] !== undefined) {
-            this.marginUsed = data['marginUsed'];
+            _this.marginUsed = data['marginUsed'];
         }
         if (data['marginAvailable'] !== undefined) {
-            this.marginAvailable = data['marginAvailable'];
+            _this.marginAvailable = data['marginAvailable'];
         }
         if (data['positionValue'] !== undefined) {
-            this.positionValue = data['positionValue'];
+            _this.positionValue = data['positionValue'];
         }
         if (data['marginCloseoutUnrealizedPL'] !== undefined) {
-            this.marginCloseoutUnrealizedPL = data['marginCloseoutUnrealizedPL'];
+            _this.marginCloseoutUnrealizedPL = data['marginCloseoutUnrealizedPL'];
         }
         if (data['marginCloseoutNAV'] !== undefined) {
-            this.marginCloseoutNAV = data['marginCloseoutNAV'];
+            _this.marginCloseoutNAV = data['marginCloseoutNAV'];
         }
         if (data['marginCloseoutMarginUsed'] !== undefined) {
-            this.marginCloseoutMarginUsed = data['marginCloseoutMarginUsed'];
+            _this.marginCloseoutMarginUsed = data['marginCloseoutMarginUsed'];
         }
         if (data['marginCloseoutPercent'] !== undefined) {
-            this.marginCloseoutPercent = data['marginCloseoutPercent'];
+            _this.marginCloseoutPercent = data['marginCloseoutPercent'];
         }
         if (data['marginCloseoutPositionValue'] !== undefined) {
-            this.marginCloseoutPositionValue = data['marginCloseoutPositionValue'];
+            _this.marginCloseoutPositionValue = data['marginCloseoutPositionValue'];
         }
         if (data['withdrawalLimit'] !== undefined) {
-            this.withdrawalLimit = data['withdrawalLimit'];
+            _this.withdrawalLimit = data['withdrawalLimit'];
         }
         if (data['marginCallMarginUsed'] !== undefined) {
-            this.marginCallMarginUsed = data['marginCallMarginUsed'];
+            _this.marginCallMarginUsed = data['marginCallMarginUsed'];
         }
         if (data['marginCallPercent'] !== undefined) {
-            this.marginCallPercent = data['marginCallPercent'];
+            _this.marginCallPercent = data['marginCallPercent'];
         }
+        return _this;
     }
-}
+    return CalculatedAccountState;
+}(base_1.Definition));
 exports.CalculatedAccountState = CalculatedAccountState;
 exports.AccountChanges_Properties = [
     new base_1.Property('ordersCreated', 'Orders Created', 'The Orders created. These Orders may have been filled, cancelled or triggered in the same period.', 'array_object', 'Order'),
@@ -514,45 +569,48 @@ exports.AccountChanges_Properties = [
     new base_1.Property('positions', 'Positions', 'The Positions changed.', 'array_object', 'Position'),
     new base_1.Property('transactions', 'Transactions', 'The Transactions that have been generated.', 'array_object', 'Transaction'),
 ];
-class AccountChanges extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.AccountChanges_Properties;
+var AccountChanges = /** @class */ (function (_super) {
+    __extends(AccountChanges, _super);
+    function AccountChanges(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.AccountChanges_Properties;
         data = data || {};
         if (data['ordersCreated'] !== undefined) {
-            this.ordersCreated = data['ordersCreated'].map((x) => order.Order.create(x));
+            _this.ordersCreated = data['ordersCreated'].map(function (x) { return order.Order.create(x); });
         }
         if (data['ordersCancelled'] !== undefined) {
-            this.ordersCancelled = data['ordersCancelled'].map((x) => order.Order.create(x));
+            _this.ordersCancelled = data['ordersCancelled'].map(function (x) { return order.Order.create(x); });
         }
         if (data['ordersFilled'] !== undefined) {
-            this.ordersFilled = data['ordersFilled'].map((x) => order.Order.create(x));
+            _this.ordersFilled = data['ordersFilled'].map(function (x) { return order.Order.create(x); });
         }
         if (data['ordersTriggered'] !== undefined) {
-            this.ordersTriggered = data['ordersTriggered'].map((x) => order.Order.create(x));
+            _this.ordersTriggered = data['ordersTriggered'].map(function (x) { return order.Order.create(x); });
         }
         if (data['tradesOpened'] !== undefined) {
-            this.tradesOpened = data['tradesOpened'].map((x) => new trade.TradeSummary(x));
+            _this.tradesOpened = data['tradesOpened'].map(function (x) { return new trade.TradeSummary(x); });
         }
         if (data['tradesReduced'] !== undefined) {
-            this.tradesReduced = data['tradesReduced'].map((x) => new trade.TradeSummary(x));
+            _this.tradesReduced = data['tradesReduced'].map(function (x) { return new trade.TradeSummary(x); });
         }
         if (data['tradesClosed'] !== undefined) {
-            this.tradesClosed = data['tradesClosed'].map((x) => new trade.TradeSummary(x));
+            _this.tradesClosed = data['tradesClosed'].map(function (x) { return new trade.TradeSummary(x); });
         }
         if (data['positions'] !== undefined) {
-            this.positions = data['positions'].map((x) => new position.Position(x));
+            _this.positions = data['positions'].map(function (x) { return new position.Position(x); });
         }
         if (data['transactions'] !== undefined) {
-            this.transactions = data['transactions'].map((x) => transaction.Transaction.create(x));
+            _this.transactions = data['transactions'].map(function (x) { return transaction.Transaction.create(x); });
         }
+        return _this;
     }
-}
+    return AccountChanges;
+}(base_1.Definition));
 exports.AccountChanges = AccountChanges;
-class EntitySpec {
-    constructor(context) {
+var EntitySpec = /** @class */ (function () {
+    function EntitySpec(context) {
         this.context = context;
         this.Account = Account;
         this.AccountChangesState = AccountChangesState;
@@ -561,23 +619,23 @@ class EntitySpec {
         this.CalculatedAccountState = CalculatedAccountState;
         this.AccountChanges = AccountChanges;
     }
-    list(responseHandler) {
+    EntitySpec.prototype.list = function (responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts';
-        let body = {};
-        let handleResponse = (err, response) => {
+        var path = '/v3/accounts';
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['accounts'] !== undefined) {
-                        response.body.accounts = msg['accounts'].map((x) => new AccountProperties(x));
+                        response.body.accounts = msg['accounts'].map(function (x) { return new AccountProperties(x); });
                     }
                 }
                 else if (response.statusCode == 401) {
@@ -599,21 +657,21 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('GET', path, body, undefined, handleResponse);
-    }
-    get(accountID, responseHandler) {
+    };
+    EntitySpec.prototype.get = function (accountID, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}';
+        var path = '/v3/accounts/{accountID}';
         path = path.replace('{' + 'accountID' + '}', accountID);
-        let body = {};
-        let handleResponse = (err, response) => {
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['account'] !== undefined) {
@@ -644,21 +702,21 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('GET', path, body, undefined, handleResponse);
-    }
-    summary(accountID, responseHandler) {
+    };
+    EntitySpec.prototype.summary = function (accountID, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/summary';
+        var path = '/v3/accounts/{accountID}/summary';
         path = path.replace('{' + 'accountID' + '}', accountID);
-        let body = {};
-        let handleResponse = (err, response) => {
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['account'] !== undefined) {
@@ -689,30 +747,30 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('GET', path, body, undefined, handleResponse);
-    }
-    instruments(accountID, queryParams, responseHandler) {
+    };
+    EntitySpec.prototype.instruments = function (accountID, queryParams, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/instruments';
+        var path = '/v3/accounts/{accountID}/instruments';
         queryParams = queryParams || {};
         path = path.replace('{' + 'accountID' + '}', accountID);
         path = path + '?';
         if (typeof queryParams['instruments'] !== 'undefined') {
             path = path + 'instruments=' + queryParams['instruments'] + '&';
         }
-        let body = {};
-        let handleResponse = (err, response) => {
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['instruments'] !== undefined) {
-                        response.body.instruments = msg['instruments'].map((x) => new primitives.Instrument(x));
+                        response.body.instruments = msg['instruments'].map(function (x) { return new primitives.Instrument(x); });
                     }
                     if (msg['lastTransactionID'] !== undefined) {
                         response.body.lastTransactionID = msg['lastTransactionID'];
@@ -739,28 +797,28 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('GET', path, body, undefined, handleResponse);
-    }
-    configure(accountID, bodyParams, responseHandler) {
+    };
+    EntitySpec.prototype.configure = function (accountID, bodyParams, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/configuration';
+        var path = '/v3/accounts/{accountID}/configuration';
         bodyParams = bodyParams || {};
         path = path.replace('{' + 'accountID' + '}', accountID);
-        let body = {};
+        var body = {};
         if (typeof bodyParams['alias'] !== 'undefined') {
             body['alias'] = bodyParams['alias'];
         }
         if (typeof bodyParams['marginRate'] !== 'undefined') {
             body['marginRate'] = bodyParams['marginRate'];
         }
-        let handleResponse = (err, response) => {
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['clientConfigureTransaction'] !== undefined) {
@@ -819,26 +877,26 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('PATCH', path, body, undefined, handleResponse);
-    }
-    changes(accountID, queryParams, responseHandler) {
+    };
+    EntitySpec.prototype.changes = function (accountID, queryParams, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/changes';
+        var path = '/v3/accounts/{accountID}/changes';
         queryParams = queryParams || {};
         path = path.replace('{' + 'accountID' + '}', accountID);
         path = path + '?';
         if (typeof queryParams['sinceTransactionID'] !== 'undefined') {
             path = path + 'sinceTransactionID=' + queryParams['sinceTransactionID'] + '&';
         }
-        let body = {};
-        let handleResponse = (err, response) => {
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['changes'] !== undefined) {
@@ -874,56 +932,76 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('GET', path, body, undefined, handleResponse);
-    }
-}
+    };
+    return EntitySpec;
+}());
 exports.EntitySpec = EntitySpec;
-class API {
-    constructor(context, resolver) {
+var API = /** @class */ (function () {
+    function API(context, resolver) {
         this.context = context;
         this.resolver = resolver;
     }
-    list() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).list(this.resolver(resolve, reject));
+    API.prototype.list = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).list(_this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    get(accountID) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).get(accountID, this.resolver(resolve, reject));
+    };
+    API.prototype.get = function (accountID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).get(accountID, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    summary(accountID) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).summary(accountID, this.resolver(resolve, reject));
+    };
+    API.prototype.summary = function (accountID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).summary(accountID, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    instruments(accountID, body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).instruments(accountID, body, this.resolver(resolve, reject));
+    };
+    API.prototype.instruments = function (accountID, body) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).instruments(accountID, body, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    configure(accountID, body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).configure(accountID, body, this.resolver(resolve, reject));
+    };
+    API.prototype.configure = function (accountID, body) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).configure(accountID, body, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    changes(accountID, body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).changes(accountID, body, this.resolver(resolve, reject));
+    };
+    API.prototype.changes = function (accountID, body) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).changes(accountID, body, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-}
+    };
+    return API;
+}());
 exports.API = API;
 //# sourceMappingURL=account.js.map

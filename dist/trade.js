@@ -1,4 +1,17 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,10 +21,37 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const base_1 = require("./base");
-const transaction = require("./transaction");
-const order = require("./order");
+var base_1 = require("./base");
+var transaction = require("./transaction");
+var order = require("./order");
 exports.Trade_Properties = [
     new base_1.Property('id', 'Trade ID', "The Trade's identifier, unique within the Trade's Account.", 'primitive', 'trade.TradeID'),
     new base_1.Property('instrument', 'Instrument', "The Trade's Instrument.", 'primitive', 'primitives.InstrumentName'),
@@ -33,72 +73,75 @@ exports.Trade_Properties = [
     new base_1.Property('stopLossOrder', 'Stop Loss Order', "Full representation of the Trade's Stop Loss Order, only provided if such an Order exists.", 'object', 'order.StopLossOrder'),
     new base_1.Property('trailingStopLossOrder', 'Trailing Stop Loss Order', "Full representation of the Trade's Trailing Stop Loss Order, only provided if such an Order exists.", 'object', 'order.TrailingStopLossOrder'),
 ];
-class Trade extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '{currentUnits} ({initialUnits}) of {instrument} @ {price}';
-        this._nameFormat = 'Trade {id}';
-        this._properties = exports.Trade_Properties;
+var Trade = /** @class */ (function (_super) {
+    __extends(Trade, _super);
+    function Trade(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '{currentUnits} ({initialUnits}) of {instrument} @ {price}';
+        _this._nameFormat = 'Trade {id}';
+        _this._properties = exports.Trade_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['openTime'] !== undefined) {
-            this.openTime = data['openTime'];
+            _this.openTime = data['openTime'];
         }
         if (data['state'] !== undefined) {
-            this.state = data['state'];
+            _this.state = data['state'];
         }
         if (data['initialUnits'] !== undefined) {
-            this.initialUnits = data['initialUnits'];
+            _this.initialUnits = data['initialUnits'];
         }
         if (data['initialMarginRequired'] !== undefined) {
-            this.initialMarginRequired = data['initialMarginRequired'];
+            _this.initialMarginRequired = data['initialMarginRequired'];
         }
         if (data['currentUnits'] !== undefined) {
-            this.currentUnits = data['currentUnits'];
+            _this.currentUnits = data['currentUnits'];
         }
         if (data['realizedPL'] !== undefined) {
-            this.realizedPL = data['realizedPL'];
+            _this.realizedPL = data['realizedPL'];
         }
         if (data['unrealizedPL'] !== undefined) {
-            this.unrealizedPL = data['unrealizedPL'];
+            _this.unrealizedPL = data['unrealizedPL'];
         }
         if (data['marginUsed'] !== undefined) {
-            this.marginUsed = data['marginUsed'];
+            _this.marginUsed = data['marginUsed'];
         }
         if (data['averageClosePrice'] !== undefined) {
-            this.averageClosePrice = data['averageClosePrice'];
+            _this.averageClosePrice = data['averageClosePrice'];
         }
         if (data['closingTransactionIDs'] !== undefined) {
-            this.closingTransactionIDs = data['closingTransactionIDs'];
+            _this.closingTransactionIDs = data['closingTransactionIDs'];
         }
         if (data['financing'] !== undefined) {
-            this.financing = data['financing'];
+            _this.financing = data['financing'];
         }
         if (data['closeTime'] !== undefined) {
-            this.closeTime = data['closeTime'];
+            _this.closeTime = data['closeTime'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new transaction.ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new transaction.ClientExtensions(data['clientExtensions']);
         }
         if (data['takeProfitOrder'] !== undefined) {
-            this.takeProfitOrder = new order.TakeProfitOrder(data['takeProfitOrder']);
+            _this.takeProfitOrder = new order.TakeProfitOrder(data['takeProfitOrder']);
         }
         if (data['stopLossOrder'] !== undefined) {
-            this.stopLossOrder = new order.StopLossOrder(data['stopLossOrder']);
+            _this.stopLossOrder = new order.StopLossOrder(data['stopLossOrder']);
         }
         if (data['trailingStopLossOrder'] !== undefined) {
-            this.trailingStopLossOrder = new order.TrailingStopLossOrder(data['trailingStopLossOrder']);
+            _this.trailingStopLossOrder = new order.TrailingStopLossOrder(data['trailingStopLossOrder']);
         }
+        return _this;
     }
-}
+    return Trade;
+}(base_1.Definition));
 exports.Trade = Trade;
 exports.TradeSummary_Properties = [
     new base_1.Property('id', 'Trade ID', "The Trade's identifier, unique within the Trade's Account.", 'primitive', 'trade.TradeID'),
@@ -121,109 +164,115 @@ exports.TradeSummary_Properties = [
     new base_1.Property('stopLossOrderID', 'Stop Loss Order ID', "ID of the Trade's Stop Loss Order, only provided if such an Order exists.", 'primitive', 'order.OrderID'),
     new base_1.Property('trailingStopLossOrderID', 'Trailing Stop Loss Order ID', "ID of the Trade's Trailing Stop Loss Order, only provided if such an Order exists.", 'primitive', 'order.OrderID'),
 ];
-class TradeSummary extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '{currentUnits} ({initialUnits}) of {instrument} @ {price}';
-        this._nameFormat = 'Trade {id}';
-        this._properties = exports.TradeSummary_Properties;
+var TradeSummary = /** @class */ (function (_super) {
+    __extends(TradeSummary, _super);
+    function TradeSummary(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '{currentUnits} ({initialUnits}) of {instrument} @ {price}';
+        _this._nameFormat = 'Trade {id}';
+        _this._properties = exports.TradeSummary_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['openTime'] !== undefined) {
-            this.openTime = data['openTime'];
+            _this.openTime = data['openTime'];
         }
         if (data['state'] !== undefined) {
-            this.state = data['state'];
+            _this.state = data['state'];
         }
         if (data['initialUnits'] !== undefined) {
-            this.initialUnits = data['initialUnits'];
+            _this.initialUnits = data['initialUnits'];
         }
         if (data['initialMarginRequired'] !== undefined) {
-            this.initialMarginRequired = data['initialMarginRequired'];
+            _this.initialMarginRequired = data['initialMarginRequired'];
         }
         if (data['currentUnits'] !== undefined) {
-            this.currentUnits = data['currentUnits'];
+            _this.currentUnits = data['currentUnits'];
         }
         if (data['realizedPL'] !== undefined) {
-            this.realizedPL = data['realizedPL'];
+            _this.realizedPL = data['realizedPL'];
         }
         if (data['unrealizedPL'] !== undefined) {
-            this.unrealizedPL = data['unrealizedPL'];
+            _this.unrealizedPL = data['unrealizedPL'];
         }
         if (data['marginUsed'] !== undefined) {
-            this.marginUsed = data['marginUsed'];
+            _this.marginUsed = data['marginUsed'];
         }
         if (data['averageClosePrice'] !== undefined) {
-            this.averageClosePrice = data['averageClosePrice'];
+            _this.averageClosePrice = data['averageClosePrice'];
         }
         if (data['closingTransactionIDs'] !== undefined) {
-            this.closingTransactionIDs = data['closingTransactionIDs'];
+            _this.closingTransactionIDs = data['closingTransactionIDs'];
         }
         if (data['financing'] !== undefined) {
-            this.financing = data['financing'];
+            _this.financing = data['financing'];
         }
         if (data['closeTime'] !== undefined) {
-            this.closeTime = data['closeTime'];
+            _this.closeTime = data['closeTime'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new transaction.ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new transaction.ClientExtensions(data['clientExtensions']);
         }
         if (data['takeProfitOrderID'] !== undefined) {
-            this.takeProfitOrderID = data['takeProfitOrderID'];
+            _this.takeProfitOrderID = data['takeProfitOrderID'];
         }
         if (data['stopLossOrderID'] !== undefined) {
-            this.stopLossOrderID = data['stopLossOrderID'];
+            _this.stopLossOrderID = data['stopLossOrderID'];
         }
         if (data['trailingStopLossOrderID'] !== undefined) {
-            this.trailingStopLossOrderID = data['trailingStopLossOrderID'];
+            _this.trailingStopLossOrderID = data['trailingStopLossOrderID'];
         }
+        return _this;
     }
-}
+    return TradeSummary;
+}(base_1.Definition));
 exports.TradeSummary = TradeSummary;
 exports.CalculatedTradeState_Properties = [
     new base_1.Property('id', 'Trade ID', "The Trade's ID.", 'primitive', 'trade.TradeID'),
     new base_1.Property('unrealizedPL', 'Trade UPL', "The Trade's unrealized profit/loss.", 'primitive', 'primitives.AccountUnits'),
     new base_1.Property('marginUsed', 'Margin Used', 'Margin currently used by the Trade.', 'primitive', 'primitives.AccountUnits'),
 ];
-class CalculatedTradeState extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.CalculatedTradeState_Properties;
+var CalculatedTradeState = /** @class */ (function (_super) {
+    __extends(CalculatedTradeState, _super);
+    function CalculatedTradeState(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.CalculatedTradeState_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['unrealizedPL'] !== undefined) {
-            this.unrealizedPL = data['unrealizedPL'];
+            _this.unrealizedPL = data['unrealizedPL'];
         }
         if (data['marginUsed'] !== undefined) {
-            this.marginUsed = data['marginUsed'];
+            _this.marginUsed = data['marginUsed'];
         }
+        return _this;
     }
-}
+    return CalculatedTradeState;
+}(base_1.Definition));
 exports.CalculatedTradeState = CalculatedTradeState;
-class EntitySpec {
-    constructor(context) {
+var EntitySpec = /** @class */ (function () {
+    function EntitySpec(context) {
         this.context = context;
         this.Trade = Trade;
         this.TradeSummary = TradeSummary;
         this.CalculatedTradeState = CalculatedTradeState;
     }
-    list(accountID, queryParams, responseHandler) {
+    EntitySpec.prototype.list = function (accountID, queryParams, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/trades';
+        var path = '/v3/accounts/{accountID}/trades';
         queryParams = queryParams || {};
         path = path.replace('{' + 'accountID' + '}', accountID);
         path = path + '?';
@@ -242,18 +291,18 @@ class EntitySpec {
         if (typeof queryParams['beforeID'] !== 'undefined') {
             path = path + 'beforeID=' + queryParams['beforeID'] + '&';
         }
-        let body = {};
-        let handleResponse = (err, response) => {
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['trades'] !== undefined) {
-                        response.body.trades = msg['trades'].map((x) => new Trade(x));
+                        response.body.trades = msg['trades'].map(function (x) { return new Trade(x); });
                     }
                     if (msg['lastTransactionID'] !== undefined) {
                         response.body.lastTransactionID = msg['lastTransactionID'];
@@ -280,25 +329,25 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('GET', path, body, undefined, handleResponse);
-    }
-    listOpen(accountID, responseHandler) {
+    };
+    EntitySpec.prototype.listOpen = function (accountID, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/openTrades';
+        var path = '/v3/accounts/{accountID}/openTrades';
         path = path.replace('{' + 'accountID' + '}', accountID);
-        let body = {};
-        let handleResponse = (err, response) => {
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['trades'] !== undefined) {
-                        response.body.trades = msg['trades'].map((x) => new Trade(x));
+                        response.body.trades = msg['trades'].map(function (x) { return new Trade(x); });
                     }
                     if (msg['lastTransactionID'] !== undefined) {
                         response.body.lastTransactionID = msg['lastTransactionID'];
@@ -325,22 +374,22 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('GET', path, body, undefined, handleResponse);
-    }
-    get(accountID, tradeSpecifier, responseHandler) {
+    };
+    EntitySpec.prototype.get = function (accountID, tradeSpecifier, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/trades/{tradeSpecifier}';
+        var path = '/v3/accounts/{accountID}/trades/{tradeSpecifier}';
         path = path.replace('{' + 'accountID' + '}', accountID);
         path = path.replace('{' + 'tradeSpecifier' + '}', tradeSpecifier);
-        let body = {};
-        let handleResponse = (err, response) => {
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['trade'] !== undefined) {
@@ -371,26 +420,26 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('GET', path, body, undefined, handleResponse);
-    }
-    close(accountID, tradeSpecifier, bodyParams, responseHandler) {
+    };
+    EntitySpec.prototype.close = function (accountID, tradeSpecifier, bodyParams, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/trades/{tradeSpecifier}/close';
+        var path = '/v3/accounts/{accountID}/trades/{tradeSpecifier}/close';
         bodyParams = bodyParams || {};
         path = path.replace('{' + 'accountID' + '}', accountID);
         path = path.replace('{' + 'tradeSpecifier' + '}', tradeSpecifier);
-        let body = {};
+        var body = {};
         if (typeof bodyParams['units'] !== 'undefined') {
             body['units'] = bodyParams['units'];
         }
-        let handleResponse = (err, response) => {
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['orderCreateTransaction'] !== undefined) {
@@ -456,26 +505,26 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('PUT', path, body, undefined, handleResponse);
-    }
-    setClientExtensions(accountID, tradeSpecifier, bodyParams, responseHandler) {
+    };
+    EntitySpec.prototype.setClientExtensions = function (accountID, tradeSpecifier, bodyParams, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/trades/{tradeSpecifier}/clientExtensions';
+        var path = '/v3/accounts/{accountID}/trades/{tradeSpecifier}/clientExtensions';
         bodyParams = bodyParams || {};
         path = path.replace('{' + 'accountID' + '}', accountID);
         path = path.replace('{' + 'tradeSpecifier' + '}', tradeSpecifier);
-        let body = {};
+        var body = {};
         if (typeof bodyParams['clientExtensions'] !== 'undefined') {
             body['clientExtensions'] = bodyParams['clientExtensions'];
         }
-        let handleResponse = (err, response) => {
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['tradeClientExtensionsModifyTransaction'] !== undefined) {
@@ -541,16 +590,16 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('PUT', path, body, undefined, handleResponse);
-    }
-    setDependentOrders(accountID, tradeSpecifier, bodyParams, responseHandler) {
+    };
+    EntitySpec.prototype.setDependentOrders = function (accountID, tradeSpecifier, bodyParams, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/trades/{tradeSpecifier}/orders';
+        var path = '/v3/accounts/{accountID}/trades/{tradeSpecifier}/orders';
         bodyParams = bodyParams || {};
         path = path.replace('{' + 'accountID' + '}', accountID);
         path = path.replace('{' + 'tradeSpecifier' + '}', tradeSpecifier);
-        let body = {};
+        var body = {};
         if (typeof bodyParams['takeProfit'] !== 'undefined') {
             body['takeProfit'] = bodyParams['takeProfit'];
         }
@@ -560,13 +609,13 @@ class EntitySpec {
         if (typeof bodyParams['trailingStopLoss'] !== 'undefined') {
             body['trailingStopLoss'] = bodyParams['trailingStopLoss'];
         }
-        let handleResponse = (err, response) => {
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['takeProfitOrderCancelTransaction'] !== undefined) {
@@ -659,56 +708,76 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('PUT', path, body, undefined, handleResponse);
-    }
-}
+    };
+    return EntitySpec;
+}());
 exports.EntitySpec = EntitySpec;
-class API {
-    constructor(context, resolver) {
+var API = /** @class */ (function () {
+    function API(context, resolver) {
         this.context = context;
         this.resolver = resolver;
     }
-    list(accountID, body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).list(accountID, body, this.resolver(resolve, reject));
+    API.prototype.list = function (accountID, body) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).list(accountID, body, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    listOpen(accountID) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).listOpen(accountID, this.resolver(resolve, reject));
+    };
+    API.prototype.listOpen = function (accountID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).listOpen(accountID, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    get(accountID, tradeSpecifier) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).get(accountID, tradeSpecifier, this.resolver(resolve, reject));
+    };
+    API.prototype.get = function (accountID, tradeSpecifier) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).get(accountID, tradeSpecifier, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    close(accountID, tradeSpecifier, body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).close(accountID, tradeSpecifier, body, this.resolver(resolve, reject));
+    };
+    API.prototype.close = function (accountID, tradeSpecifier, body) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).close(accountID, tradeSpecifier, body, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    setClientExtensions(accountID, tradeSpecifier, body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).setClientExtensions(accountID, tradeSpecifier, body, this.resolver(resolve, reject));
+    };
+    API.prototype.setClientExtensions = function (accountID, tradeSpecifier, body) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).setClientExtensions(accountID, tradeSpecifier, body, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    setDependentOrders(accountID, tradeSpecifier, body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).setDependentOrders(accountID, tradeSpecifier, body, this.resolver(resolve, reject));
+    };
+    API.prototype.setDependentOrders = function (accountID, tradeSpecifier, body) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).setDependentOrders(accountID, tradeSpecifier, body, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-}
+    };
+    return API;
+}());
 exports.API = API;
 //# sourceMappingURL=trade.js.map

@@ -1,31 +1,48 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-class Property {
-    constructor(name, displayName, description, typeClass, typeName) {
+var Property = /** @class */ (function () {
+    function Property(name, displayName, description, typeClass, typeName) {
         this.name = name;
         this.displayName = displayName;
         this.description = description;
         this.typeClass = typeClass;
         this.typeName = typeName;
     }
-}
+    return Property;
+}());
 exports.Property = Property;
-class Field extends Property {
-    constructor(property, value) {
-        super(property.name, property.displayName, property.description, property.typeClass, property.typeName);
-        this.value = value;
+var Field = /** @class */ (function (_super) {
+    __extends(Field, _super);
+    function Field(property, value) {
+        var _this = _super.call(this, property.name, property.displayName, property.description, property.typeClass, property.typeName) || this;
+        _this.value = value;
+        return _this;
     }
-}
+    return Field;
+}(Property));
 exports.Field = Field;
-class Definition {
-    constructor() {
+var Definition = /** @class */ (function () {
+    function Definition() {
         this._summaryFormat = '';
         this._nameFormat = '';
         this._properties = [];
     }
-    toJSON(key) {
-        let repr = {};
-        for (let val in Object.keys(this)) {
+    Definition.prototype.toJSON = function (key) {
+        var repr = {};
+        for (var val in Object.keys(this)) {
             if (val == '_properties') {
                 continue;
             }
@@ -38,43 +55,46 @@ class Definition {
             repr[val] = this[val];
         }
         return repr;
-    }
-    name() {
-        let nameStr = this._nameFormat;
-        let re = /{([^}]+)}/g;
-        let matches = nameStr.match(re);
-        for (let match of matches || []) {
-            let key = match.slice(1, -1);
-            let value = this[key] || match;
+    };
+    Definition.prototype.name = function () {
+        var nameStr = this._nameFormat;
+        var re = /{([^}]+)}/g;
+        var matches = nameStr.match(re);
+        for (var _i = 0, _a = matches || []; _i < _a.length; _i++) {
+            var match = _a[_i];
+            var key = match.slice(1, -1);
+            var value = this[key] || match;
             nameStr = nameStr.replace(match, value);
         }
         return nameStr;
-    }
-    summary() {
-        let summaryStr = this._summaryFormat;
-        let re = /{([^}]+)}/g;
-        let matches = summaryStr.match(re);
-        for (let match of matches || []) {
-            let key = match.slice(1, -1);
-            let value = this[key] || match;
+    };
+    Definition.prototype.summary = function () {
+        var summaryStr = this._summaryFormat;
+        var re = /{([^}]+)}/g;
+        var matches = summaryStr.match(re);
+        for (var _i = 0, _a = matches || []; _i < _a.length; _i++) {
+            var match = _a[_i];
+            var key = match.slice(1, -1);
+            var value = this[key] || match;
             summaryStr = summaryStr.replace(match, value);
         }
         return summaryStr;
-    }
-    title() {
-        let nameStr = this.name();
-        let summaryStr = this.summary();
-        let titleStr = nameStr;
+    };
+    Definition.prototype.title = function () {
+        var nameStr = this.name();
+        var summaryStr = this.summary();
+        var titleStr = nameStr;
         if (nameStr.length > 0 && summaryStr.length > 0) {
             titleStr += ': ';
         }
         titleStr += summaryStr;
         return titleStr;
-    }
-    toString() {
-        let s = this.title();
-        this._properties.forEach((prop) => {
-            let value = this[prop.name];
+    };
+    Definition.prototype.toString = function () {
+        var _this = this;
+        var s = this.title();
+        this._properties.forEach(function (prop) {
+            var value = _this[prop.name];
             if (value === undefined) {
                 return;
             }
@@ -87,17 +107,19 @@ class Definition {
             }
         });
         return s;
-    }
-    fields() {
-        let ret = [];
-        this._properties.forEach((prop) => {
-            let value = this[prop.name];
+    };
+    Definition.prototype.fields = function () {
+        var _this = this;
+        var ret = [];
+        this._properties.forEach(function (prop) {
+            var value = _this[prop.name];
             if (typeof value != 'undefined') {
                 ret.push(new Field(prop, value));
             }
         });
         return ret;
-    }
-}
+    };
+    return Definition;
+}());
 exports.Definition = Definition;
 //# sourceMappingURL=base.js.map

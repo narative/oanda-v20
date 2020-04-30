@@ -1,4 +1,17 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,9 +21,36 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const base_1 = require("./base");
-const pricing = require("./pricing");
+var base_1 = require("./base");
+var pricing = require("./pricing");
 exports.Transaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
     new base_1.Property('time', 'Time', 'The date/time when the Transaction was created.', 'primitive', 'primitives.DateTime'),
@@ -19,33 +59,35 @@ exports.Transaction_Properties = [
     new base_1.Property('batchID', 'Transaction Batch ID', 'The ID of the "batch" that the Transaction belongs to. Transactions in the same batch are applied to the Account simultaneously.', 'primitive', 'transaction.TransactionID'),
     new base_1.Property('requestID', 'Request ID', 'The Request ID of the request which generated the transaction.', 'primitive', 'transaction.RequestID'),
 ];
-class Transaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.Transaction_Properties;
+var Transaction = /** @class */ (function (_super) {
+    __extends(Transaction, _super);
+    function Transaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.Transaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
+        return _this;
     }
-    static create(transaction) {
+    Transaction.create = function (transaction) {
         if (!transaction['type']) {
             return new Transaction(transaction);
         }
@@ -155,8 +197,9 @@ class Transaction extends base_1.Definition {
             return new ResetResettablePLTransaction(transaction);
         }
         return new Transaction(transaction);
-    }
-}
+    };
+    return Transaction;
+}(base_1.Definition));
 exports.Transaction = Transaction;
 exports.CreateTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -172,54 +215,57 @@ exports.CreateTransaction_Properties = [
     new base_1.Property('accountNumber', 'Account Number', 'The number of the Account within the site/division/user', 'primitive', 'integer'),
     new base_1.Property('homeCurrency', 'Home Currency', 'The home currency of the Account', 'primitive', 'primitives.Currency'),
 ];
-class CreateTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Create Account {accountID}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.CreateTransaction_Properties;
+var CreateTransaction = /** @class */ (function (_super) {
+    __extends(CreateTransaction, _super);
+    function CreateTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Create Account {accountID}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.CreateTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'CREATE';
+            _this.type = 'CREATE';
         }
         if (data['divisionID'] !== undefined) {
-            this.divisionID = data['divisionID'];
+            _this.divisionID = data['divisionID'];
         }
         if (data['siteID'] !== undefined) {
-            this.siteID = data['siteID'];
+            _this.siteID = data['siteID'];
         }
         if (data['accountUserID'] !== undefined) {
-            this.accountUserID = data['accountUserID'];
+            _this.accountUserID = data['accountUserID'];
         }
         if (data['accountNumber'] !== undefined) {
-            this.accountNumber = data['accountNumber'];
+            _this.accountNumber = data['accountNumber'];
         }
         if (data['homeCurrency'] !== undefined) {
-            this.homeCurrency = data['homeCurrency'];
+            _this.homeCurrency = data['homeCurrency'];
         }
+        return _this;
     }
-}
+    return CreateTransaction;
+}(base_1.Definition));
 exports.CreateTransaction = CreateTransaction;
 exports.CloseTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -230,39 +276,42 @@ exports.CloseTransaction_Properties = [
     new base_1.Property('requestID', 'Request ID', 'The Request ID of the request which generated the transaction.', 'primitive', 'transaction.RequestID'),
     new base_1.Property('type', 'Type', 'The Type of the Transaction. Always set to "CLOSE" in a CloseTransaction.', 'primitive', 'transaction.TransactionType'),
 ];
-class CloseTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Close Account {accountID}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.CloseTransaction_Properties;
+var CloseTransaction = /** @class */ (function (_super) {
+    __extends(CloseTransaction, _super);
+    function CloseTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Close Account {accountID}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.CloseTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'CLOSE';
+            _this.type = 'CLOSE';
         }
+        return _this;
     }
-}
+    return CloseTransaction;
+}(base_1.Definition));
 exports.CloseTransaction = CloseTransaction;
 exports.ReopenTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -273,39 +322,42 @@ exports.ReopenTransaction_Properties = [
     new base_1.Property('requestID', 'Request ID', 'The Request ID of the request which generated the transaction.', 'primitive', 'transaction.RequestID'),
     new base_1.Property('type', 'Type', 'The Type of the Transaction. Always set to "REOPEN" in a ReopenTransaction.', 'primitive', 'transaction.TransactionType'),
 ];
-class ReopenTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Reopen Account {accountID}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.ReopenTransaction_Properties;
+var ReopenTransaction = /** @class */ (function (_super) {
+    __extends(ReopenTransaction, _super);
+    function ReopenTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Reopen Account {accountID}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.ReopenTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'REOPEN';
+            _this.type = 'REOPEN';
         }
+        return _this;
     }
-}
+    return ReopenTransaction;
+}(base_1.Definition));
 exports.ReopenTransaction = ReopenTransaction;
 exports.ClientConfigureTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -318,45 +370,48 @@ exports.ClientConfigureTransaction_Properties = [
     new base_1.Property('alias', 'Account Alias', 'The client-provided alias for the Account.', 'primitive', 'string'),
     new base_1.Property('marginRate', 'Margin Rate', 'The margin rate override for the Account.', 'primitive', 'primitives.DecimalNumber'),
 ];
-class ClientConfigureTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Client Configure';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.ClientConfigureTransaction_Properties;
+var ClientConfigureTransaction = /** @class */ (function (_super) {
+    __extends(ClientConfigureTransaction, _super);
+    function ClientConfigureTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Client Configure';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.ClientConfigureTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'CLIENT_CONFIGURE';
+            _this.type = 'CLIENT_CONFIGURE';
         }
         if (data['alias'] !== undefined) {
-            this.alias = data['alias'];
+            _this.alias = data['alias'];
         }
         if (data['marginRate'] !== undefined) {
-            this.marginRate = data['marginRate'];
+            _this.marginRate = data['marginRate'];
         }
+        return _this;
     }
-}
+    return ClientConfigureTransaction;
+}(base_1.Definition));
 exports.ClientConfigureTransaction = ClientConfigureTransaction;
 exports.ClientConfigureRejectTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -370,48 +425,51 @@ exports.ClientConfigureRejectTransaction_Properties = [
     new base_1.Property('marginRate', 'Margin Rate', 'The margin rate override for the Account.', 'primitive', 'primitives.DecimalNumber'),
     new base_1.Property('rejectReason', 'Reject Reason', 'The reason that the Reject Transaction was created', 'primitive', 'transaction.TransactionRejectReason'),
 ];
-class ClientConfigureRejectTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Client Configure Reject';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.ClientConfigureRejectTransaction_Properties;
+var ClientConfigureRejectTransaction = /** @class */ (function (_super) {
+    __extends(ClientConfigureRejectTransaction, _super);
+    function ClientConfigureRejectTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Client Configure Reject';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.ClientConfigureRejectTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'CLIENT_CONFIGURE_REJECT';
+            _this.type = 'CLIENT_CONFIGURE_REJECT';
         }
         if (data['alias'] !== undefined) {
-            this.alias = data['alias'];
+            _this.alias = data['alias'];
         }
         if (data['marginRate'] !== undefined) {
-            this.marginRate = data['marginRate'];
+            _this.marginRate = data['marginRate'];
         }
         if (data['rejectReason'] !== undefined) {
-            this.rejectReason = data['rejectReason'];
+            _this.rejectReason = data['rejectReason'];
         }
+        return _this;
     }
-}
+    return ClientConfigureRejectTransaction;
+}(base_1.Definition));
 exports.ClientConfigureRejectTransaction = ClientConfigureRejectTransaction;
 exports.TransferFundsTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -426,51 +484,54 @@ exports.TransferFundsTransaction_Properties = [
     new base_1.Property('comment', 'Comment', 'An optional comment that may be attached to a fund transfer for audit purposes', 'primitive', 'string'),
     new base_1.Property('accountBalance', 'Account Balance', "The Account's balance after funds are transferred.", 'primitive', 'primitives.AccountUnits'),
 ];
-class TransferFundsTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Account Transfer of {amount}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.TransferFundsTransaction_Properties;
+var TransferFundsTransaction = /** @class */ (function (_super) {
+    __extends(TransferFundsTransaction, _super);
+    function TransferFundsTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Account Transfer of {amount}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.TransferFundsTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'TRANSFER_FUNDS';
+            _this.type = 'TRANSFER_FUNDS';
         }
         if (data['amount'] !== undefined) {
-            this.amount = data['amount'];
+            _this.amount = data['amount'];
         }
         if (data['fundingReason'] !== undefined) {
-            this.fundingReason = data['fundingReason'];
+            _this.fundingReason = data['fundingReason'];
         }
         if (data['comment'] !== undefined) {
-            this.comment = data['comment'];
+            _this.comment = data['comment'];
         }
         if (data['accountBalance'] !== undefined) {
-            this.accountBalance = data['accountBalance'];
+            _this.accountBalance = data['accountBalance'];
         }
+        return _this;
     }
-}
+    return TransferFundsTransaction;
+}(base_1.Definition));
 exports.TransferFundsTransaction = TransferFundsTransaction;
 exports.TransferFundsRejectTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -485,51 +546,54 @@ exports.TransferFundsRejectTransaction_Properties = [
     new base_1.Property('comment', 'Comment', 'An optional comment that may be attached to a fund transfer for audit purposes', 'primitive', 'string'),
     new base_1.Property('rejectReason', 'Reject Reason', 'The reason that the Reject Transaction was created', 'primitive', 'transaction.TransactionRejectReason'),
 ];
-class TransferFundsRejectTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Account Reject Transfer of {amount}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.TransferFundsRejectTransaction_Properties;
+var TransferFundsRejectTransaction = /** @class */ (function (_super) {
+    __extends(TransferFundsRejectTransaction, _super);
+    function TransferFundsRejectTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Account Reject Transfer of {amount}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.TransferFundsRejectTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'TRANSFER_FUNDS_REJECT';
+            _this.type = 'TRANSFER_FUNDS_REJECT';
         }
         if (data['amount'] !== undefined) {
-            this.amount = data['amount'];
+            _this.amount = data['amount'];
         }
         if (data['fundingReason'] !== undefined) {
-            this.fundingReason = data['fundingReason'];
+            _this.fundingReason = data['fundingReason'];
         }
         if (data['comment'] !== undefined) {
-            this.comment = data['comment'];
+            _this.comment = data['comment'];
         }
         if (data['rejectReason'] !== undefined) {
-            this.rejectReason = data['rejectReason'];
+            _this.rejectReason = data['rejectReason'];
         }
+        return _this;
     }
-}
+    return TransferFundsRejectTransaction;
+}(base_1.Definition));
 exports.TransferFundsRejectTransaction = TransferFundsRejectTransaction;
 exports.MarketOrderTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -556,93 +620,96 @@ exports.MarketOrderTransaction_Properties = [
     new base_1.Property('trailingStopLossOnFill', 'Trailing Stop Loss On Fill', 'The specification of the Trailing Stop Loss Order that should be created for a Trade that is opened when the Order is filled (if such a Trade is created).', 'object', 'transaction.TrailingStopLossDetails'),
     new base_1.Property('tradeClientExtensions', 'Trade Client Extensions', 'Client Extensions to add to the Trade created when the Order is filled (if such a Trade is created).  Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.', 'object', 'transaction.ClientExtensions'),
 ];
-class MarketOrderTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Create Market Order {id} ({reason}): {units} of {instrument}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.MarketOrderTransaction_Properties;
+var MarketOrderTransaction = /** @class */ (function (_super) {
+    __extends(MarketOrderTransaction, _super);
+    function MarketOrderTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Create Market Order {id} ({reason}): {units} of {instrument}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.MarketOrderTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'MARKET_ORDER';
+            _this.type = 'MARKET_ORDER';
         }
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'FOK';
+            _this.timeInForce = 'FOK';
         }
         if (data['priceBound'] !== undefined) {
-            this.priceBound = data['priceBound'];
+            _this.priceBound = data['priceBound'];
         }
         if (data['positionFill'] !== undefined) {
-            this.positionFill = data['positionFill'];
+            _this.positionFill = data['positionFill'];
         }
         else {
-            this.positionFill = 'DEFAULT';
+            _this.positionFill = 'DEFAULT';
         }
         if (data['tradeClose'] !== undefined) {
-            this.tradeClose = new MarketOrderTradeClose(data['tradeClose']);
+            _this.tradeClose = new MarketOrderTradeClose(data['tradeClose']);
         }
         if (data['longPositionCloseout'] !== undefined) {
-            this.longPositionCloseout = new MarketOrderPositionCloseout(data['longPositionCloseout']);
+            _this.longPositionCloseout = new MarketOrderPositionCloseout(data['longPositionCloseout']);
         }
         if (data['shortPositionCloseout'] !== undefined) {
-            this.shortPositionCloseout = new MarketOrderPositionCloseout(data['shortPositionCloseout']);
+            _this.shortPositionCloseout = new MarketOrderPositionCloseout(data['shortPositionCloseout']);
         }
         if (data['marginCloseout'] !== undefined) {
-            this.marginCloseout = new MarketOrderMarginCloseout(data['marginCloseout']);
+            _this.marginCloseout = new MarketOrderMarginCloseout(data['marginCloseout']);
         }
         if (data['delayedTradeClose'] !== undefined) {
-            this.delayedTradeClose = new MarketOrderDelayedTradeClose(data['delayedTradeClose']);
+            _this.delayedTradeClose = new MarketOrderDelayedTradeClose(data['delayedTradeClose']);
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['takeProfitOnFill'] !== undefined) {
-            this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
+            _this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
         }
         if (data['stopLossOnFill'] !== undefined) {
-            this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
+            _this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
         }
         if (data['trailingStopLossOnFill'] !== undefined) {
-            this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
+            _this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
         }
         if (data['tradeClientExtensions'] !== undefined) {
-            this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
+            _this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
         }
+        return _this;
     }
-}
+    return MarketOrderTransaction;
+}(base_1.Definition));
 exports.MarketOrderTransaction = MarketOrderTransaction;
 exports.MarketOrderRejectTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -670,96 +737,99 @@ exports.MarketOrderRejectTransaction_Properties = [
     new base_1.Property('tradeClientExtensions', 'Trade Client Extensions', 'Client Extensions to add to the Trade created when the Order is filled (if such a Trade is created).  Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.', 'object', 'transaction.ClientExtensions'),
     new base_1.Property('rejectReason', 'Reject Reason', 'The reason that the Reject Transaction was created', 'primitive', 'transaction.TransactionRejectReason'),
 ];
-class MarketOrderRejectTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Reject Market Order ({reason}): {units} of {instrument}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.MarketOrderRejectTransaction_Properties;
+var MarketOrderRejectTransaction = /** @class */ (function (_super) {
+    __extends(MarketOrderRejectTransaction, _super);
+    function MarketOrderRejectTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Reject Market Order ({reason}): {units} of {instrument}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.MarketOrderRejectTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'MARKET_ORDER_REJECT';
+            _this.type = 'MARKET_ORDER_REJECT';
         }
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'FOK';
+            _this.timeInForce = 'FOK';
         }
         if (data['priceBound'] !== undefined) {
-            this.priceBound = data['priceBound'];
+            _this.priceBound = data['priceBound'];
         }
         if (data['positionFill'] !== undefined) {
-            this.positionFill = data['positionFill'];
+            _this.positionFill = data['positionFill'];
         }
         else {
-            this.positionFill = 'DEFAULT';
+            _this.positionFill = 'DEFAULT';
         }
         if (data['tradeClose'] !== undefined) {
-            this.tradeClose = new MarketOrderTradeClose(data['tradeClose']);
+            _this.tradeClose = new MarketOrderTradeClose(data['tradeClose']);
         }
         if (data['longPositionCloseout'] !== undefined) {
-            this.longPositionCloseout = new MarketOrderPositionCloseout(data['longPositionCloseout']);
+            _this.longPositionCloseout = new MarketOrderPositionCloseout(data['longPositionCloseout']);
         }
         if (data['shortPositionCloseout'] !== undefined) {
-            this.shortPositionCloseout = new MarketOrderPositionCloseout(data['shortPositionCloseout']);
+            _this.shortPositionCloseout = new MarketOrderPositionCloseout(data['shortPositionCloseout']);
         }
         if (data['marginCloseout'] !== undefined) {
-            this.marginCloseout = new MarketOrderMarginCloseout(data['marginCloseout']);
+            _this.marginCloseout = new MarketOrderMarginCloseout(data['marginCloseout']);
         }
         if (data['delayedTradeClose'] !== undefined) {
-            this.delayedTradeClose = new MarketOrderDelayedTradeClose(data['delayedTradeClose']);
+            _this.delayedTradeClose = new MarketOrderDelayedTradeClose(data['delayedTradeClose']);
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['takeProfitOnFill'] !== undefined) {
-            this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
+            _this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
         }
         if (data['stopLossOnFill'] !== undefined) {
-            this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
+            _this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
         }
         if (data['trailingStopLossOnFill'] !== undefined) {
-            this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
+            _this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
         }
         if (data['tradeClientExtensions'] !== undefined) {
-            this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
+            _this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
         }
         if (data['rejectReason'] !== undefined) {
-            this.rejectReason = data['rejectReason'];
+            _this.rejectReason = data['rejectReason'];
         }
+        return _this;
     }
-}
+    return MarketOrderRejectTransaction;
+}(base_1.Definition));
 exports.MarketOrderRejectTransaction = MarketOrderRejectTransaction;
 exports.FixedPriceOrderTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -781,75 +851,78 @@ exports.FixedPriceOrderTransaction_Properties = [
     new base_1.Property('trailingStopLossOnFill', 'Trailing Stop Loss On Fill', 'The specification of the Trailing Stop Loss Order that should be created for a Trade that is opened when the Order is filled (if such a Trade is created).', 'object', 'transaction.TrailingStopLossDetails'),
     new base_1.Property('tradeClientExtensions', 'Trade Client Extensions', 'Client Extensions to add to the Trade created when the Order is filled (if such a Trade is created).  Do not set, modify, delete tradeClientExtensions if your account is associated with MT4.', 'object', 'transaction.ClientExtensions'),
 ];
-class FixedPriceOrderTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Create Fixed Price Order {id} ({reason}): {units} of {instrument}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.FixedPriceOrderTransaction_Properties;
+var FixedPriceOrderTransaction = /** @class */ (function (_super) {
+    __extends(FixedPriceOrderTransaction, _super);
+    function FixedPriceOrderTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Create Fixed Price Order {id} ({reason}): {units} of {instrument}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.FixedPriceOrderTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'FIXED_PRICE_ORDER';
+            _this.type = 'FIXED_PRICE_ORDER';
         }
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['positionFill'] !== undefined) {
-            this.positionFill = data['positionFill'];
+            _this.positionFill = data['positionFill'];
         }
         else {
-            this.positionFill = 'DEFAULT';
+            _this.positionFill = 'DEFAULT';
         }
         if (data['tradeState'] !== undefined) {
-            this.tradeState = data['tradeState'];
+            _this.tradeState = data['tradeState'];
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['takeProfitOnFill'] !== undefined) {
-            this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
+            _this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
         }
         if (data['stopLossOnFill'] !== undefined) {
-            this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
+            _this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
         }
         if (data['trailingStopLossOnFill'] !== undefined) {
-            this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
+            _this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
         }
         if (data['tradeClientExtensions'] !== undefined) {
-            this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
+            _this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
         }
+        return _this;
     }
-}
+    return FixedPriceOrderTransaction;
+}(base_1.Definition));
 exports.FixedPriceOrderTransaction = FixedPriceOrderTransaction;
 exports.LimitOrderTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -875,93 +948,96 @@ exports.LimitOrderTransaction_Properties = [
     new base_1.Property('replacesOrderID', 'Replaces Order ID', 'The ID of the Order that this Order replaces (only provided if this Order replaces an existing Order).', 'primitive', 'order.OrderID'),
     new base_1.Property('cancellingTransactionID', 'Replaces Order Cancel Transaction ID', 'The ID of the Transaction that cancels the replaced Order (only provided if this Order replaces an existing Order).', 'primitive', 'transaction.TransactionID'),
 ];
-class LimitOrderTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Create Limit Order {id} ({reason}): {units} of {instrument} @ {price}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.LimitOrderTransaction_Properties;
+var LimitOrderTransaction = /** @class */ (function (_super) {
+    __extends(LimitOrderTransaction, _super);
+    function LimitOrderTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Create Limit Order {id} ({reason}): {units} of {instrument} @ {price}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.LimitOrderTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'LIMIT_ORDER';
+            _this.type = 'LIMIT_ORDER';
         }
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['positionFill'] !== undefined) {
-            this.positionFill = data['positionFill'];
+            _this.positionFill = data['positionFill'];
         }
         else {
-            this.positionFill = 'DEFAULT';
+            _this.positionFill = 'DEFAULT';
         }
         if (data['triggerCondition'] !== undefined) {
-            this.triggerCondition = data['triggerCondition'];
+            _this.triggerCondition = data['triggerCondition'];
         }
         else {
-            this.triggerCondition = 'DEFAULT';
+            _this.triggerCondition = 'DEFAULT';
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['takeProfitOnFill'] !== undefined) {
-            this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
+            _this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
         }
         if (data['stopLossOnFill'] !== undefined) {
-            this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
+            _this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
         }
         if (data['trailingStopLossOnFill'] !== undefined) {
-            this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
+            _this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
         }
         if (data['tradeClientExtensions'] !== undefined) {
-            this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
+            _this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
         }
         if (data['replacesOrderID'] !== undefined) {
-            this.replacesOrderID = data['replacesOrderID'];
+            _this.replacesOrderID = data['replacesOrderID'];
         }
         if (data['cancellingTransactionID'] !== undefined) {
-            this.cancellingTransactionID = data['cancellingTransactionID'];
+            _this.cancellingTransactionID = data['cancellingTransactionID'];
         }
+        return _this;
     }
-}
+    return LimitOrderTransaction;
+}(base_1.Definition));
 exports.LimitOrderTransaction = LimitOrderTransaction;
 exports.LimitOrderRejectTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -987,93 +1063,96 @@ exports.LimitOrderRejectTransaction_Properties = [
     new base_1.Property('intendedReplacesOrderID', 'Order ID to Replace', 'The ID of the Order that this Order was intended to replace (only provided if this Order was intended to replace an existing Order).', 'primitive', 'order.OrderID'),
     new base_1.Property('rejectReason', 'Reject Reason', 'The reason that the Reject Transaction was created', 'primitive', 'transaction.TransactionRejectReason'),
 ];
-class LimitOrderRejectTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Reject Limit Order ({reason}): {units} of {instrument} @ {price}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.LimitOrderRejectTransaction_Properties;
+var LimitOrderRejectTransaction = /** @class */ (function (_super) {
+    __extends(LimitOrderRejectTransaction, _super);
+    function LimitOrderRejectTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Reject Limit Order ({reason}): {units} of {instrument} @ {price}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.LimitOrderRejectTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'LIMIT_ORDER_REJECT';
+            _this.type = 'LIMIT_ORDER_REJECT';
         }
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['positionFill'] !== undefined) {
-            this.positionFill = data['positionFill'];
+            _this.positionFill = data['positionFill'];
         }
         else {
-            this.positionFill = 'DEFAULT';
+            _this.positionFill = 'DEFAULT';
         }
         if (data['triggerCondition'] !== undefined) {
-            this.triggerCondition = data['triggerCondition'];
+            _this.triggerCondition = data['triggerCondition'];
         }
         else {
-            this.triggerCondition = 'DEFAULT';
+            _this.triggerCondition = 'DEFAULT';
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['takeProfitOnFill'] !== undefined) {
-            this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
+            _this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
         }
         if (data['stopLossOnFill'] !== undefined) {
-            this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
+            _this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
         }
         if (data['trailingStopLossOnFill'] !== undefined) {
-            this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
+            _this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
         }
         if (data['tradeClientExtensions'] !== undefined) {
-            this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
+            _this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
         }
         if (data['intendedReplacesOrderID'] !== undefined) {
-            this.intendedReplacesOrderID = data['intendedReplacesOrderID'];
+            _this.intendedReplacesOrderID = data['intendedReplacesOrderID'];
         }
         if (data['rejectReason'] !== undefined) {
-            this.rejectReason = data['rejectReason'];
+            _this.rejectReason = data['rejectReason'];
         }
+        return _this;
     }
-}
+    return LimitOrderRejectTransaction;
+}(base_1.Definition));
 exports.LimitOrderRejectTransaction = LimitOrderRejectTransaction;
 exports.StopOrderTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -1100,96 +1179,99 @@ exports.StopOrderTransaction_Properties = [
     new base_1.Property('replacesOrderID', 'Replaces Order ID', 'The ID of the Order that this Order replaces (only provided if this Order replaces an existing Order).', 'primitive', 'order.OrderID'),
     new base_1.Property('cancellingTransactionID', 'Replaces Order Cancel Transaction ID', 'The ID of the Transaction that cancels the replaced Order (only provided if this Order replaces an existing Order).', 'primitive', 'transaction.TransactionID'),
 ];
-class StopOrderTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Create Stop Order {id} ({reason}): {units} of {instrument} @ {price}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.StopOrderTransaction_Properties;
+var StopOrderTransaction = /** @class */ (function (_super) {
+    __extends(StopOrderTransaction, _super);
+    function StopOrderTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Create Stop Order {id} ({reason}): {units} of {instrument} @ {price}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.StopOrderTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'STOP_ORDER';
+            _this.type = 'STOP_ORDER';
         }
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['priceBound'] !== undefined) {
-            this.priceBound = data['priceBound'];
+            _this.priceBound = data['priceBound'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['positionFill'] !== undefined) {
-            this.positionFill = data['positionFill'];
+            _this.positionFill = data['positionFill'];
         }
         else {
-            this.positionFill = 'DEFAULT';
+            _this.positionFill = 'DEFAULT';
         }
         if (data['triggerCondition'] !== undefined) {
-            this.triggerCondition = data['triggerCondition'];
+            _this.triggerCondition = data['triggerCondition'];
         }
         else {
-            this.triggerCondition = 'DEFAULT';
+            _this.triggerCondition = 'DEFAULT';
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['takeProfitOnFill'] !== undefined) {
-            this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
+            _this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
         }
         if (data['stopLossOnFill'] !== undefined) {
-            this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
+            _this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
         }
         if (data['trailingStopLossOnFill'] !== undefined) {
-            this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
+            _this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
         }
         if (data['tradeClientExtensions'] !== undefined) {
-            this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
+            _this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
         }
         if (data['replacesOrderID'] !== undefined) {
-            this.replacesOrderID = data['replacesOrderID'];
+            _this.replacesOrderID = data['replacesOrderID'];
         }
         if (data['cancellingTransactionID'] !== undefined) {
-            this.cancellingTransactionID = data['cancellingTransactionID'];
+            _this.cancellingTransactionID = data['cancellingTransactionID'];
         }
+        return _this;
     }
-}
+    return StopOrderTransaction;
+}(base_1.Definition));
 exports.StopOrderTransaction = StopOrderTransaction;
 exports.StopOrderRejectTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -1216,96 +1298,99 @@ exports.StopOrderRejectTransaction_Properties = [
     new base_1.Property('intendedReplacesOrderID', 'Order ID to Replace', 'The ID of the Order that this Order was intended to replace (only provided if this Order was intended to replace an existing Order).', 'primitive', 'order.OrderID'),
     new base_1.Property('rejectReason', 'Reject Reason', 'The reason that the Reject Transaction was created', 'primitive', 'transaction.TransactionRejectReason'),
 ];
-class StopOrderRejectTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Reject Stop Order ({reason}): {units} of {instrument} @ {price}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.StopOrderRejectTransaction_Properties;
+var StopOrderRejectTransaction = /** @class */ (function (_super) {
+    __extends(StopOrderRejectTransaction, _super);
+    function StopOrderRejectTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Reject Stop Order ({reason}): {units} of {instrument} @ {price}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.StopOrderRejectTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'STOP_ORDER_REJECT';
+            _this.type = 'STOP_ORDER_REJECT';
         }
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['priceBound'] !== undefined) {
-            this.priceBound = data['priceBound'];
+            _this.priceBound = data['priceBound'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['positionFill'] !== undefined) {
-            this.positionFill = data['positionFill'];
+            _this.positionFill = data['positionFill'];
         }
         else {
-            this.positionFill = 'DEFAULT';
+            _this.positionFill = 'DEFAULT';
         }
         if (data['triggerCondition'] !== undefined) {
-            this.triggerCondition = data['triggerCondition'];
+            _this.triggerCondition = data['triggerCondition'];
         }
         else {
-            this.triggerCondition = 'DEFAULT';
+            _this.triggerCondition = 'DEFAULT';
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['takeProfitOnFill'] !== undefined) {
-            this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
+            _this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
         }
         if (data['stopLossOnFill'] !== undefined) {
-            this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
+            _this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
         }
         if (data['trailingStopLossOnFill'] !== undefined) {
-            this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
+            _this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
         }
         if (data['tradeClientExtensions'] !== undefined) {
-            this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
+            _this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
         }
         if (data['intendedReplacesOrderID'] !== undefined) {
-            this.intendedReplacesOrderID = data['intendedReplacesOrderID'];
+            _this.intendedReplacesOrderID = data['intendedReplacesOrderID'];
         }
         if (data['rejectReason'] !== undefined) {
-            this.rejectReason = data['rejectReason'];
+            _this.rejectReason = data['rejectReason'];
         }
+        return _this;
     }
-}
+    return StopOrderRejectTransaction;
+}(base_1.Definition));
 exports.StopOrderRejectTransaction = StopOrderRejectTransaction;
 exports.MarketIfTouchedOrderTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -1332,96 +1417,99 @@ exports.MarketIfTouchedOrderTransaction_Properties = [
     new base_1.Property('replacesOrderID', 'Replaces Order ID', 'The ID of the Order that this Order replaces (only provided if this Order replaces an existing Order).', 'primitive', 'order.OrderID'),
     new base_1.Property('cancellingTransactionID', 'Replaces Order Cancel Transaction ID', 'The ID of the Transaction that cancels the replaced Order (only provided if this Order replaces an existing Order).', 'primitive', 'transaction.TransactionID'),
 ];
-class MarketIfTouchedOrderTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Create MIT Order {id} ({reason}): {units} of {instrument} @ {price}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.MarketIfTouchedOrderTransaction_Properties;
+var MarketIfTouchedOrderTransaction = /** @class */ (function (_super) {
+    __extends(MarketIfTouchedOrderTransaction, _super);
+    function MarketIfTouchedOrderTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Create MIT Order {id} ({reason}): {units} of {instrument} @ {price}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.MarketIfTouchedOrderTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'MARKET_IF_TOUCHED_ORDER';
+            _this.type = 'MARKET_IF_TOUCHED_ORDER';
         }
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['priceBound'] !== undefined) {
-            this.priceBound = data['priceBound'];
+            _this.priceBound = data['priceBound'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['positionFill'] !== undefined) {
-            this.positionFill = data['positionFill'];
+            _this.positionFill = data['positionFill'];
         }
         else {
-            this.positionFill = 'DEFAULT';
+            _this.positionFill = 'DEFAULT';
         }
         if (data['triggerCondition'] !== undefined) {
-            this.triggerCondition = data['triggerCondition'];
+            _this.triggerCondition = data['triggerCondition'];
         }
         else {
-            this.triggerCondition = 'DEFAULT';
+            _this.triggerCondition = 'DEFAULT';
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['takeProfitOnFill'] !== undefined) {
-            this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
+            _this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
         }
         if (data['stopLossOnFill'] !== undefined) {
-            this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
+            _this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
         }
         if (data['trailingStopLossOnFill'] !== undefined) {
-            this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
+            _this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
         }
         if (data['tradeClientExtensions'] !== undefined) {
-            this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
+            _this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
         }
         if (data['replacesOrderID'] !== undefined) {
-            this.replacesOrderID = data['replacesOrderID'];
+            _this.replacesOrderID = data['replacesOrderID'];
         }
         if (data['cancellingTransactionID'] !== undefined) {
-            this.cancellingTransactionID = data['cancellingTransactionID'];
+            _this.cancellingTransactionID = data['cancellingTransactionID'];
         }
+        return _this;
     }
-}
+    return MarketIfTouchedOrderTransaction;
+}(base_1.Definition));
 exports.MarketIfTouchedOrderTransaction = MarketIfTouchedOrderTransaction;
 exports.MarketIfTouchedOrderRejectTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -1448,96 +1536,99 @@ exports.MarketIfTouchedOrderRejectTransaction_Properties = [
     new base_1.Property('intendedReplacesOrderID', 'Order ID to Replace', 'The ID of the Order that this Order was intended to replace (only provided if this Order was intended to replace an existing Order).', 'primitive', 'order.OrderID'),
     new base_1.Property('rejectReason', 'Reject Reason', 'The reason that the Reject Transaction was created', 'primitive', 'transaction.TransactionRejectReason'),
 ];
-class MarketIfTouchedOrderRejectTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Reject MIT Order ({reason}): {units} of {instrument} @ {price}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.MarketIfTouchedOrderRejectTransaction_Properties;
+var MarketIfTouchedOrderRejectTransaction = /** @class */ (function (_super) {
+    __extends(MarketIfTouchedOrderRejectTransaction, _super);
+    function MarketIfTouchedOrderRejectTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Reject MIT Order ({reason}): {units} of {instrument} @ {price}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.MarketIfTouchedOrderRejectTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'MARKET_IF_TOUCHED_ORDER_REJECT';
+            _this.type = 'MARKET_IF_TOUCHED_ORDER_REJECT';
         }
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['priceBound'] !== undefined) {
-            this.priceBound = data['priceBound'];
+            _this.priceBound = data['priceBound'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['positionFill'] !== undefined) {
-            this.positionFill = data['positionFill'];
+            _this.positionFill = data['positionFill'];
         }
         else {
-            this.positionFill = 'DEFAULT';
+            _this.positionFill = 'DEFAULT';
         }
         if (data['triggerCondition'] !== undefined) {
-            this.triggerCondition = data['triggerCondition'];
+            _this.triggerCondition = data['triggerCondition'];
         }
         else {
-            this.triggerCondition = 'DEFAULT';
+            _this.triggerCondition = 'DEFAULT';
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['takeProfitOnFill'] !== undefined) {
-            this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
+            _this.takeProfitOnFill = new TakeProfitDetails(data['takeProfitOnFill']);
         }
         if (data['stopLossOnFill'] !== undefined) {
-            this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
+            _this.stopLossOnFill = new StopLossDetails(data['stopLossOnFill']);
         }
         if (data['trailingStopLossOnFill'] !== undefined) {
-            this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
+            _this.trailingStopLossOnFill = new TrailingStopLossDetails(data['trailingStopLossOnFill']);
         }
         if (data['tradeClientExtensions'] !== undefined) {
-            this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
+            _this.tradeClientExtensions = new ClientExtensions(data['tradeClientExtensions']);
         }
         if (data['intendedReplacesOrderID'] !== undefined) {
-            this.intendedReplacesOrderID = data['intendedReplacesOrderID'];
+            _this.intendedReplacesOrderID = data['intendedReplacesOrderID'];
         }
         if (data['rejectReason'] !== undefined) {
-            this.rejectReason = data['rejectReason'];
+            _this.rejectReason = data['rejectReason'];
         }
+        return _this;
     }
-}
+    return MarketIfTouchedOrderRejectTransaction;
+}(base_1.Definition));
 exports.MarketIfTouchedOrderRejectTransaction = MarketIfTouchedOrderRejectTransaction;
 exports.TakeProfitOrderTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -1559,79 +1650,82 @@ exports.TakeProfitOrderTransaction_Properties = [
     new base_1.Property('replacesOrderID', 'Replaces Order ID', 'The ID of the Order that this Order replaces (only provided if this Order replaces an existing Order).', 'primitive', 'order.OrderID'),
     new base_1.Property('cancellingTransactionID', 'Replaces Order Cancel Transaction ID', 'The ID of the Transaction that cancels the replaced Order (only provided if this Order replaces an existing Order).', 'primitive', 'transaction.TransactionID'),
 ];
-class TakeProfitOrderTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat =
+var TakeProfitOrderTransaction = /** @class */ (function (_super) {
+    __extends(TakeProfitOrderTransaction, _super);
+    function TakeProfitOrderTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat =
             'Create Take Profit Order {id} ({reason}): Close Trade {tradeID} @ {price}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.TakeProfitOrderTransaction_Properties;
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.TakeProfitOrderTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'TAKE_PROFIT_ORDER';
+            _this.type = 'TAKE_PROFIT_ORDER';
         }
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['clientTradeID'] !== undefined) {
-            this.clientTradeID = data['clientTradeID'];
+            _this.clientTradeID = data['clientTradeID'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['triggerCondition'] !== undefined) {
-            this.triggerCondition = data['triggerCondition'];
+            _this.triggerCondition = data['triggerCondition'];
         }
         else {
-            this.triggerCondition = 'DEFAULT';
+            _this.triggerCondition = 'DEFAULT';
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['orderFillTransactionID'] !== undefined) {
-            this.orderFillTransactionID = data['orderFillTransactionID'];
+            _this.orderFillTransactionID = data['orderFillTransactionID'];
         }
         if (data['replacesOrderID'] !== undefined) {
-            this.replacesOrderID = data['replacesOrderID'];
+            _this.replacesOrderID = data['replacesOrderID'];
         }
         if (data['cancellingTransactionID'] !== undefined) {
-            this.cancellingTransactionID = data['cancellingTransactionID'];
+            _this.cancellingTransactionID = data['cancellingTransactionID'];
         }
+        return _this;
     }
-}
+    return TakeProfitOrderTransaction;
+}(base_1.Definition));
 exports.TakeProfitOrderTransaction = TakeProfitOrderTransaction;
 exports.TakeProfitOrderRejectTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -1653,78 +1747,81 @@ exports.TakeProfitOrderRejectTransaction_Properties = [
     new base_1.Property('intendedReplacesOrderID', 'Order ID to Replace', 'The ID of the Order that this Order was intended to replace (only provided if this Order was intended to replace an existing Order).', 'primitive', 'order.OrderID'),
     new base_1.Property('rejectReason', 'Reject Reason', 'The reason that the Reject Transaction was created', 'primitive', 'transaction.TransactionRejectReason'),
 ];
-class TakeProfitOrderRejectTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Reject Take Profit Order ({reason}): Close Trade {tradeID} @ {price}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.TakeProfitOrderRejectTransaction_Properties;
+var TakeProfitOrderRejectTransaction = /** @class */ (function (_super) {
+    __extends(TakeProfitOrderRejectTransaction, _super);
+    function TakeProfitOrderRejectTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Reject Take Profit Order ({reason}): Close Trade {tradeID} @ {price}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.TakeProfitOrderRejectTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'TAKE_PROFIT_ORDER_REJECT';
+            _this.type = 'TAKE_PROFIT_ORDER_REJECT';
         }
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['clientTradeID'] !== undefined) {
-            this.clientTradeID = data['clientTradeID'];
+            _this.clientTradeID = data['clientTradeID'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['triggerCondition'] !== undefined) {
-            this.triggerCondition = data['triggerCondition'];
+            _this.triggerCondition = data['triggerCondition'];
         }
         else {
-            this.triggerCondition = 'DEFAULT';
+            _this.triggerCondition = 'DEFAULT';
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['orderFillTransactionID'] !== undefined) {
-            this.orderFillTransactionID = data['orderFillTransactionID'];
+            _this.orderFillTransactionID = data['orderFillTransactionID'];
         }
         if (data['intendedReplacesOrderID'] !== undefined) {
-            this.intendedReplacesOrderID = data['intendedReplacesOrderID'];
+            _this.intendedReplacesOrderID = data['intendedReplacesOrderID'];
         }
         if (data['rejectReason'] !== undefined) {
-            this.rejectReason = data['rejectReason'];
+            _this.rejectReason = data['rejectReason'];
         }
+        return _this;
     }
-}
+    return TakeProfitOrderRejectTransaction;
+}(base_1.Definition));
 exports.TakeProfitOrderRejectTransaction = TakeProfitOrderRejectTransaction;
 exports.StopLossOrderTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -1749,87 +1846,90 @@ exports.StopLossOrderTransaction_Properties = [
     new base_1.Property('replacesOrderID', 'Replaces Order ID', 'The ID of the Order that this Order replaces (only provided if this Order replaces an existing Order).', 'primitive', 'order.OrderID'),
     new base_1.Property('cancellingTransactionID', 'Replaces Order Cancel Transaction ID', 'The ID of the Transaction that cancels the replaced Order (only provided if this Order replaces an existing Order).', 'primitive', 'transaction.TransactionID'),
 ];
-class StopLossOrderTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Create Stop Loss Order {id} ({reason}): Close Trade {tradeID} @ {price}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.StopLossOrderTransaction_Properties;
+var StopLossOrderTransaction = /** @class */ (function (_super) {
+    __extends(StopLossOrderTransaction, _super);
+    function StopLossOrderTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Create Stop Loss Order {id} ({reason}): Close Trade {tradeID} @ {price}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.StopLossOrderTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'STOP_LOSS_ORDER';
+            _this.type = 'STOP_LOSS_ORDER';
         }
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['clientTradeID'] !== undefined) {
-            this.clientTradeID = data['clientTradeID'];
+            _this.clientTradeID = data['clientTradeID'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['distance'] !== undefined) {
-            this.distance = data['distance'];
+            _this.distance = data['distance'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['triggerCondition'] !== undefined) {
-            this.triggerCondition = data['triggerCondition'];
+            _this.triggerCondition = data['triggerCondition'];
         }
         else {
-            this.triggerCondition = 'DEFAULT';
+            _this.triggerCondition = 'DEFAULT';
         }
         if (data['guaranteed'] !== undefined) {
-            this.guaranteed = data['guaranteed'];
+            _this.guaranteed = data['guaranteed'];
         }
         if (data['guaranteedExecutionPremium'] !== undefined) {
-            this.guaranteedExecutionPremium = data['guaranteedExecutionPremium'];
+            _this.guaranteedExecutionPremium = data['guaranteedExecutionPremium'];
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['orderFillTransactionID'] !== undefined) {
-            this.orderFillTransactionID = data['orderFillTransactionID'];
+            _this.orderFillTransactionID = data['orderFillTransactionID'];
         }
         if (data['replacesOrderID'] !== undefined) {
-            this.replacesOrderID = data['replacesOrderID'];
+            _this.replacesOrderID = data['replacesOrderID'];
         }
         if (data['cancellingTransactionID'] !== undefined) {
-            this.cancellingTransactionID = data['cancellingTransactionID'];
+            _this.cancellingTransactionID = data['cancellingTransactionID'];
         }
+        return _this;
     }
-}
+    return StopLossOrderTransaction;
+}(base_1.Definition));
 exports.StopLossOrderTransaction = StopLossOrderTransaction;
 exports.StopLossOrderRejectTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -1853,84 +1953,87 @@ exports.StopLossOrderRejectTransaction_Properties = [
     new base_1.Property('intendedReplacesOrderID', 'Order ID to Replace', 'The ID of the Order that this Order was intended to replace (only provided if this Order was intended to replace an existing Order).', 'primitive', 'order.OrderID'),
     new base_1.Property('rejectReason', 'Reject Reason', 'The reason that the Reject Transaction was created', 'primitive', 'transaction.TransactionRejectReason'),
 ];
-class StopLossOrderRejectTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Reject Stop Loss Order ({reason}): Close Trade {tradeID} @ {price}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.StopLossOrderRejectTransaction_Properties;
+var StopLossOrderRejectTransaction = /** @class */ (function (_super) {
+    __extends(StopLossOrderRejectTransaction, _super);
+    function StopLossOrderRejectTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Reject Stop Loss Order ({reason}): Close Trade {tradeID} @ {price}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.StopLossOrderRejectTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'STOP_LOSS_ORDER_REJECT';
+            _this.type = 'STOP_LOSS_ORDER_REJECT';
         }
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['clientTradeID'] !== undefined) {
-            this.clientTradeID = data['clientTradeID'];
+            _this.clientTradeID = data['clientTradeID'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['distance'] !== undefined) {
-            this.distance = data['distance'];
+            _this.distance = data['distance'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['triggerCondition'] !== undefined) {
-            this.triggerCondition = data['triggerCondition'];
+            _this.triggerCondition = data['triggerCondition'];
         }
         else {
-            this.triggerCondition = 'DEFAULT';
+            _this.triggerCondition = 'DEFAULT';
         }
         if (data['guaranteed'] !== undefined) {
-            this.guaranteed = data['guaranteed'];
+            _this.guaranteed = data['guaranteed'];
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['orderFillTransactionID'] !== undefined) {
-            this.orderFillTransactionID = data['orderFillTransactionID'];
+            _this.orderFillTransactionID = data['orderFillTransactionID'];
         }
         if (data['intendedReplacesOrderID'] !== undefined) {
-            this.intendedReplacesOrderID = data['intendedReplacesOrderID'];
+            _this.intendedReplacesOrderID = data['intendedReplacesOrderID'];
         }
         if (data['rejectReason'] !== undefined) {
-            this.rejectReason = data['rejectReason'];
+            _this.rejectReason = data['rejectReason'];
         }
+        return _this;
     }
-}
+    return StopLossOrderRejectTransaction;
+}(base_1.Definition));
 exports.StopLossOrderRejectTransaction = StopLossOrderRejectTransaction;
 exports.TrailingStopLossOrderTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -1952,78 +2055,81 @@ exports.TrailingStopLossOrderTransaction_Properties = [
     new base_1.Property('replacesOrderID', 'Replaces Order ID', 'The ID of the Order that this Order replaces (only provided if this Order replaces an existing Order).', 'primitive', 'order.OrderID'),
     new base_1.Property('cancellingTransactionID', 'Replaces Order Cancel Transaction ID', 'The ID of the Transaction that cancels the replaced Order (only provided if this Order replaces an existing Order).', 'primitive', 'transaction.TransactionID'),
 ];
-class TrailingStopLossOrderTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Create Trailing Stop Loss Order {id} ({reason}): Close Trade {tradeID}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.TrailingStopLossOrderTransaction_Properties;
+var TrailingStopLossOrderTransaction = /** @class */ (function (_super) {
+    __extends(TrailingStopLossOrderTransaction, _super);
+    function TrailingStopLossOrderTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Create Trailing Stop Loss Order {id} ({reason}): Close Trade {tradeID}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.TrailingStopLossOrderTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'TRAILING_STOP_LOSS_ORDER';
+            _this.type = 'TRAILING_STOP_LOSS_ORDER';
         }
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['clientTradeID'] !== undefined) {
-            this.clientTradeID = data['clientTradeID'];
+            _this.clientTradeID = data['clientTradeID'];
         }
         if (data['distance'] !== undefined) {
-            this.distance = data['distance'];
+            _this.distance = data['distance'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['triggerCondition'] !== undefined) {
-            this.triggerCondition = data['triggerCondition'];
+            _this.triggerCondition = data['triggerCondition'];
         }
         else {
-            this.triggerCondition = 'DEFAULT';
+            _this.triggerCondition = 'DEFAULT';
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['orderFillTransactionID'] !== undefined) {
-            this.orderFillTransactionID = data['orderFillTransactionID'];
+            _this.orderFillTransactionID = data['orderFillTransactionID'];
         }
         if (data['replacesOrderID'] !== undefined) {
-            this.replacesOrderID = data['replacesOrderID'];
+            _this.replacesOrderID = data['replacesOrderID'];
         }
         if (data['cancellingTransactionID'] !== undefined) {
-            this.cancellingTransactionID = data['cancellingTransactionID'];
+            _this.cancellingTransactionID = data['cancellingTransactionID'];
         }
+        return _this;
     }
-}
+    return TrailingStopLossOrderTransaction;
+}(base_1.Definition));
 exports.TrailingStopLossOrderTransaction = TrailingStopLossOrderTransaction;
 exports.TrailingStopLossOrderRejectTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2045,78 +2151,81 @@ exports.TrailingStopLossOrderRejectTransaction_Properties = [
     new base_1.Property('intendedReplacesOrderID', 'Order ID to Replace', 'The ID of the Order that this Order was intended to replace (only provided if this Order was intended to replace an existing Order).', 'primitive', 'order.OrderID'),
     new base_1.Property('rejectReason', 'Reject Reason', 'The reason that the Reject Transaction was created', 'primitive', 'transaction.TransactionRejectReason'),
 ];
-class TrailingStopLossOrderRejectTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Reject Trailing Stop Loss Order ({reason}): Close Trade {tradeID}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.TrailingStopLossOrderRejectTransaction_Properties;
+var TrailingStopLossOrderRejectTransaction = /** @class */ (function (_super) {
+    __extends(TrailingStopLossOrderRejectTransaction, _super);
+    function TrailingStopLossOrderRejectTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Reject Trailing Stop Loss Order ({reason}): Close Trade {tradeID}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.TrailingStopLossOrderRejectTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'TRAILING_STOP_LOSS_ORDER_REJECT';
+            _this.type = 'TRAILING_STOP_LOSS_ORDER_REJECT';
         }
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['clientTradeID'] !== undefined) {
-            this.clientTradeID = data['clientTradeID'];
+            _this.clientTradeID = data['clientTradeID'];
         }
         if (data['distance'] !== undefined) {
-            this.distance = data['distance'];
+            _this.distance = data['distance'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['triggerCondition'] !== undefined) {
-            this.triggerCondition = data['triggerCondition'];
+            _this.triggerCondition = data['triggerCondition'];
         }
         else {
-            this.triggerCondition = 'DEFAULT';
+            _this.triggerCondition = 'DEFAULT';
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['orderFillTransactionID'] !== undefined) {
-            this.orderFillTransactionID = data['orderFillTransactionID'];
+            _this.orderFillTransactionID = data['orderFillTransactionID'];
         }
         if (data['intendedReplacesOrderID'] !== undefined) {
-            this.intendedReplacesOrderID = data['intendedReplacesOrderID'];
+            _this.intendedReplacesOrderID = data['intendedReplacesOrderID'];
         }
         if (data['rejectReason'] !== undefined) {
-            this.rejectReason = data['rejectReason'];
+            _this.rejectReason = data['rejectReason'];
         }
+        return _this;
     }
-}
+    return TrailingStopLossOrderRejectTransaction;
+}(base_1.Definition));
 exports.TrailingStopLossOrderRejectTransaction = TrailingStopLossOrderRejectTransaction;
 exports.OrderFillTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2146,96 +2255,99 @@ exports.OrderFillTransaction_Properties = [
     new base_1.Property('tradeReduced', 'Trade Reduced', 'The Trade that was reduced when the Order was filled (only provided if filling the Order resulted in reducing an open Trade).', 'object', 'transaction.TradeReduce'),
     new base_1.Property('halfSpreadCost', 'Half Spread Cost', 'The half spread cost for the OrderFill, which is the sum of the halfSpreadCost values in the tradeOpened, tradesClosed and tradeReduced fields. This can be a positive or negative value and is represented in the home currency of the Account.', 'primitive', 'primitives.AccountUnits'),
 ];
-class OrderFillTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Fill Order {orderID} ({reason}): {units} of {instrument} @ {price}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.OrderFillTransaction_Properties;
+var OrderFillTransaction = /** @class */ (function (_super) {
+    __extends(OrderFillTransaction, _super);
+    function OrderFillTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Fill Order {orderID} ({reason}): {units} of {instrument} @ {price}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.OrderFillTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'ORDER_FILL';
+            _this.type = 'ORDER_FILL';
         }
         if (data['orderID'] !== undefined) {
-            this.orderID = data['orderID'];
+            _this.orderID = data['orderID'];
         }
         if (data['clientOrderID'] !== undefined) {
-            this.clientOrderID = data['clientOrderID'];
+            _this.clientOrderID = data['clientOrderID'];
         }
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
         if (data['gainQuoteHomeConversionFactor'] !== undefined) {
-            this.gainQuoteHomeConversionFactor = data['gainQuoteHomeConversionFactor'];
+            _this.gainQuoteHomeConversionFactor = data['gainQuoteHomeConversionFactor'];
         }
         if (data['lossQuoteHomeConversionFactor'] !== undefined) {
-            this.lossQuoteHomeConversionFactor = data['lossQuoteHomeConversionFactor'];
+            _this.lossQuoteHomeConversionFactor = data['lossQuoteHomeConversionFactor'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['fullVWAP'] !== undefined) {
-            this.fullVWAP = data['fullVWAP'];
+            _this.fullVWAP = data['fullVWAP'];
         }
         if (data['fullPrice'] !== undefined) {
-            this.fullPrice = new pricing.ClientPrice(data['fullPrice']);
+            _this.fullPrice = new pricing.ClientPrice(data['fullPrice']);
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['pl'] !== undefined) {
-            this.pl = data['pl'];
+            _this.pl = data['pl'];
         }
         if (data['financing'] !== undefined) {
-            this.financing = data['financing'];
+            _this.financing = data['financing'];
         }
         if (data['commission'] !== undefined) {
-            this.commission = data['commission'];
+            _this.commission = data['commission'];
         }
         if (data['guaranteedExecutionFee'] !== undefined) {
-            this.guaranteedExecutionFee = data['guaranteedExecutionFee'];
+            _this.guaranteedExecutionFee = data['guaranteedExecutionFee'];
         }
         if (data['accountBalance'] !== undefined) {
-            this.accountBalance = data['accountBalance'];
+            _this.accountBalance = data['accountBalance'];
         }
         if (data['tradeOpened'] !== undefined) {
-            this.tradeOpened = new TradeOpen(data['tradeOpened']);
+            _this.tradeOpened = new TradeOpen(data['tradeOpened']);
         }
         if (data['tradesClosed'] !== undefined) {
-            this.tradesClosed = data['tradesClosed'].map((x) => new TradeReduce(x));
+            _this.tradesClosed = data['tradesClosed'].map(function (x) { return new TradeReduce(x); });
         }
         if (data['tradeReduced'] !== undefined) {
-            this.tradeReduced = new TradeReduce(data['tradeReduced']);
+            _this.tradeReduced = new TradeReduce(data['tradeReduced']);
         }
         if (data['halfSpreadCost'] !== undefined) {
-            this.halfSpreadCost = data['halfSpreadCost'];
+            _this.halfSpreadCost = data['halfSpreadCost'];
         }
+        return _this;
     }
-}
+    return OrderFillTransaction;
+}(base_1.Definition));
 exports.OrderFillTransaction = OrderFillTransaction;
 exports.OrderCancelTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2250,51 +2362,54 @@ exports.OrderCancelTransaction_Properties = [
     new base_1.Property('reason', 'Cancel Reason', 'The reason that the Order was cancelled.', 'primitive', 'transaction.OrderCancelReason'),
     new base_1.Property('replacedByOrderID', 'Replaced By Order ID', 'The ID of the Order that replaced this Order (only provided if this Order was cancelled for replacement).', 'primitive', 'order.OrderID'),
 ];
-class OrderCancelTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Cancel Order {orderID}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.OrderCancelTransaction_Properties;
+var OrderCancelTransaction = /** @class */ (function (_super) {
+    __extends(OrderCancelTransaction, _super);
+    function OrderCancelTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Cancel Order {orderID}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.OrderCancelTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'ORDER_CANCEL';
+            _this.type = 'ORDER_CANCEL';
         }
         if (data['orderID'] !== undefined) {
-            this.orderID = data['orderID'];
+            _this.orderID = data['orderID'];
         }
         if (data['clientOrderID'] !== undefined) {
-            this.clientOrderID = data['clientOrderID'];
+            _this.clientOrderID = data['clientOrderID'];
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['replacedByOrderID'] !== undefined) {
-            this.replacedByOrderID = data['replacedByOrderID'];
+            _this.replacedByOrderID = data['replacedByOrderID'];
         }
+        return _this;
     }
-}
+    return OrderCancelTransaction;
+}(base_1.Definition));
 exports.OrderCancelTransaction = OrderCancelTransaction;
 exports.OrderCancelRejectTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2308,48 +2423,51 @@ exports.OrderCancelRejectTransaction_Properties = [
     new base_1.Property('clientOrderID', 'Client Order ID', 'The client ID of the Order intended to be cancelled (only provided if the Order has a client Order ID).', 'primitive', 'order.OrderID'),
     new base_1.Property('rejectReason', 'Reject Reason', 'The reason that the Reject Transaction was created', 'primitive', 'transaction.TransactionRejectReason'),
 ];
-class OrderCancelRejectTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Order Cancel Reject {orderID}';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.OrderCancelRejectTransaction_Properties;
+var OrderCancelRejectTransaction = /** @class */ (function (_super) {
+    __extends(OrderCancelRejectTransaction, _super);
+    function OrderCancelRejectTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Order Cancel Reject {orderID}';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.OrderCancelRejectTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'ORDER_CANCEL_REJECT';
+            _this.type = 'ORDER_CANCEL_REJECT';
         }
         if (data['orderID'] !== undefined) {
-            this.orderID = data['orderID'];
+            _this.orderID = data['orderID'];
         }
         if (data['clientOrderID'] !== undefined) {
-            this.clientOrderID = data['clientOrderID'];
+            _this.clientOrderID = data['clientOrderID'];
         }
         if (data['rejectReason'] !== undefined) {
-            this.rejectReason = data['rejectReason'];
+            _this.rejectReason = data['rejectReason'];
         }
+        return _this;
     }
-}
+    return OrderCancelRejectTransaction;
+}(base_1.Definition));
 exports.OrderCancelRejectTransaction = OrderCancelRejectTransaction;
 exports.OrderClientExtensionsModifyTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2364,51 +2482,54 @@ exports.OrderClientExtensionsModifyTransaction_Properties = [
     new base_1.Property('clientExtensionsModify', 'Order Extensions', 'The new Client Extensions for the Order.', 'object', 'transaction.ClientExtensions'),
     new base_1.Property('tradeClientExtensionsModify', 'Trade Extensions', "The new Client Extensions for the Order's Trade on fill.", 'object', 'transaction.ClientExtensions'),
 ];
-class OrderClientExtensionsModifyTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Modify Order {orderID} Client Extensions';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.OrderClientExtensionsModifyTransaction_Properties;
+var OrderClientExtensionsModifyTransaction = /** @class */ (function (_super) {
+    __extends(OrderClientExtensionsModifyTransaction, _super);
+    function OrderClientExtensionsModifyTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Modify Order {orderID} Client Extensions';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.OrderClientExtensionsModifyTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'ORDER_CLIENT_EXTENSIONS_MODIFY';
+            _this.type = 'ORDER_CLIENT_EXTENSIONS_MODIFY';
         }
         if (data['orderID'] !== undefined) {
-            this.orderID = data['orderID'];
+            _this.orderID = data['orderID'];
         }
         if (data['clientOrderID'] !== undefined) {
-            this.clientOrderID = data['clientOrderID'];
+            _this.clientOrderID = data['clientOrderID'];
         }
         if (data['clientExtensionsModify'] !== undefined) {
-            this.clientExtensionsModify = new ClientExtensions(data['clientExtensionsModify']);
+            _this.clientExtensionsModify = new ClientExtensions(data['clientExtensionsModify']);
         }
         if (data['tradeClientExtensionsModify'] !== undefined) {
-            this.tradeClientExtensionsModify = new ClientExtensions(data['tradeClientExtensionsModify']);
+            _this.tradeClientExtensionsModify = new ClientExtensions(data['tradeClientExtensionsModify']);
         }
+        return _this;
     }
-}
+    return OrderClientExtensionsModifyTransaction;
+}(base_1.Definition));
 exports.OrderClientExtensionsModifyTransaction = OrderClientExtensionsModifyTransaction;
 exports.OrderClientExtensionsModifyRejectTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2424,54 +2545,57 @@ exports.OrderClientExtensionsModifyRejectTransaction_Properties = [
     new base_1.Property('tradeClientExtensionsModify', 'Trade Extensions', "The new Client Extensions for the Order's Trade on fill.", 'object', 'transaction.ClientExtensions'),
     new base_1.Property('rejectReason', 'Reject Reason', 'The reason that the Reject Transaction was created', 'primitive', 'transaction.TransactionRejectReason'),
 ];
-class OrderClientExtensionsModifyRejectTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Reject Modify Order {orderID} Client Extensions';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.OrderClientExtensionsModifyRejectTransaction_Properties;
+var OrderClientExtensionsModifyRejectTransaction = /** @class */ (function (_super) {
+    __extends(OrderClientExtensionsModifyRejectTransaction, _super);
+    function OrderClientExtensionsModifyRejectTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Reject Modify Order {orderID} Client Extensions';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.OrderClientExtensionsModifyRejectTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT';
+            _this.type = 'ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT';
         }
         if (data['orderID'] !== undefined) {
-            this.orderID = data['orderID'];
+            _this.orderID = data['orderID'];
         }
         if (data['clientOrderID'] !== undefined) {
-            this.clientOrderID = data['clientOrderID'];
+            _this.clientOrderID = data['clientOrderID'];
         }
         if (data['clientExtensionsModify'] !== undefined) {
-            this.clientExtensionsModify = new ClientExtensions(data['clientExtensionsModify']);
+            _this.clientExtensionsModify = new ClientExtensions(data['clientExtensionsModify']);
         }
         if (data['tradeClientExtensionsModify'] !== undefined) {
-            this.tradeClientExtensionsModify = new ClientExtensions(data['tradeClientExtensionsModify']);
+            _this.tradeClientExtensionsModify = new ClientExtensions(data['tradeClientExtensionsModify']);
         }
         if (data['rejectReason'] !== undefined) {
-            this.rejectReason = data['rejectReason'];
+            _this.rejectReason = data['rejectReason'];
         }
+        return _this;
     }
-}
+    return OrderClientExtensionsModifyRejectTransaction;
+}(base_1.Definition));
 exports.OrderClientExtensionsModifyRejectTransaction = OrderClientExtensionsModifyRejectTransaction;
 exports.TradeClientExtensionsModifyTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2485,48 +2609,51 @@ exports.TradeClientExtensionsModifyTransaction_Properties = [
     new base_1.Property('clientTradeID', 'Client Trade ID', "The original Client ID of the Trade who's client extensions are to be modified.", 'primitive', 'transaction.ClientID'),
     new base_1.Property('tradeClientExtensionsModify', 'Extensions', 'The new Client Extensions for the Trade.', 'object', 'transaction.ClientExtensions'),
 ];
-class TradeClientExtensionsModifyTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Modify Trade {tradeID} Client Extensions';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.TradeClientExtensionsModifyTransaction_Properties;
+var TradeClientExtensionsModifyTransaction = /** @class */ (function (_super) {
+    __extends(TradeClientExtensionsModifyTransaction, _super);
+    function TradeClientExtensionsModifyTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Modify Trade {tradeID} Client Extensions';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.TradeClientExtensionsModifyTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'TRADE_CLIENT_EXTENSIONS_MODIFY';
+            _this.type = 'TRADE_CLIENT_EXTENSIONS_MODIFY';
         }
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['clientTradeID'] !== undefined) {
-            this.clientTradeID = data['clientTradeID'];
+            _this.clientTradeID = data['clientTradeID'];
         }
         if (data['tradeClientExtensionsModify'] !== undefined) {
-            this.tradeClientExtensionsModify = new ClientExtensions(data['tradeClientExtensionsModify']);
+            _this.tradeClientExtensionsModify = new ClientExtensions(data['tradeClientExtensionsModify']);
         }
+        return _this;
     }
-}
+    return TradeClientExtensionsModifyTransaction;
+}(base_1.Definition));
 exports.TradeClientExtensionsModifyTransaction = TradeClientExtensionsModifyTransaction;
 exports.TradeClientExtensionsModifyRejectTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2541,51 +2668,54 @@ exports.TradeClientExtensionsModifyRejectTransaction_Properties = [
     new base_1.Property('tradeClientExtensionsModify', 'Extensions', 'The new Client Extensions for the Trade.', 'object', 'transaction.ClientExtensions'),
     new base_1.Property('rejectReason', 'Reject Reason', 'The reason that the Reject Transaction was created', 'primitive', 'transaction.TransactionRejectReason'),
 ];
-class TradeClientExtensionsModifyRejectTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Reject Modify Trade {tradeID} Client Extensions';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.TradeClientExtensionsModifyRejectTransaction_Properties;
+var TradeClientExtensionsModifyRejectTransaction = /** @class */ (function (_super) {
+    __extends(TradeClientExtensionsModifyRejectTransaction, _super);
+    function TradeClientExtensionsModifyRejectTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Reject Modify Trade {tradeID} Client Extensions';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.TradeClientExtensionsModifyRejectTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT';
+            _this.type = 'TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT';
         }
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['clientTradeID'] !== undefined) {
-            this.clientTradeID = data['clientTradeID'];
+            _this.clientTradeID = data['clientTradeID'];
         }
         if (data['tradeClientExtensionsModify'] !== undefined) {
-            this.tradeClientExtensionsModify = new ClientExtensions(data['tradeClientExtensionsModify']);
+            _this.tradeClientExtensionsModify = new ClientExtensions(data['tradeClientExtensionsModify']);
         }
         if (data['rejectReason'] !== undefined) {
-            this.rejectReason = data['rejectReason'];
+            _this.rejectReason = data['rejectReason'];
         }
+        return _this;
     }
-}
+    return TradeClientExtensionsModifyRejectTransaction;
+}(base_1.Definition));
 exports.TradeClientExtensionsModifyRejectTransaction = TradeClientExtensionsModifyRejectTransaction;
 exports.MarginCallEnterTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2596,39 +2726,42 @@ exports.MarginCallEnterTransaction_Properties = [
     new base_1.Property('requestID', 'Request ID', 'The Request ID of the request which generated the transaction.', 'primitive', 'transaction.RequestID'),
     new base_1.Property('type', 'Type', 'The Type of the Transaction. Always set to "MARGIN_CALL_ENTER" for an MarginCallEnterTransaction.', 'primitive', 'transaction.TransactionType'),
 ];
-class MarginCallEnterTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Margin Call Enter';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.MarginCallEnterTransaction_Properties;
+var MarginCallEnterTransaction = /** @class */ (function (_super) {
+    __extends(MarginCallEnterTransaction, _super);
+    function MarginCallEnterTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Margin Call Enter';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.MarginCallEnterTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'MARGIN_CALL_ENTER';
+            _this.type = 'MARGIN_CALL_ENTER';
         }
+        return _this;
     }
-}
+    return MarginCallEnterTransaction;
+}(base_1.Definition));
 exports.MarginCallEnterTransaction = MarginCallEnterTransaction;
 exports.MarginCallExtendTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2640,42 +2773,45 @@ exports.MarginCallExtendTransaction_Properties = [
     new base_1.Property('type', 'Type', 'The Type of the Transaction. Always set to "MARGIN_CALL_EXTEND" for an MarginCallExtendTransaction.', 'primitive', 'transaction.TransactionType'),
     new base_1.Property('extensionNumber', 'Extension Number', "The number of the extensions to the Account's current margin call that have been applied. This value will be set to 1 for the first MarginCallExtend Transaction", 'primitive', 'integer'),
 ];
-class MarginCallExtendTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Margin Call Enter';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.MarginCallExtendTransaction_Properties;
+var MarginCallExtendTransaction = /** @class */ (function (_super) {
+    __extends(MarginCallExtendTransaction, _super);
+    function MarginCallExtendTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Margin Call Enter';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.MarginCallExtendTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'MARGIN_CALL_EXTEND';
+            _this.type = 'MARGIN_CALL_EXTEND';
         }
         if (data['extensionNumber'] !== undefined) {
-            this.extensionNumber = data['extensionNumber'];
+            _this.extensionNumber = data['extensionNumber'];
         }
+        return _this;
     }
-}
+    return MarginCallExtendTransaction;
+}(base_1.Definition));
 exports.MarginCallExtendTransaction = MarginCallExtendTransaction;
 exports.MarginCallExitTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2686,39 +2822,42 @@ exports.MarginCallExitTransaction_Properties = [
     new base_1.Property('requestID', 'Request ID', 'The Request ID of the request which generated the transaction.', 'primitive', 'transaction.RequestID'),
     new base_1.Property('type', 'Type', 'The Type of the Transaction. Always set to "MARGIN_CALL_EXIT" for an MarginCallExitTransaction.', 'primitive', 'transaction.TransactionType'),
 ];
-class MarginCallExitTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Margin Call Exit';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.MarginCallExitTransaction_Properties;
+var MarginCallExitTransaction = /** @class */ (function (_super) {
+    __extends(MarginCallExitTransaction, _super);
+    function MarginCallExitTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Margin Call Exit';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.MarginCallExitTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'MARGIN_CALL_EXIT';
+            _this.type = 'MARGIN_CALL_EXIT';
         }
+        return _this;
     }
-}
+    return MarginCallExitTransaction;
+}(base_1.Definition));
 exports.MarginCallExitTransaction = MarginCallExitTransaction;
 exports.DelayedTradeClosureTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2731,45 +2870,48 @@ exports.DelayedTradeClosureTransaction_Properties = [
     new base_1.Property('reason', 'Reason', 'The reason for the delayed trade closure', 'primitive', 'transaction.MarketOrderReason'),
     new base_1.Property('tradeIDs', "Trade ID's", "List of Trade ID's identifying the open trades that will be closed when their respective instruments become tradeable", 'primitive', 'trade.TradeID'),
 ];
-class DelayedTradeClosureTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Delayed Trade Closure';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.DelayedTradeClosureTransaction_Properties;
+var DelayedTradeClosureTransaction = /** @class */ (function (_super) {
+    __extends(DelayedTradeClosureTransaction, _super);
+    function DelayedTradeClosureTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Delayed Trade Closure';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.DelayedTradeClosureTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'DELAYED_TRADE_CLOSURE';
+            _this.type = 'DELAYED_TRADE_CLOSURE';
         }
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
         if (data['tradeIDs'] !== undefined) {
-            this.tradeIDs = data['tradeIDs'];
+            _this.tradeIDs = data['tradeIDs'];
         }
+        return _this;
     }
-}
+    return DelayedTradeClosureTransaction;
+}(base_1.Definition));
 exports.DelayedTradeClosureTransaction = DelayedTradeClosureTransaction;
 exports.DailyFinancingTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2784,51 +2926,54 @@ exports.DailyFinancingTransaction_Properties = [
     new base_1.Property('accountFinancingMode', 'Account Financing Mode', 'The account financing mode at the time of the daily financing.', 'primitive', 'account.AccountFinancingMode'),
     new base_1.Property('positionFinancings', 'Per-Position Financing', 'The financing paid/collected for each Position in the Account.', 'array_object', 'PositionFinancing'),
 ];
-class DailyFinancingTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Daily Account Financing ({financing})';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.DailyFinancingTransaction_Properties;
+var DailyFinancingTransaction = /** @class */ (function (_super) {
+    __extends(DailyFinancingTransaction, _super);
+    function DailyFinancingTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Daily Account Financing ({financing})';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.DailyFinancingTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'DAILY_FINANCING';
+            _this.type = 'DAILY_FINANCING';
         }
         if (data['financing'] !== undefined) {
-            this.financing = data['financing'];
+            _this.financing = data['financing'];
         }
         if (data['accountBalance'] !== undefined) {
-            this.accountBalance = data['accountBalance'];
+            _this.accountBalance = data['accountBalance'];
         }
         if (data['accountFinancingMode'] !== undefined) {
-            this.accountFinancingMode = data['accountFinancingMode'];
+            _this.accountFinancingMode = data['accountFinancingMode'];
         }
         if (data['positionFinancings'] !== undefined) {
-            this.positionFinancings = data['positionFinancings'].map((x) => new PositionFinancing(x));
+            _this.positionFinancings = data['positionFinancings'].map(function (x) { return new PositionFinancing(x); });
         }
+        return _this;
     }
-}
+    return DailyFinancingTransaction;
+}(base_1.Definition));
 exports.DailyFinancingTransaction = DailyFinancingTransaction;
 exports.ResetResettablePLTransaction_Properties = [
     new base_1.Property('id', 'Transaction ID', "The Transaction's Identifier.", 'primitive', 'transaction.TransactionID'),
@@ -2839,63 +2984,69 @@ exports.ResetResettablePLTransaction_Properties = [
     new base_1.Property('requestID', 'Request ID', 'The Request ID of the request which generated the transaction.', 'primitive', 'transaction.RequestID'),
     new base_1.Property('type', 'Type', 'The Type of the Transaction. Always set to "RESET_RESETTABLE_PL" for a ResetResettablePLTransaction.', 'primitive', 'transaction.TransactionType'),
 ];
-class ResetResettablePLTransaction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'PL Reset';
-        this._nameFormat = 'Transaction {id}';
-        this._properties = exports.ResetResettablePLTransaction_Properties;
+var ResetResettablePLTransaction = /** @class */ (function (_super) {
+    __extends(ResetResettablePLTransaction, _super);
+    function ResetResettablePLTransaction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'PL Reset';
+        _this._nameFormat = 'Transaction {id}';
+        _this._properties = exports.ResetResettablePLTransaction_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
         if (data['userID'] !== undefined) {
-            this.userID = data['userID'];
+            _this.userID = data['userID'];
         }
         if (data['accountID'] !== undefined) {
-            this.accountID = data['accountID'];
+            _this.accountID = data['accountID'];
         }
         if (data['batchID'] !== undefined) {
-            this.batchID = data['batchID'];
+            _this.batchID = data['batchID'];
         }
         if (data['requestID'] !== undefined) {
-            this.requestID = data['requestID'];
+            _this.requestID = data['requestID'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'RESET_RESETTABLE_PL';
+            _this.type = 'RESET_RESETTABLE_PL';
         }
+        return _this;
     }
-}
+    return ResetResettablePLTransaction;
+}(base_1.Definition));
 exports.ResetResettablePLTransaction = ResetResettablePLTransaction;
 exports.ClientExtensions_Properties = [
     new base_1.Property('id', 'Client ID', 'The Client ID of the Order/Trade', 'primitive', 'transaction.ClientID'),
     new base_1.Property('tag', 'Tag', 'A tag associated with the Order/Trade', 'primitive', 'transaction.ClientTag'),
     new base_1.Property('comment', 'Comment', 'A comment associated with the Order/Trade', 'primitive', 'transaction.ClientComment'),
 ];
-class ClientExtensions extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.ClientExtensions_Properties;
+var ClientExtensions = /** @class */ (function (_super) {
+    __extends(ClientExtensions, _super);
+    function ClientExtensions(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.ClientExtensions_Properties;
         data = data || {};
         if (data['id'] !== undefined) {
-            this.id = data['id'];
+            _this.id = data['id'];
         }
         if (data['tag'] !== undefined) {
-            this.tag = data['tag'];
+            _this.tag = data['tag'];
         }
         if (data['comment'] !== undefined) {
-            this.comment = data['comment'];
+            _this.comment = data['comment'];
         }
+        return _this;
     }
-}
+    return ClientExtensions;
+}(base_1.Definition));
 exports.ClientExtensions = ClientExtensions;
 exports.TakeProfitDetails_Properties = [
     new base_1.Property('price', 'Price', 'The price that the Take Profit Order will be triggered at. Only one of the price and distance fields may be specified.', 'primitive', 'pricing_common.PriceValue'),
@@ -2903,30 +3054,33 @@ exports.TakeProfitDetails_Properties = [
     new base_1.Property('gtdTime', 'GTD Time', 'The date when the Take Profit Order will be cancelled on if timeInForce is GTD.', 'primitive', 'primitives.DateTime'),
     new base_1.Property('clientExtensions', 'Client Extensions', 'The Client Extensions to add to the Take Profit Order when created.', 'object', 'transaction.ClientExtensions'),
 ];
-class TakeProfitDetails extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.TakeProfitDetails_Properties;
+var TakeProfitDetails = /** @class */ (function (_super) {
+    __extends(TakeProfitDetails, _super);
+    function TakeProfitDetails(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.TakeProfitDetails_Properties;
         data = data || {};
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
+        return _this;
     }
-}
+    return TakeProfitDetails;
+}(base_1.Definition));
 exports.TakeProfitDetails = TakeProfitDetails;
 exports.StopLossDetails_Properties = [
     new base_1.Property('price', 'Price', 'The price that the Stop Loss Order will be triggered at. Only one of the price and distance fields may be specified.', 'primitive', 'pricing_common.PriceValue'),
@@ -2936,36 +3090,39 @@ exports.StopLossDetails_Properties = [
     new base_1.Property('clientExtensions', 'Client Extensions', 'The Client Extensions to add to the Stop Loss Order when created.', 'object', 'transaction.ClientExtensions'),
     new base_1.Property('guaranteed', 'Guaranteed', 'Flag indicating that the price for the Stop Loss Order is guaranteed. The default value depends on the GuaranteedStopLossOrderMode of the account, if it is REQUIRED, the default will be true, for DISABLED or ENABLED the default is false.', 'primitive', 'boolean'),
 ];
-class StopLossDetails extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.StopLossDetails_Properties;
+var StopLossDetails = /** @class */ (function (_super) {
+    __extends(StopLossDetails, _super);
+    function StopLossDetails(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.StopLossDetails_Properties;
         data = data || {};
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['distance'] !== undefined) {
-            this.distance = data['distance'];
+            _this.distance = data['distance'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['guaranteed'] !== undefined) {
-            this.guaranteed = data['guaranteed'];
+            _this.guaranteed = data['guaranteed'];
         }
+        return _this;
     }
-}
+    return StopLossDetails;
+}(base_1.Definition));
 exports.StopLossDetails = StopLossDetails;
 exports.TrailingStopLossDetails_Properties = [
     new base_1.Property('distance', 'Trailing Price Distance', "The distance (in price units) from the Trade's fill price that the Trailing Stop Loss Order will be triggered at.", 'primitive', 'primitives.DecimalNumber'),
@@ -2973,30 +3130,33 @@ exports.TrailingStopLossDetails_Properties = [
     new base_1.Property('gtdTime', 'GTD Time', 'The date when the Trailing Stop Loss Order will be cancelled on if timeInForce is GTD.', 'primitive', 'primitives.DateTime'),
     new base_1.Property('clientExtensions', 'Client Extensions', 'The Client Extensions to add to the Trailing Stop Loss Order when created.', 'object', 'transaction.ClientExtensions'),
 ];
-class TrailingStopLossDetails extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.TrailingStopLossDetails_Properties;
+var TrailingStopLossDetails = /** @class */ (function (_super) {
+    __extends(TrailingStopLossDetails, _super);
+    function TrailingStopLossDetails(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.TrailingStopLossDetails_Properties;
         data = data || {};
         if (data['distance'] !== undefined) {
-            this.distance = data['distance'];
+            _this.distance = data['distance'];
         }
         if (data['timeInForce'] !== undefined) {
-            this.timeInForce = data['timeInForce'];
+            _this.timeInForce = data['timeInForce'];
         }
         else {
-            this.timeInForce = 'GTC';
+            _this.timeInForce = 'GTC';
         }
         if (data['gtdTime'] !== undefined) {
-            this.gtdTime = data['gtdTime'];
+            _this.gtdTime = data['gtdTime'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
+        return _this;
     }
-}
+    return TrailingStopLossDetails;
+}(base_1.Definition));
 exports.TrailingStopLossDetails = TrailingStopLossDetails;
 exports.TradeOpen_Properties = [
     new base_1.Property('tradeID', 'Trade ID', 'The ID of the Trade that was opened', 'primitive', 'trade.TradeID'),
@@ -3007,36 +3167,39 @@ exports.TradeOpen_Properties = [
     new base_1.Property('halfSpreadCost', 'Half Spread Cost', 'The half spread cost for the trade open. This can be a positive or negative value and is represented in the home currency of the Account.', 'primitive', 'primitives.AccountUnits'),
     new base_1.Property('initialMarginRequired', 'Initial Margin Required', "The margin required at the time the Trade was created. Note, this is the 'pure' margin required, it is not the 'effective' margin used that factors in the trade risk if a GSLO is attached to the trade.", 'primitive', 'primitives.AccountUnits'),
 ];
-class TradeOpen extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.TradeOpen_Properties;
+var TradeOpen = /** @class */ (function (_super) {
+    __extends(TradeOpen, _super);
+    function TradeOpen(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.TradeOpen_Properties;
         data = data || {};
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['guaranteedExecutionFee'] !== undefined) {
-            this.guaranteedExecutionFee = data['guaranteedExecutionFee'];
+            _this.guaranteedExecutionFee = data['guaranteedExecutionFee'];
         }
         if (data['clientExtensions'] !== undefined) {
-            this.clientExtensions = new ClientExtensions(data['clientExtensions']);
+            _this.clientExtensions = new ClientExtensions(data['clientExtensions']);
         }
         if (data['halfSpreadCost'] !== undefined) {
-            this.halfSpreadCost = data['halfSpreadCost'];
+            _this.halfSpreadCost = data['halfSpreadCost'];
         }
         if (data['initialMarginRequired'] !== undefined) {
-            this.initialMarginRequired = data['initialMarginRequired'];
+            _this.initialMarginRequired = data['initialMarginRequired'];
         }
+        return _this;
     }
-}
+    return TradeOpen;
+}(base_1.Definition));
 exports.TradeOpen = TradeOpen;
 exports.TradeReduce_Properties = [
     new base_1.Property('tradeID', 'Trade ID', 'The ID of the Trade that was reduced or closed', 'primitive', 'trade.TradeID'),
@@ -3047,234 +3210,264 @@ exports.TradeReduce_Properties = [
     new base_1.Property('guaranteedExecutionFee', 'Guranteed Execution Fee', 'This is the fee that is charged for closing the Trade if it has a guaranteed Stop Loss Order attached to it.', 'primitive', 'primitives.AccountUnits'),
     new base_1.Property('halfSpreadCost', 'Half Spread Cost', 'The half spread cost for the trade reduce/close. This can be a positive or negative value and is represented in the home currency of the Account.', 'primitive', 'primitives.AccountUnits'),
 ];
-class TradeReduce extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.TradeReduce_Properties;
+var TradeReduce = /** @class */ (function (_super) {
+    __extends(TradeReduce, _super);
+    function TradeReduce(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.TradeReduce_Properties;
         data = data || {};
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['realizedPL'] !== undefined) {
-            this.realizedPL = data['realizedPL'];
+            _this.realizedPL = data['realizedPL'];
         }
         if (data['financing'] !== undefined) {
-            this.financing = data['financing'];
+            _this.financing = data['financing'];
         }
         if (data['guaranteedExecutionFee'] !== undefined) {
-            this.guaranteedExecutionFee = data['guaranteedExecutionFee'];
+            _this.guaranteedExecutionFee = data['guaranteedExecutionFee'];
         }
         if (data['halfSpreadCost'] !== undefined) {
-            this.halfSpreadCost = data['halfSpreadCost'];
+            _this.halfSpreadCost = data['halfSpreadCost'];
         }
+        return _this;
     }
-}
+    return TradeReduce;
+}(base_1.Definition));
 exports.TradeReduce = TradeReduce;
 exports.MarketOrderTradeClose_Properties = [
     new base_1.Property('tradeID', 'Trade ID', 'The ID of the Trade requested to be closed', 'primitive', 'trade.TradeID'),
     new base_1.Property('clientTradeID', 'Client Trade ID', 'The client ID of the Trade requested to be closed', 'primitive', 'string'),
     new base_1.Property('units', 'Amount', 'Indication of how much of the Trade to close. Either "ALL", or a DecimalNumber reflection a partial close of the Trade.', 'primitive', 'string'),
 ];
-class MarketOrderTradeClose extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.MarketOrderTradeClose_Properties;
+var MarketOrderTradeClose = /** @class */ (function (_super) {
+    __extends(MarketOrderTradeClose, _super);
+    function MarketOrderTradeClose(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.MarketOrderTradeClose_Properties;
         data = data || {};
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['clientTradeID'] !== undefined) {
-            this.clientTradeID = data['clientTradeID'];
+            _this.clientTradeID = data['clientTradeID'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
+        return _this;
     }
-}
+    return MarketOrderTradeClose;
+}(base_1.Definition));
 exports.MarketOrderTradeClose = MarketOrderTradeClose;
 exports.MarketOrderMarginCloseout_Properties = [
     new base_1.Property('reason', 'Reason', 'The reason the Market Order was created to perform a margin closeout', 'primitive', 'transaction.MarketOrderMarginCloseoutReason'),
 ];
-class MarketOrderMarginCloseout extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.MarketOrderMarginCloseout_Properties;
+var MarketOrderMarginCloseout = /** @class */ (function (_super) {
+    __extends(MarketOrderMarginCloseout, _super);
+    function MarketOrderMarginCloseout(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.MarketOrderMarginCloseout_Properties;
         data = data || {};
         if (data['reason'] !== undefined) {
-            this.reason = data['reason'];
+            _this.reason = data['reason'];
         }
+        return _this;
     }
-}
+    return MarketOrderMarginCloseout;
+}(base_1.Definition));
 exports.MarketOrderMarginCloseout = MarketOrderMarginCloseout;
 exports.MarketOrderDelayedTradeClose_Properties = [
     new base_1.Property('tradeID', 'Trade ID', 'The ID of the Trade being closed', 'primitive', 'trade.TradeID'),
     new base_1.Property('clientTradeID', 'Client Trade ID', 'The Client ID of the Trade being closed', 'primitive', 'trade.TradeID'),
     new base_1.Property('sourceTransactionID', 'Source Transaction ID', 'The Transaction ID of the DelayedTradeClosure transaction to which this Delayed Trade Close belongs to', 'primitive', 'transaction.TransactionID'),
 ];
-class MarketOrderDelayedTradeClose extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.MarketOrderDelayedTradeClose_Properties;
+var MarketOrderDelayedTradeClose = /** @class */ (function (_super) {
+    __extends(MarketOrderDelayedTradeClose, _super);
+    function MarketOrderDelayedTradeClose(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.MarketOrderDelayedTradeClose_Properties;
         data = data || {};
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['clientTradeID'] !== undefined) {
-            this.clientTradeID = data['clientTradeID'];
+            _this.clientTradeID = data['clientTradeID'];
         }
         if (data['sourceTransactionID'] !== undefined) {
-            this.sourceTransactionID = data['sourceTransactionID'];
+            _this.sourceTransactionID = data['sourceTransactionID'];
         }
+        return _this;
     }
-}
+    return MarketOrderDelayedTradeClose;
+}(base_1.Definition));
 exports.MarketOrderDelayedTradeClose = MarketOrderDelayedTradeClose;
 exports.MarketOrderPositionCloseout_Properties = [
     new base_1.Property('instrument', 'Instrument', 'The instrument of the Position being closed out.', 'primitive', 'primitives.InstrumentName'),
     new base_1.Property('units', 'Amount', 'Indication of how much of the Position to close. Either "ALL", or a DecimalNumber reflection a partial close of the Trade. The DecimalNumber must always be positive, and represent a number that doesn\'t exceed the absolute size of the Position.', 'primitive', 'string'),
 ];
-class MarketOrderPositionCloseout extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.MarketOrderPositionCloseout_Properties;
+var MarketOrderPositionCloseout = /** @class */ (function (_super) {
+    __extends(MarketOrderPositionCloseout, _super);
+    function MarketOrderPositionCloseout(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.MarketOrderPositionCloseout_Properties;
         data = data || {};
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['units'] !== undefined) {
-            this.units = data['units'];
+            _this.units = data['units'];
         }
+        return _this;
     }
-}
+    return MarketOrderPositionCloseout;
+}(base_1.Definition));
 exports.MarketOrderPositionCloseout = MarketOrderPositionCloseout;
 exports.LiquidityRegenerationSchedule_Properties = [
     new base_1.Property('steps', 'Steps', 'The steps in the Liquidity Regeneration Schedule', 'array_object', 'LiquidityRegenerationScheduleStep'),
 ];
-class LiquidityRegenerationSchedule extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.LiquidityRegenerationSchedule_Properties;
+var LiquidityRegenerationSchedule = /** @class */ (function (_super) {
+    __extends(LiquidityRegenerationSchedule, _super);
+    function LiquidityRegenerationSchedule(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.LiquidityRegenerationSchedule_Properties;
         data = data || {};
         if (data['steps'] !== undefined) {
-            this.steps = data['steps'].map((x) => new LiquidityRegenerationScheduleStep(x));
+            _this.steps = data['steps'].map(function (x) { return new LiquidityRegenerationScheduleStep(x); });
         }
+        return _this;
     }
-}
+    return LiquidityRegenerationSchedule;
+}(base_1.Definition));
 exports.LiquidityRegenerationSchedule = LiquidityRegenerationSchedule;
 exports.LiquidityRegenerationScheduleStep_Properties = [
     new base_1.Property('timestamp', 'Time', 'The timestamp of the schedule step.', 'primitive', 'primitives.DateTime'),
     new base_1.Property('bidLiquidityUsed', 'Bid Liquidity Used', 'The amount of bid liquidity used at this step in the schedule.', 'primitive', 'primitives.DecimalNumber'),
     new base_1.Property('askLiquidityUsed', 'Ask Liquidity Used', 'The amount of ask liquidity used at this step in the schedule.', 'primitive', 'primitives.DecimalNumber'),
 ];
-class LiquidityRegenerationScheduleStep extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.LiquidityRegenerationScheduleStep_Properties;
+var LiquidityRegenerationScheduleStep = /** @class */ (function (_super) {
+    __extends(LiquidityRegenerationScheduleStep, _super);
+    function LiquidityRegenerationScheduleStep(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.LiquidityRegenerationScheduleStep_Properties;
         data = data || {};
         if (data['timestamp'] !== undefined) {
-            this.timestamp = data['timestamp'];
+            _this.timestamp = data['timestamp'];
         }
         if (data['bidLiquidityUsed'] !== undefined) {
-            this.bidLiquidityUsed = data['bidLiquidityUsed'];
+            _this.bidLiquidityUsed = data['bidLiquidityUsed'];
         }
         if (data['askLiquidityUsed'] !== undefined) {
-            this.askLiquidityUsed = data['askLiquidityUsed'];
+            _this.askLiquidityUsed = data['askLiquidityUsed'];
         }
+        return _this;
     }
-}
+    return LiquidityRegenerationScheduleStep;
+}(base_1.Definition));
 exports.LiquidityRegenerationScheduleStep = LiquidityRegenerationScheduleStep;
 exports.OpenTradeFinancing_Properties = [
     new base_1.Property('tradeID', 'tradeID', 'The ID of the Trade that financing is being paid/collected for.', 'primitive', 'trade.TradeID'),
     new base_1.Property('financing', 'Financing', 'The amount of financing paid/collected for the Trade.', 'primitive', 'primitives.AccountUnits'),
 ];
-class OpenTradeFinancing extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.OpenTradeFinancing_Properties;
+var OpenTradeFinancing = /** @class */ (function (_super) {
+    __extends(OpenTradeFinancing, _super);
+    function OpenTradeFinancing(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.OpenTradeFinancing_Properties;
         data = data || {};
         if (data['tradeID'] !== undefined) {
-            this.tradeID = data['tradeID'];
+            _this.tradeID = data['tradeID'];
         }
         if (data['financing'] !== undefined) {
-            this.financing = data['financing'];
+            _this.financing = data['financing'];
         }
+        return _this;
     }
-}
+    return OpenTradeFinancing;
+}(base_1.Definition));
 exports.OpenTradeFinancing = OpenTradeFinancing;
 exports.PositionFinancing_Properties = [
     new base_1.Property('instrument', 'Instrument', 'The instrument of the Position that financing is being paid/collected for.', 'primitive', 'primitives.InstrumentName'),
     new base_1.Property('financing', 'Financing', 'The amount of financing paid/collected for the Position.', 'primitive', 'primitives.AccountUnits'),
     new base_1.Property('openTradeFinancings', 'Trade Financings', 'The financing paid/collecte for each open Trade within the Position.', 'array_object', 'OpenTradeFinancing'),
 ];
-class PositionFinancing extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.PositionFinancing_Properties;
+var PositionFinancing = /** @class */ (function (_super) {
+    __extends(PositionFinancing, _super);
+    function PositionFinancing(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.PositionFinancing_Properties;
         data = data || {};
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['financing'] !== undefined) {
-            this.financing = data['financing'];
+            _this.financing = data['financing'];
         }
         if (data['openTradeFinancings'] !== undefined) {
-            this.openTradeFinancings = data['openTradeFinancings'].map((x) => new OpenTradeFinancing(x));
+            _this.openTradeFinancings = data['openTradeFinancings'].map(function (x) { return new OpenTradeFinancing(x); });
         }
+        return _this;
     }
-}
+    return PositionFinancing;
+}(base_1.Definition));
 exports.PositionFinancing = PositionFinancing;
 exports.TransactionHeartbeat_Properties = [
     new base_1.Property('type', 'type', 'The string "HEARTBEAT"', 'primitive', 'string'),
     new base_1.Property('lastTransactionID', 'lastTransactionID', 'The ID of the most recent Transaction created for the Account', 'primitive', 'transaction.TransactionID'),
     new base_1.Property('time', 'time', 'The date/time when the TransactionHeartbeat was created.', 'primitive', 'primitives.DateTime'),
 ];
-class TransactionHeartbeat extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Transaction Heartbeat {time}';
-        this._nameFormat = '';
-        this._properties = exports.TransactionHeartbeat_Properties;
+var TransactionHeartbeat = /** @class */ (function (_super) {
+    __extends(TransactionHeartbeat, _super);
+    function TransactionHeartbeat(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Transaction Heartbeat {time}';
+        _this._nameFormat = '';
+        _this._properties = exports.TransactionHeartbeat_Properties;
         data = data || {};
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'HEARTBEAT';
+            _this.type = 'HEARTBEAT';
         }
         if (data['lastTransactionID'] !== undefined) {
-            this.lastTransactionID = data['lastTransactionID'];
+            _this.lastTransactionID = data['lastTransactionID'];
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
+        return _this;
     }
-}
+    return TransactionHeartbeat;
+}(base_1.Definition));
 exports.TransactionHeartbeat = TransactionHeartbeat;
-class EntitySpec {
-    constructor(context) {
+var EntitySpec = /** @class */ (function () {
+    function EntitySpec(context) {
         this.context = context;
         this.Transaction = Transaction;
         this.CreateTransaction = CreateTransaction;
@@ -3328,11 +3521,11 @@ class EntitySpec {
         this.PositionFinancing = PositionFinancing;
         this.TransactionHeartbeat = TransactionHeartbeat;
     }
-    list(accountID, queryParams, responseHandler) {
+    EntitySpec.prototype.list = function (accountID, queryParams, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/transactions';
+        var path = '/v3/accounts/{accountID}/transactions';
         queryParams = queryParams || {};
         path = path.replace('{' + 'accountID' + '}', accountID);
         path = path + '?';
@@ -3348,14 +3541,14 @@ class EntitySpec {
         if (typeof queryParams['type'] !== 'undefined') {
             path = path + 'type=' + queryParams['type'] + '&';
         }
-        let body = {};
-        let handleResponse = (err, response) => {
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['from'] !== undefined) {
@@ -3407,22 +3600,22 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('GET', path, body, undefined, handleResponse);
-    }
-    get(accountID, transactionID, responseHandler) {
+    };
+    EntitySpec.prototype.get = function (accountID, transactionID, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/transactions/{transactionID}';
+        var path = '/v3/accounts/{accountID}/transactions/{transactionID}';
         path = path.replace('{' + 'accountID' + '}', accountID);
         path = path.replace('{' + 'transactionID' + '}', transactionID);
-        let body = {};
-        let handleResponse = (err, response) => {
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['transaction'] !== undefined) {
@@ -3453,12 +3646,12 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('GET', path, body, undefined, handleResponse);
-    }
-    range(accountID, queryParams, responseHandler) {
+    };
+    EntitySpec.prototype.range = function (accountID, queryParams, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/transactions/idrange';
+        var path = '/v3/accounts/{accountID}/transactions/idrange';
         queryParams = queryParams || {};
         path = path.replace('{' + 'accountID' + '}', accountID);
         path = path + '?';
@@ -3471,18 +3664,18 @@ class EntitySpec {
         if (typeof queryParams['type'] !== 'undefined') {
             path = path + 'type=' + queryParams['type'] + '&';
         }
-        let body = {};
-        let handleResponse = (err, response) => {
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['transactions'] !== undefined) {
-                        response.body.transactions = msg['transactions'].map((x) => Transaction.create(x));
+                        response.body.transactions = msg['transactions'].map(function (x) { return Transaction.create(x); });
                     }
                     if (msg['lastTransactionID'] !== undefined) {
                         response.body.lastTransactionID = msg['lastTransactionID'];
@@ -3513,30 +3706,30 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('GET', path, body, undefined, handleResponse);
-    }
-    since(accountID, queryParams, responseHandler) {
+    };
+    EntitySpec.prototype.since = function (accountID, queryParams, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
-        let path = '/v3/accounts/{accountID}/transactions/sinceid';
+        var path = '/v3/accounts/{accountID}/transactions/sinceid';
         queryParams = queryParams || {};
         path = path.replace('{' + 'accountID' + '}', accountID);
         path = path + '?';
         if (typeof queryParams['id'] !== 'undefined') {
             path = path + 'id=' + queryParams['id'] + '&';
         }
-        let body = {};
-        let handleResponse = (err, response) => {
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['transactions'] !== undefined) {
-                        response.body.transactions = msg['transactions'].map((x) => Transaction.create(x));
+                        response.body.transactions = msg['transactions'].map(function (x) { return Transaction.create(x); });
                     }
                     if (msg['lastTransactionID'] !== undefined) {
                         response.body.lastTransactionID = msg['lastTransactionID'];
@@ -3567,24 +3760,24 @@ class EntitySpec {
             responseHandler(null, response);
         };
         return this.context.request('GET', path, body, undefined, handleResponse);
-    }
-    stream(accountID, streamChunkHandler, responseHandler) {
+    };
+    EntitySpec.prototype.stream = function (accountID, streamChunkHandler, responseHandler) {
         if (!responseHandler) {
             throw 'No responseHandler provided for API call';
         }
         if (!streamChunkHandler) {
             throw 'No streamChunkHandler provided for streaming API call';
         }
-        let path = '/v3/accounts/{accountID}/transactions/stream';
+        var path = '/v3/accounts/{accountID}/transactions/stream';
         path = path.replace('{' + 'accountID' + '}', accountID);
-        let body = {};
-        let handleResponse = (err, response) => {
+        var body = {};
+        var handleResponse = function (err, response) {
             if (err) {
                 responseHandler(err, null);
                 return;
             }
             if (response.contentType.startsWith('application/json')) {
-                let msg = JSON.parse(response.rawBody);
+                var msg = JSON.parse(response.rawBody);
                 response.body = {};
                 if (response.statusCode == 200) {
                     if (msg['transaction'] !== undefined) {
@@ -3617,8 +3810,8 @@ class EntitySpec {
             responseHandler(null, response);
         };
         function generateStreamParser(streamChunkHandler) {
-            return (chunk) => {
-                let msg = JSON.parse(chunk);
+            return function (chunk) {
+                var msg = JSON.parse(chunk);
                 if (msg.type == 'HEARTBEAT') {
                     streamChunkHandler(new TransactionHeartbeat(msg));
                 }
@@ -3628,49 +3821,66 @@ class EntitySpec {
             };
         }
         return this.context.request('GET', path, body, generateStreamParser(streamChunkHandler), handleResponse);
-    }
-}
+    };
+    return EntitySpec;
+}());
 exports.EntitySpec = EntitySpec;
-class API {
-    constructor(context, resolver) {
+var API = /** @class */ (function () {
+    function API(context, resolver) {
         this.context = context;
         this.resolver = resolver;
     }
-    list(accountID, body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).list(accountID, body, this.resolver(resolve, reject));
+    API.prototype.list = function (accountID, body) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).list(accountID, body, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    get(accountID, transactionID) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).get(accountID, transactionID, this.resolver(resolve, reject));
+    };
+    API.prototype.get = function (accountID, transactionID) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).get(accountID, transactionID, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    range(accountID, body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).range(accountID, body, this.resolver(resolve, reject));
+    };
+    API.prototype.range = function (accountID, body) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).range(accountID, body, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    since(accountID, body) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).since(accountID, body, this.resolver(resolve, reject));
+    };
+    API.prototype.since = function (accountID, body) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).since(accountID, body, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-    stream(accountID, streamHandler) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return new Promise((resolve, reject) => {
-                new EntitySpec(this.context).stream(accountID, streamHandler, this.resolver(resolve, reject));
+    };
+    API.prototype.stream = function (accountID, streamHandler) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        new EntitySpec(_this.context).stream(accountID, streamHandler, _this.resolver(resolve, reject));
+                    })];
             });
         });
-    }
-}
+    };
+    return API;
+}());
 exports.API = API;
 //# sourceMappingURL=transaction.js.map

@@ -1,34 +1,51 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-const base_1 = require("./base");
+var base_1 = require("./base");
 exports.MT4TransactionHeartbeat_Properties = [
     new base_1.Property('type', 'type', 'The string "HEARTBEAT"', 'primitive', 'string'),
     new base_1.Property('time', 'time', 'The date/time when the TransactionHeartbeat was created.', 'primitive', 'primitives.DateTime'),
 ];
-class MT4TransactionHeartbeat extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = 'Transaction Heartbeat {time}';
-        this._nameFormat = '';
-        this._properties = exports.MT4TransactionHeartbeat_Properties;
+var MT4TransactionHeartbeat = /** @class */ (function (_super) {
+    __extends(MT4TransactionHeartbeat, _super);
+    function MT4TransactionHeartbeat(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = 'Transaction Heartbeat {time}';
+        _this._nameFormat = '';
+        _this._properties = exports.MT4TransactionHeartbeat_Properties;
         data = data || {};
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         else {
-            this.type = 'HEARTBEAT';
+            _this.type = 'HEARTBEAT';
         }
         if (data['time'] !== undefined) {
-            this.time = data['time'];
+            _this.time = data['time'];
         }
+        return _this;
     }
-}
+    return MT4TransactionHeartbeat;
+}(base_1.Definition));
 exports.MT4TransactionHeartbeat = MT4TransactionHeartbeat;
-class EntitySpec {
-    constructor(context) {
+var EntitySpec = /** @class */ (function () {
+    function EntitySpec(context) {
         this.context = context;
         this.MT4TransactionHeartbeat = MT4TransactionHeartbeat;
     }
-}
+    return EntitySpec;
+}());
 exports.EntitySpec = EntitySpec;
 //# sourceMappingURL=site.js.map

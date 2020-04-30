@@ -1,25 +1,41 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-const base_1 = require("./base");
+var base_1 = require("./base");
 exports.PriceBucket_Properties = [
     new base_1.Property('price', 'Price', 'The Price offered by the PriceBucket', 'primitive', 'pricing_common.PriceValue'),
     new base_1.Property('liquidity', 'Liquidity', 'The amount of liquidity offered by the PriceBucket', 'primitive', 'integer'),
 ];
-class PriceBucket extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.PriceBucket_Properties;
+var PriceBucket = /** @class */ (function (_super) {
+    __extends(PriceBucket, _super);
+    function PriceBucket(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.PriceBucket_Properties;
         data = data || {};
         if (data['price'] !== undefined) {
-            this.price = data['price'];
+            _this.price = data['price'];
         }
         if (data['liquidity'] !== undefined) {
-            this.liquidity = data['liquidity'];
+            _this.liquidity = data['liquidity'];
         }
+        return _this;
     }
-}
+    return PriceBucket;
+}(base_1.Definition));
 exports.PriceBucket = PriceBucket;
 exports.Price_Properties = [
     new base_1.Property('instrument', 'Instrument', "The Price's Instrument.", 'primitive', 'primitives.InstrumentName'),
@@ -32,49 +48,53 @@ exports.Price_Properties = [
     new base_1.Property('closeoutBid', 'Closeout Bid', 'The closeout bid price. This price is used when a bid is required to closeout a Position (margin closeout or manual) yet there is no bid liquidity. The closeout bid is never used to open a new position.', 'primitive', 'pricing_common.PriceValue'),
     new base_1.Property('closeoutAsk', 'Closeout Ask', 'The closeout ask price. This price is used when an ask is required to closeout a Position (margin closeout or manual) yet there is no ask liquidity. The closeout ask is never used to open a new position.', 'primitive', 'pricing_common.PriceValue'),
 ];
-class Price extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.Price_Properties;
+var Price = /** @class */ (function (_super) {
+    __extends(Price, _super);
+    function Price(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.Price_Properties;
         data = data || {};
         if (data['instrument'] !== undefined) {
-            this.instrument = data['instrument'];
+            _this.instrument = data['instrument'];
         }
         if (data['tradeable'] !== undefined) {
-            this.tradeable = data['tradeable'];
+            _this.tradeable = data['tradeable'];
         }
         if (data['timestamp'] !== undefined) {
-            this.timestamp = data['timestamp'];
+            _this.timestamp = data['timestamp'];
         }
         if (data['baseBid'] !== undefined) {
-            this.baseBid = data['baseBid'];
+            _this.baseBid = data['baseBid'];
         }
         if (data['baseAsk'] !== undefined) {
-            this.baseAsk = data['baseAsk'];
+            _this.baseAsk = data['baseAsk'];
         }
         if (data['bids'] !== undefined) {
-            this.bids = data['bids'].map((x) => new PriceBucket(x));
+            _this.bids = data['bids'].map(function (x) { return new PriceBucket(x); });
         }
         if (data['asks'] !== undefined) {
-            this.asks = data['asks'].map((x) => new PriceBucket(x));
+            _this.asks = data['asks'].map(function (x) { return new PriceBucket(x); });
         }
         if (data['closeoutBid'] !== undefined) {
-            this.closeoutBid = data['closeoutBid'];
+            _this.closeoutBid = data['closeoutBid'];
         }
         if (data['closeoutAsk'] !== undefined) {
-            this.closeoutAsk = data['closeoutAsk'];
+            _this.closeoutAsk = data['closeoutAsk'];
         }
+        return _this;
     }
-}
+    return Price;
+}(base_1.Definition));
 exports.Price = Price;
-class EntitySpec {
-    constructor(context) {
+var EntitySpec = /** @class */ (function () {
+    function EntitySpec(context) {
         this.context = context;
         this.PriceBucket = PriceBucket;
         this.Price = Price;
     }
-}
+    return EntitySpec;
+}());
 exports.EntitySpec = EntitySpec;
 //# sourceMappingURL=pricing_common.js.map

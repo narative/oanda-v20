@@ -1,18 +1,19 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const account = require("./account");
-const user = require("./user");
-const position = require("./position");
-const pricing = require("./pricing");
-const transaction = require("./transaction");
-const primitives = require("./primitives");
-const trade = require("./trade");
-const site = require("./site");
-const pricing_common = require("./pricing_common");
-const order = require("./order");
-const instrument = require("./instrument");
-class Response {
-    constructor(method, path, statusCode, statusMessage, contentType, rawBody, body = null) {
+var account = require("./account");
+var user = require("./user");
+var position = require("./position");
+var pricing = require("./pricing");
+var transaction = require("./transaction");
+var primitives = require("./primitives");
+var trade = require("./trade");
+var site = require("./site");
+var pricing_common = require("./pricing_common");
+var order = require("./order");
+var instrument = require("./instrument");
+var Response = /** @class */ (function () {
+    function Response(method, path, statusCode, statusMessage, contentType, rawBody, body) {
+        if (body === void 0) { body = null; }
         this.method = method;
         this.path = path;
         this.statusCode = statusCode;
@@ -22,30 +23,35 @@ class Response {
         this.body = body;
         this.statusCode = statusCode.toString();
     }
-    isSuccess() {
+    Response.prototype.isSuccess = function () {
         return this.statusCode.startsWith('2');
-    }
-    isRedirection() {
+    };
+    Response.prototype.isRedirection = function () {
         return this.statusCode.startsWith('3');
-    }
-    isClientError() {
+    };
+    Response.prototype.isClientError = function () {
         return this.statusCode.startsWith('4');
-    }
-    isServerError() {
+    };
+    Response.prototype.isServerError = function () {
         return this.statusCode.startsWith('5');
-    }
-    isError() {
+    };
+    Response.prototype.isError = function () {
         return this.isClientError() || this.isServerError();
-    }
-}
+    };
+    return Response;
+}());
 exports.Response = Response;
-class Context {
-    constructor(hostname, port, ssl, application, username = '', headers = {
-        'Content-Type': 'application/json',
-        'OANDA-Agent': `v20-javascript/3.0.25 (${application})`,
-    }, token = '', 
+var Context = /** @class */ (function () {
+    function Context(hostname, port, ssl, application, username, headers, token, 
     // @ts-ignore
-    http = ssl ? require('https') : require('http')) {
+    http) {
+        if (username === void 0) { username = ''; }
+        if (headers === void 0) { headers = {
+            'Content-Type': 'application/json',
+            'OANDA-Agent': "v20-javascript/3.0.25 (" + application + ")",
+        }; }
+        if (token === void 0) { token = ''; }
+        if (http === void 0) { http = ssl ? require('https') : require('http'); }
         this.hostname = hostname;
         this.port = port;
         this.ssl = ssl;
@@ -67,31 +73,31 @@ class Context {
         this.pricing_common = new pricing_common.EntitySpec(this);
         application = application || '';
     }
-    setToken(token) {
+    Context.prototype.setToken = function (token) {
         this.token = token;
         this.headers['Authorization'] = 'Bearer ' + this.token;
-    }
-    request(method, path, body, streamChunkHandler, responseHandler) {
-        let headers = JSON.parse(JSON.stringify(this.headers));
-        let postData = '';
+    };
+    Context.prototype.request = function (method, path, body, streamChunkHandler, responseHandler) {
+        var headers = JSON.parse(JSON.stringify(this.headers));
+        var postData = '';
         if (Object.keys(body).length > 0) {
             postData = JSON.stringify(body);
             headers['Content-Length'] = postData.length;
         }
-        let options = {
+        var options = {
             hostname: this.hostname,
             port: this.port,
             method: method,
             path: path,
             headers: headers,
         };
-        let req = this.http.request(options, (response) => {
-            let responseBody = '';
-            response.on('data', (d) => {
+        var req = this.http.request(options, function (response) {
+            var responseBody = '';
+            response.on('data', function (d) {
                 responseBody += d;
                 if (streamChunkHandler) {
-                    let chunks = responseBody.split('\n');
-                    chunks.forEach((chunk) => {
+                    var chunks = responseBody.split('\n');
+                    chunks.forEach(function (chunk) {
                         if (chunk.length > 0) {
                             streamChunkHandler(chunk);
                         }
@@ -99,13 +105,13 @@ class Context {
                     });
                 }
             });
-            response.on('end', () => {
+            response.on('end', function () {
                 if (responseHandler) {
                     responseHandler(null, new Response(method, path, response.statusCode, response.statusMessage, response.headers['content-type'], responseBody));
                 }
             });
         });
-        req.on('error', (err) => {
+        req.on('error', function (err) {
             if (responseHandler) {
                 responseHandler(err, null);
                 req.abort();
@@ -116,7 +122,8 @@ class Context {
         }
         req.end();
         return req;
-    }
-}
+    };
+    return Context;
+}());
 exports.Context = Context;
 //# sourceMappingURL=context.js.map

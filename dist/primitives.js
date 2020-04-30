@@ -1,6 +1,19 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-const base_1 = require("./base");
+var base_1 = require("./base");
 exports.Instrument_Properties = [
     new base_1.Property('name', 'name', 'The name of the Instrument', 'primitive', 'primitives.InstrumentName'),
     new base_1.Property('type', 'type', 'The type of the Instrument', 'primitive', 'primitives.InstrumentType'),
@@ -16,106 +29,116 @@ exports.Instrument_Properties = [
     new base_1.Property('marginRate', 'marginRate', 'The margin rate for this instrument.', 'primitive', 'primitives.DecimalNumber'),
     new base_1.Property('commission', 'commission', 'The commission structure for this instrument.', 'object', 'primitives.InstrumentCommission'),
 ];
-class Instrument extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.Instrument_Properties;
+var Instrument = /** @class */ (function (_super) {
+    __extends(Instrument, _super);
+    function Instrument(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.Instrument_Properties;
         data = data || {};
         if (data['name'] !== undefined) {
-            this.name = data['name'];
+            _this.name = data['name'];
         }
         if (data['type'] !== undefined) {
-            this.type = data['type'];
+            _this.type = data['type'];
         }
         if (data['displayName'] !== undefined) {
-            this.displayName = data['displayName'];
+            _this.displayName = data['displayName'];
         }
         if (data['pipLocation'] !== undefined) {
-            this.pipLocation = data['pipLocation'];
+            _this.pipLocation = data['pipLocation'];
         }
         if (data['displayPrecision'] !== undefined) {
-            this.displayPrecision = data['displayPrecision'];
+            _this.displayPrecision = data['displayPrecision'];
         }
         if (data['tradeUnitsPrecision'] !== undefined) {
-            this.tradeUnitsPrecision = data['tradeUnitsPrecision'];
+            _this.tradeUnitsPrecision = data['tradeUnitsPrecision'];
         }
         if (data['minimumTradeSize'] !== undefined) {
-            this.minimumTradeSize = data['minimumTradeSize'];
+            _this.minimumTradeSize = data['minimumTradeSize'];
         }
         if (data['maximumTrailingStopDistance'] !== undefined) {
-            this.maximumTrailingStopDistance = data['maximumTrailingStopDistance'];
+            _this.maximumTrailingStopDistance = data['maximumTrailingStopDistance'];
         }
         if (data['minimumTrailingStopDistance'] !== undefined) {
-            this.minimumTrailingStopDistance = data['minimumTrailingStopDistance'];
+            _this.minimumTrailingStopDistance = data['minimumTrailingStopDistance'];
         }
         if (data['maximumPositionSize'] !== undefined) {
-            this.maximumPositionSize = data['maximumPositionSize'];
+            _this.maximumPositionSize = data['maximumPositionSize'];
         }
         if (data['maximumOrderUnits'] !== undefined) {
-            this.maximumOrderUnits = data['maximumOrderUnits'];
+            _this.maximumOrderUnits = data['maximumOrderUnits'];
         }
         if (data['marginRate'] !== undefined) {
-            this.marginRate = data['marginRate'];
+            _this.marginRate = data['marginRate'];
         }
         if (data['commission'] !== undefined) {
-            this.commission = new InstrumentCommission(data['commission']);
+            _this.commission = new InstrumentCommission(data['commission']);
         }
+        return _this;
     }
-}
+    return Instrument;
+}(base_1.Definition));
 exports.Instrument = Instrument;
 exports.InstrumentCommission_Properties = [
     new base_1.Property('commission', 'commission', "The commission amount (in the Account's home currency) charged per unitsTraded of the instrument", 'primitive', 'primitives.DecimalNumber'),
     new base_1.Property('unitsTraded', 'unitsTraded', 'The number of units traded that the commission amount is based on.', 'primitive', 'primitives.DecimalNumber'),
     new base_1.Property('minimumCommission', 'minimumCommission', "The minimum commission amount (in the Account's home currency) that is charged when an Order is filled for this instrument.", 'primitive', 'primitives.DecimalNumber'),
 ];
-class InstrumentCommission extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.InstrumentCommission_Properties;
+var InstrumentCommission = /** @class */ (function (_super) {
+    __extends(InstrumentCommission, _super);
+    function InstrumentCommission(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.InstrumentCommission_Properties;
         data = data || {};
         if (data['commission'] !== undefined) {
-            this.commission = data['commission'];
+            _this.commission = data['commission'];
         }
         if (data['unitsTraded'] !== undefined) {
-            this.unitsTraded = data['unitsTraded'];
+            _this.unitsTraded = data['unitsTraded'];
         }
         if (data['minimumCommission'] !== undefined) {
-            this.minimumCommission = data['minimumCommission'];
+            _this.minimumCommission = data['minimumCommission'];
         }
+        return _this;
     }
-}
+    return InstrumentCommission;
+}(base_1.Definition));
 exports.InstrumentCommission = InstrumentCommission;
 exports.GuaranteedStopLossOrderLevelRestriction_Properties = [
     new base_1.Property('volume', 'volume', 'Applies to Trades with a guaranteed Stop Loss Order attached for the specified Instrument. This is the total allowed Trade volume that can exist within the priceRange based on the trigger prices of the guaranteed Stop Loss Orders.', 'primitive', 'primitives.DecimalNumber'),
     new base_1.Property('priceRange', 'priceRange', 'The price range the volume applies to. This value is in price units.', 'primitive', 'primitives.DecimalNumber'),
 ];
-class GuaranteedStopLossOrderLevelRestriction extends base_1.Definition {
-    constructor(data) {
-        super();
-        this._summaryFormat = '';
-        this._nameFormat = '';
-        this._properties = exports.GuaranteedStopLossOrderLevelRestriction_Properties;
+var GuaranteedStopLossOrderLevelRestriction = /** @class */ (function (_super) {
+    __extends(GuaranteedStopLossOrderLevelRestriction, _super);
+    function GuaranteedStopLossOrderLevelRestriction(data) {
+        var _this = _super.call(this) || this;
+        _this._summaryFormat = '';
+        _this._nameFormat = '';
+        _this._properties = exports.GuaranteedStopLossOrderLevelRestriction_Properties;
         data = data || {};
         if (data['volume'] !== undefined) {
-            this.volume = data['volume'];
+            _this.volume = data['volume'];
         }
         if (data['priceRange'] !== undefined) {
-            this.priceRange = data['priceRange'];
+            _this.priceRange = data['priceRange'];
         }
+        return _this;
     }
-}
+    return GuaranteedStopLossOrderLevelRestriction;
+}(base_1.Definition));
 exports.GuaranteedStopLossOrderLevelRestriction = GuaranteedStopLossOrderLevelRestriction;
-class EntitySpec {
-    constructor(context) {
+var EntitySpec = /** @class */ (function () {
+    function EntitySpec(context) {
         this.context = context;
         this.Instrument = Instrument;
         this.InstrumentCommission = InstrumentCommission;
         this.GuaranteedStopLossOrderLevelRestriction = GuaranteedStopLossOrderLevelRestriction;
     }
-}
+    return EntitySpec;
+}());
 exports.EntitySpec = EntitySpec;
 //# sourceMappingURL=primitives.js.map

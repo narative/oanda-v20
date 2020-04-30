@@ -1,14 +1,27 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-const context = require("./context");
-const account = require("./account");
-const position = require("./position");
-const pricing = require("./pricing");
-const transaction = require("./transaction");
-const trade = require("./trade");
-const order = require("./order");
-const instrument = require("./instrument");
-const url = {
+var context = require("./context");
+var account = require("./account");
+var position = require("./position");
+var pricing = require("./pricing");
+var transaction = require("./transaction");
+var trade = require("./trade");
+var order = require("./order");
+var instrument = require("./instrument");
+var url = {
     practice: {
         api: 'api-fxpractice.oanda.com',
         stream: 'stream-fxpractice.oanda.com',
@@ -19,7 +32,7 @@ const url = {
     },
 };
 function resolver(resolve, reject) {
-    return (err, res) => {
+    return function (err, res) {
         if (err) {
             reject(err);
             return;
@@ -45,15 +58,16 @@ function resolver(resolve, reject) {
                     resolve(res.body);
                     return;
                 }
-                reject(new Error(`Unhandled status code: ${res.statusCode}`));
+                reject(new Error("Unhandled status code: " + res.statusCode));
                 return;
             }
         }
     };
 }
-class OANDA {
-    constructor(applicationName, url, token, dateFormat = 'UNIX') {
-        const ctx = new context.Context(url, 443, true, applicationName);
+var OANDA = /** @class */ (function () {
+    function OANDA(applicationName, url, token, dateFormat) {
+        if (dateFormat === void 0) { dateFormat = 'UNIX'; }
+        var ctx = new context.Context(url, 443, true, applicationName);
         ctx.setToken(token);
         if (dateFormat === 'UNIX') {
             ctx.headers['Accept-Datetime-Format'] = 'UNIX';
@@ -67,17 +81,26 @@ class OANDA {
         this.order = new order.API(ctx, resolver);
         this.instrument = new instrument.API(ctx, resolver);
     }
-}
-class Rest extends OANDA {
-    constructor(applicationName, token, practice = false, dateFormat = 'UNIX') {
-        super(applicationName, practice ? url.practice.api : url.production.api, token, dateFormat);
+    return OANDA;
+}());
+var Rest = /** @class */ (function (_super) {
+    __extends(Rest, _super);
+    function Rest(applicationName, token, practice, dateFormat) {
+        if (practice === void 0) { practice = false; }
+        if (dateFormat === void 0) { dateFormat = 'UNIX'; }
+        return _super.call(this, applicationName, practice ? url.practice.api : url.production.api, token, dateFormat) || this;
     }
-}
+    return Rest;
+}(OANDA));
 exports.Rest = Rest;
-class Stream extends OANDA {
-    constructor(applicationName, token, practice = false, dateFormat = 'UNIX') {
-        super(applicationName, practice ? url.practice.stream : url.production.stream, token, dateFormat);
+var Stream = /** @class */ (function (_super) {
+    __extends(Stream, _super);
+    function Stream(applicationName, token, practice, dateFormat) {
+        if (practice === void 0) { practice = false; }
+        if (dateFormat === void 0) { dateFormat = 'UNIX'; }
+        return _super.call(this, applicationName, practice ? url.practice.stream : url.production.stream, token, dateFormat) || this;
     }
-}
+    return Stream;
+}(OANDA));
 exports.Stream = Stream;
 //# sourceMappingURL=index.js.map

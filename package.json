@@ -1,7 +1,7 @@
 {
   "name": "@narative/oanda-v20",
   "description": "OANDA v20 bindings for Javascript",
-  "version": "3.0.31",
+  "version": "3.0.32",
   "author": "OANDA Corporation",
   "repository": "https://github.com/narative/v20-javascript",
   "license": "MIT",
@@ -23,10 +23,5 @@
     "prettier": "^2.0.5",
     "ts-node": "^8.9.0",
     "typescript": "^3.8.3"
-  },
-  "dependencies": {
-    "@types/cheerio": "^0.22.18",
-    "cheerio": "^1.0.0-rc.3",
-    "request": "^2.88.2"
   }
 }
