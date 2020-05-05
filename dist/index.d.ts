@@ -1,11 +1,11 @@
 import * as context from './context';
-import * as account from './account';
-import * as position from './position';
-import * as pricing from './pricing';
-import * as transaction from './transaction';
-import * as trade from './trade';
-import * as order from './order';
-import * as instrument from './instrument';
+import * as account from './api/account';
+import * as position from './api/position';
+import * as pricing from './api/pricing';
+import * as transaction from './api/transaction';
+import * as trade from './api/trade';
+import * as order from './api/order';
+import * as instrument from './api/instrument';
 declare class OANDA {
     context: context.Context;
     account: account.API;

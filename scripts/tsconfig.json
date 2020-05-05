@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es2019",
+    "sourceMap": true,
+    "outDir": "dist",
+    "allowJs": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs"
+  },
+  "include": ["**/*"],
+  "exclude": ["node_modules"]
+}

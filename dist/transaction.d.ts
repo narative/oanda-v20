@@ -28,7 +28,7 @@ export declare class Transaction extends Definition {
      */
     requestID: primitives.RequestID;
     constructor(data: any);
-    static create(transaction: any): Transaction | OrderCancelTransaction | OrderClientExtensionsModifyTransaction | OrderClientExtensionsModifyRejectTransaction | MarketOrderTransaction | OrderFillTransaction | MarketOrderRejectTransaction | TradeClientExtensionsModifyTransaction | TradeClientExtensionsModifyRejectTransaction | TakeProfitOrderTransaction | StopLossOrderTransaction | TrailingStopLossOrderTransaction | OrderCancelRejectTransaction | TakeProfitOrderRejectTransaction | StopLossOrderRejectTransaction | TrailingStopLossOrderRejectTransaction | ClientConfigureTransaction | ClientConfigureRejectTransaction | CreateTransaction | CloseTransaction | ReopenTransaction | TransferFundsTransaction | TransferFundsRejectTransaction | FixedPriceOrderTransaction | LimitOrderTransaction | LimitOrderRejectTransaction | StopOrderTransaction | StopOrderRejectTransaction | MarketIfTouchedOrderTransaction | MarketIfTouchedOrderRejectTransaction | MarginCallEnterTransaction | MarginCallExtendTransaction | MarginCallExitTransaction | DelayedTradeClosureTransaction | DailyFinancingTransaction | ResetResettablePLTransaction;
+    static create(transaction: any): Transaction | MarketOrderTransaction | OrderFillTransaction | OrderCancelTransaction | MarketOrderRejectTransaction | TradeClientExtensionsModifyTransaction | TradeClientExtensionsModifyRejectTransaction | TakeProfitOrderTransaction | StopLossOrderTransaction | TrailingStopLossOrderTransaction | OrderCancelRejectTransaction | TakeProfitOrderRejectTransaction | StopLossOrderRejectTransaction | TrailingStopLossOrderRejectTransaction | ClientConfigureTransaction | ClientConfigureRejectTransaction | CreateTransaction | CloseTransaction | ReopenTransaction | TransferFundsTransaction | TransferFundsRejectTransaction | FixedPriceOrderTransaction | LimitOrderTransaction | LimitOrderRejectTransaction | StopOrderTransaction | StopOrderRejectTransaction | MarketIfTouchedOrderTransaction | MarketIfTouchedOrderRejectTransaction | OrderClientExtensionsModifyTransaction | OrderClientExtensionsModifyRejectTransaction | MarginCallEnterTransaction | MarginCallExtendTransaction | MarginCallExitTransaction | DelayedTradeClosureTransaction | DailyFinancingTransaction | ResetResettablePLTransaction;
 }
 export declare const CreateTransaction_Properties: Property[];
 export declare class CreateTransaction extends Definition {
@@ -2605,94 +2605,4 @@ export declare class EntitySpec {
     range(accountID: any, queryParams: any, responseHandler: any): any;
     since(accountID: any, queryParams: any, responseHandler: any): any;
     stream(accountID: any, streamChunkHandler: any, responseHandler: any): any;
-}
-export interface TransactionListRequest {
-    from: primitives.DateTime;
-    to: primitives.DateTime;
-    pageSize: number;
-    type: string;
-}
-export interface TransactionRangeRequest {
-    from: primitives.TransactionID;
-    to: primitives.TransactionID;
-    type: string;
-}
-export interface TransactionSinceRequest {
-    id: primitives.TransactionID;
-    type: string;
-}
-export declare type TransactionListResult = TransactionListResult200;
-export interface TransactionListResult200 {
-    /**
-     * The starting time provided in the request.
-     */
-    from?: primitives.DateTime;
-    /**
-     * The ending time provided in the request.
-     */
-    to?: primitives.DateTime;
-    /**
-     * The pageSize provided in the request
-     */
-    pageSize?: number;
-    /**
-     * The Transaction-type filter provided in the request
-     */
-    type?: primitives.TransactionFilter[];
-    /**
-     * The number of Transactions that are contained in the pages returned
-     */
-    count?: number;
-    /**
-     * The list of URLs that represent idrange queries providing the data for
-     * each page in the query results
-     */
-    pages?: string[];
-    /**
-     * The ID of the most recent Transaction created for the Account
-     */
-    lastTransactionID?: primitives.TransactionID;
-}
-export declare type TransactionGetResult = TransactionGetResult200;
-export interface TransactionGetResult200 {
-    /**
-     * The details of the Transaction requested
-     */
-    transaction?: Transaction;
-    /**
-     * The ID of the most recent Transaction created for the Account
-     */
-    lastTransactionID?: primitives.TransactionID;
-}
-export declare type TransactionRangeResult = TransactionRangeResult200;
-export interface TransactionRangeResult200 {
-    /**
-     * The list of Transactions that satisfy the request.
-     */
-    transactions?: Transaction[];
-    /**
-     * The ID of the most recent Transaction created for the Account
-     */
-    lastTransactionID?: primitives.TransactionID;
-}
-export declare type TransactionSinceResult = TransactionSinceResult200;
-export interface TransactionSinceResult200 {
-    /**
-     * The list of Transactions that satisfy the request.
-     */
-    transactions?: Transaction[];
-    /**
-     * The ID of the most recent Transaction created for the Account
-     */
-    lastTransactionID?: primitives.TransactionID;
-}
-export declare class API {
-    private context;
-    private resolver;
-    constructor(context: any, resolver: any);
-    list(accountID: primitives.AccountID, body: TransactionListRequest): Promise<TransactionListResult>;
-    get(accountID: primitives.AccountID, transactionID: primitives.TransactionID): Promise<TransactionGetResult>;
-    range(accountID: primitives.AccountID, body: TransactionRangeRequest): Promise<TransactionRangeResult>;
-    since(accountID: primitives.AccountID, body: TransactionSinceRequest): Promise<TransactionSinceResult>;
-    stream(accountID: primitives.AccountID, streamHandler: any): Promise<void>;
 }

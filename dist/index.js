@@ -14,13 +14,13 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var context = require("./context");
-var account = require("./account");
-var position = require("./position");
-var pricing = require("./pricing");
-var transaction = require("./transaction");
-var trade = require("./trade");
-var order = require("./order");
-var instrument = require("./instrument");
+var account = require("./api/account");
+var position = require("./api/position");
+var pricing = require("./api/pricing");
+var transaction = require("./api/transaction");
+var trade = require("./api/trade");
+var order = require("./api/order");
+var instrument = require("./api/instrument");
 var url = {
     practice: {
         api: 'api-fxpractice.oanda.com',

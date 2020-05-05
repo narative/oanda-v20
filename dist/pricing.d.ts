@@ -1,7 +1,6 @@
 import { Definition, Property } from './base';
 import * as pricing_common from './pricing_common';
 import * as order from './order';
-import * as instrumentModule from './instrument';
 import * as primitives from './primitives';
 export declare const ClientPrice_Properties: Property[];
 export declare class ClientPrice extends Definition {
@@ -107,67 +106,4 @@ export declare class EntitySpec {
     get(accountID: any, queryParams: any, responseHandler: any): any;
     stream(accountID: any, queryParams: any, streamChunkHandler: any, responseHandler: any): any;
     candles(accountID: any, instrument: any, queryParams: any, responseHandler: any): any;
-}
-export interface PricingGetRequest {
-    instruments: string;
-    since: primitives.DateTime;
-    includeUnitsAvailable: boolean;
-    includeHomeConversions: boolean;
-}
-export interface PricingStreamRequest {
-    instruments: string;
-    snapshot: boolean;
-}
-export interface PricingCandlesRequest {
-    price: primitives.PricingComponent;
-    granularity: primitives.CandlestickGranularity;
-    count: number;
-    from: primitives.DateTime;
-    to: primitives.DateTime;
-    smooth: boolean;
-    includeFirst: boolean;
-    dailyAlignment: number;
-    alignmentTimezone: string;
-    weeklyAlignment: primitives.WeeklyAlignment;
-    units: primitives.DecimalNumber;
-}
-export declare type PricingGetResult = PricingGetResult200;
-export interface PricingGetResult200 {
-    /**
-     * The list of Price objects requested.
-     */
-    prices: ClientPrice[];
-    /**
-     * The list of home currency conversion factors requested. This field will
-     * only be present if includeHomeConversions was set to true in the request.
-     */
-    homeConversions?: HomeConversions[];
-    /**
-     * The DateTime value to use for the &#x201C;since&#x201D; parameter in the next poll
-     * request.
-     */
-    time?: primitives.DateTime;
-}
-export declare type PricingCandlesResult = PricingCandlesResult200;
-export interface PricingCandlesResult200 {
-    /**
-     * The instrument whose Prices are represented by the candlesticks.
-     */
-    instrument?: primitives.InstrumentName;
-    /**
-     * The granularity of the candlesticks provided.
-     */
-    granularity?: primitives.CandlestickGranularity;
-    /**
-     * The list of candlesticks that satisfy the request.
-     */
-    candles?: instrumentModule.Candlestick[];
-}
-export declare class API {
-    private context;
-    private resolver;
-    constructor(context: any, resolver: any);
-    get(accountID: primitives.AccountID, body: PricingGetRequest): Promise<PricingGetResult>;
-    stream(accountID: primitives.AccountID, body: PricingStreamRequest, chunkHandler: any): Promise<void>;
-    candles(instrument: primitives.InstrumentName, body: PricingCandlesRequest, chunkHandler: any): Promise<PricingCandlesResult>;
 }
