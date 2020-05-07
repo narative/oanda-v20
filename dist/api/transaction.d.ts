@@ -6,10 +6,10 @@ export interface ListRequest {
     query: ListRequestQuery;
 }
 export interface ListRequestQuery {
-    from: primitives.DateTime;
-    to: primitives.DateTime;
-    pageSize: number;
-    type: transaction.TransactionFilter[];
+    from?: primitives.DateTime;
+    to?: primitives.DateTime;
+    pageSize?: number;
+    type?: transaction.TransactionFilter[];
 }
 export declare type ListResponse = ListResponse200;
 export interface ListResponse200 {
@@ -63,9 +63,9 @@ export interface RangeRequest {
     query: RangeRequestQuery;
 }
 export interface RangeRequestQuery {
-    from: transaction.TransactionID;
-    to: transaction.TransactionID;
-    type: transaction.TransactionFilter[];
+    from?: transaction.TransactionID;
+    to?: transaction.TransactionID;
+    type?: transaction.TransactionFilter[];
 }
 export declare type RangeResponse = RangeResponse200;
 export interface RangeResponse200 {
@@ -83,8 +83,8 @@ export interface SinceRequest {
     query: SinceRequestQuery;
 }
 export interface SinceRequestQuery {
-    id: transaction.TransactionID;
-    type: transaction.TransactionFilter[];
+    id?: transaction.TransactionID;
+    type?: transaction.TransactionFilter[];
 }
 export declare type SinceResponse = SinceResponse200;
 export interface SinceResponse200 {
@@ -109,25 +109,25 @@ export declare class API {
      * list
      * GET /v3/accounts/{accountID}/transactions
      */
-    list(request: ListRequest): Promise<unknown>;
+    list(request: ListRequest): Promise<ListResponse>;
     /**
      * get
      * GET /v3/accounts/{accountID}/transactions/{transactionID}
      */
-    get(request: GetRequest): Promise<unknown>;
+    get(request: GetRequest): Promise<GetResponse>;
     /**
      * range
      * GET /v3/accounts/{accountID}/transactions/idrange
      */
-    range(request: RangeRequest): Promise<unknown>;
+    range(request: RangeRequest): Promise<RangeResponse>;
     /**
      * since
      * GET /v3/accounts/{accountID}/transactions/sinceid
      */
-    since(request: SinceRequest): Promise<unknown>;
+    since(request: SinceRequest): Promise<SinceResponse>;
     /**
      * stream
      * GET /v3/accounts/{accountID}/transactions/stream
      */
-    stream(request: StreamRequest, streamHandler: any): Promise<unknown>;
+    stream(request: StreamRequest, streamChunkHandler: any): Promise<StreamResponse>;
 }

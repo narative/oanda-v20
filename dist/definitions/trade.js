@@ -1,5 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var trade_1 = require("../trade");
+exports.Trade = trade_1.Trade;
+exports.TradeSummary = trade_1.TradeSummary;
+exports.CalculatedTradeState = trade_1.CalculatedTradeState;
 /**
  * The current state of the Trade. https://developer.oanda.com/rest-live-v20/trade-df/
  */

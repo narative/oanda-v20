@@ -42,26 +42,16 @@ export class Definition {
 
   constructor() {}
 
-  toJSON(key) {
-    let repr = {}
-
-    for (let val in Object.keys(this)) {
-      if (val == '_properties') {
-        continue
-      }
-      if (val == '_summaryFormat') {
-        continue
-      }
-      if (val == '_nameFormat') {
-        continue
-      }
-      repr[val] = this[val]
-    }
-
-    return repr
+  public toJSON() {
+    return Object.entries(this)
+      .filter(([k, v]) => !['_summaryFormat', '_nameFormat', '_properties'].includes(k))
+      .reduce((acc, [k, v]) => {
+        acc[k] = v
+        return acc
+      }, {})
   }
 
-  name() {
+  public name() {
     let nameStr = this._nameFormat
 
     let re = /{([^}]+)}/g
@@ -79,14 +69,17 @@ export class Definition {
     return nameStr
   }
 
-  summary() {
+  public summary() {
     let summaryStr = this._summaryFormat
 
     let re = /{([^}]+)}/g
 
     let matches = summaryStr.match(re)
 
+    console.log('AAAAA', matches)
+
     for (let match of matches || []) {
+      console.log('BBBBBBB', match)
       let key = match.slice(1, -1)
 
       let value = this[key] || match
@@ -97,7 +90,7 @@ export class Definition {
     return summaryStr
   }
 
-  title() {
+  public title() {
     let nameStr = this.name()
     let summaryStr = this.summary()
 
@@ -112,7 +105,7 @@ export class Definition {
     return titleStr
   }
 
-  toString() {
+  public toString() {
     let s = this.title()
 
     this._properties.forEach((prop) => {
@@ -134,7 +127,7 @@ export class Definition {
     return s
   }
 
-  fields() {
+  public fields() {
     let ret = []
 
     this._properties.forEach((prop) => {

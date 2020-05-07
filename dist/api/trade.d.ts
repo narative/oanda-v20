@@ -7,11 +7,11 @@ export interface ListRequest {
     query: ListRequestQuery;
 }
 export interface ListRequestQuery {
-    ids: trade.TradeID[];
-    state: trade.TradeStateFilter;
-    instrument: primitives.InstrumentName;
-    count: number;
-    beforeID: trade.TradeID;
+    ids?: trade.TradeID[];
+    state?: trade.TradeStateFilter;
+    instrument?: primitives.InstrumentName;
+    count?: number;
+    beforeID?: trade.TradeID;
 }
 export declare type ListResponse = ListResponse200;
 export interface ListResponse200 {
@@ -69,7 +69,7 @@ export interface CloseRequestBody {
      */
     units?: string;
 }
-export declare type CloseResponse = CloseResponse200 | CloseResponse400;
+export declare type CloseResponse = CloseResponse200 | CloseResponse400 | CloseResponse404;
 export interface CloseResponse200 {
     /**
      * The MarketOrder Transaction created to close the Trade.
@@ -111,6 +111,32 @@ export interface CloseResponse400 {
      */
     errorMessage: string;
 }
+export interface CloseResponse404 {
+    /**
+     * The MarketOrderReject Transaction that rejects the creation of the Trade-
+     * closing MarketOrder. Only present if the Account exists.
+     */
+    orderRejectTransaction?: transaction.MarketOrderRejectTransaction;
+    /**
+     * The ID of the most recent Transaction created for the Account. Only
+     * present if the Account exists.
+     */
+    lastTransactionID?: transaction.TransactionID;
+    /**
+     * The IDs of all Transactions that were created while satisfying the
+     * request. Only present if the Account exists.
+     */
+    relatedTransactionIDs?: transaction.TransactionID[];
+    /**
+     * The code of the error that has occurred. This field may not be returned
+     * for some errors.
+     */
+    errorCode?: string;
+    /**
+     * The human-readable description of the error that has occurred.
+     */
+    errorMessage: string;
+}
 export interface SetClientExtensionsRequest {
     accountID: account.AccountID;
     tradeSpecifier: trade.TradeSpecifier;
@@ -123,7 +149,7 @@ export interface SetClientExtensionsRequestBody {
      */
     clientExtensions?: transaction.ClientExtensions;
 }
-export declare type SetClientExtensionsResponse = SetClientExtensionsResponse200 | SetClientExtensionsResponse400;
+export declare type SetClientExtensionsResponse = SetClientExtensionsResponse200 | SetClientExtensionsResponse400 | SetClientExtensionsResponse404;
 export interface SetClientExtensionsResponse200 {
     /**
      * The Transaction that updates the Trade's Client Extensions.
@@ -152,6 +178,32 @@ export interface SetClientExtensionsResponse400 {
     /**
      * The IDs of all Transactions that were created while satisfying the
      * request.
+     */
+    relatedTransactionIDs?: transaction.TransactionID[];
+    /**
+     * The code of the error that has occurred. This field may not be returned
+     * for some errors.
+     */
+    errorCode?: string;
+    /**
+     * The human-readable description of the error that has occurred.
+     */
+    errorMessage: string;
+}
+export interface SetClientExtensionsResponse404 {
+    /**
+     * The Transaction that rejects the modification of the Trade's Client
+     * Extensions. Only present if the Account exists.
+     */
+    tradeClientExtensionsModifyRejectTransaction?: transaction.TradeClientExtensionsModifyRejectTransaction;
+    /**
+     * The ID of the most recent Transaction created for the Account. Only
+     * present if the Account exists.
+     */
+    lastTransactionID?: transaction.TransactionID;
+    /**
+     * The IDs of all Transactions that were created while satisfying the
+     * request. Only present if the Account exists.
      */
     relatedTransactionIDs?: transaction.TransactionID[];
     /**
@@ -320,30 +372,30 @@ export declare class API {
      * list
      * GET /v3/accounts/{accountID}/trades
      */
-    list(request: ListRequest): Promise<unknown>;
+    list(request: ListRequest): Promise<ListResponse>;
     /**
      * listOpen
      * GET /v3/accounts/{accountID}/openTrades
      */
-    listOpen(request: ListOpenRequest): Promise<unknown>;
+    listOpen(request: ListOpenRequest): Promise<ListOpenResponse>;
     /**
      * get
      * GET /v3/accounts/{accountID}/trades/{tradeSpecifier}
      */
-    get(request: GetRequest): Promise<unknown>;
+    get(request: GetRequest): Promise<GetResponse>;
     /**
      * close
      * PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/close
      */
-    close(request: CloseRequest): Promise<unknown>;
+    close(request: CloseRequest): Promise<CloseResponse>;
     /**
      * setClientExtensions
      * PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/clientExtensions
      */
-    setClientExtensions(request: SetClientExtensionsRequest): Promise<unknown>;
+    setClientExtensions(request: SetClientExtensionsRequest): Promise<SetClientExtensionsResponse>;
     /**
      * setDependentOrders
      * PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/orders
      */
-    setDependentOrders(request: SetDependentOrdersRequest): Promise<unknown>;
+    setDependentOrders(request: SetDependentOrdersRequest): Promise<SetDependentOrdersResponse>;
 }

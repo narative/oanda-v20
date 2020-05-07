@@ -44,7 +44,7 @@ export interface InstrumentsRequest {
     query: InstrumentsRequestQuery;
 }
 export interface InstrumentsRequestQuery {
-    instruments: primitives.InstrumentName[];
+    instruments?: primitives.InstrumentName[];
 }
 export declare type InstrumentsResponse = InstrumentsResponse200;
 export interface InstrumentsResponse200 {
@@ -106,7 +106,7 @@ export interface ChangesRequest {
     query: ChangesRequestQuery;
 }
 export interface ChangesRequestQuery {
-    sinceTransactionID: transaction.TransactionID;
+    sinceTransactionID?: transaction.TransactionID;
 }
 export declare type ChangesResponse = ChangesResponse200;
 export interface ChangesResponse200 {
@@ -121,7 +121,7 @@ export interface ChangesResponse200 {
      */
     state?: account.AccountChangesState;
     /**
-     * The ID of the last Transaction created for the Account.  This Transaction
+     * The ID of the last Transaction created for the Account. This Transaction
      * ID should be used for future poll requests, as the client has already
      * observed all changes up to and including it.
      */
@@ -135,30 +135,30 @@ export declare class API {
      * list
      * GET /v3/accounts
      */
-    list(request: ListRequest): Promise<unknown>;
+    list(request: ListRequest): Promise<ListResponse>;
     /**
      * get
      * GET /v3/accounts/{accountID}
      */
-    get(request: GetRequest): Promise<unknown>;
+    get(request: GetRequest): Promise<GetResponse>;
     /**
      * summary
      * GET /v3/accounts/{accountID}/summary
      */
-    summary(request: SummaryRequest): Promise<unknown>;
+    summary(request: SummaryRequest): Promise<SummaryResponse>;
     /**
      * instruments
      * GET /v3/accounts/{accountID}/instruments
      */
-    instruments(request: InstrumentsRequest): Promise<unknown>;
+    instruments(request: InstrumentsRequest): Promise<InstrumentsResponse>;
     /**
      * configure
      * PATCH /v3/accounts/{accountID}/configuration
      */
-    configure(request: ConfigureRequest): Promise<unknown>;
+    configure(request: ConfigureRequest): Promise<ConfigureResponse>;
     /**
      * changes
      * GET /v3/accounts/{accountID}/changes
      */
-    changes(request: ChangesRequest): Promise<unknown>;
+    changes(request: ChangesRequest): Promise<ChangesResponse>;
 }

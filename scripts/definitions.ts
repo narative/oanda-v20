@@ -4,11 +4,11 @@ import * as cheerio from 'cheerio'
 
 import { Request } from './request'
 import {
-  parseComments,
-  parseTypes,
   convertType,
   toModuleName,
   convertEnumName,
+  parseTypes,
+  parseComments,
 } from './helpers/types'
 import { Filewriter } from './helpers/file'
 
@@ -46,11 +46,16 @@ class Parser {
   private async parseDefinitions($: CheerioStatic) {
     const self = this
 
-    self.file.appendFile(
+    const missingImport = []
+    const resultExport = []
+    const resultTypes = []
+    const resultEnums = []
+    const resultUnknown = []
+
+    this.file.appendFile(
       `${moduleNames
-        .filter((m) => m !== this.moduleName)
         .map((m) => `import * as ${toModuleName(m)} from './${toModuleName(m)}'`)
-        .join('\n')}\n`,
+        .join(`\n`)}\n`,
     )
 
     $('.endpoint_header').each(function () {
@@ -58,16 +63,13 @@ class Parser {
       const name = $this.find('.method').text()
       const description = $this.find('.definition').text()
 
-      self.file.appendFile(`
-/**
- * ${description} ${self.url}
- */
-`)
-
       const type = $this.next().find('.parameter_table > tbody > tr:first-child > th')
       if (type.text() === 'Type') {
         const typeValue = convertType(type.next().text())
-        self.file.appendFile(`export type ${name} = ${typeValue}\n`)
+        resultTypes.push(`/**
+ * ${description} ${self.url}
+ */
+export type ${name} = ${typeValue}`)
         return
       }
 
@@ -86,7 +88,11 @@ class Parser {
             values.push({ value, description })
           })
 
-        const enumValue = `export enum ${name} {
+        // handle enums
+        const enumValue = `/**
+ * ${description} ${self.url}
+ */
+export enum ${name} {
 ${values
   .map(
     (v) => `  /**
@@ -96,29 +102,92 @@ ${values
 `,
   )
   .join('\n')}}`
-        self.file.appendFile(`${enumValue}\n`)
+        resultEnums.push(`${enumValue}`)
         return
       }
 
+      // handle schema
       const schema = $this.next().find('.json_schema').html()
       if (schema) {
-        const result = parseTypes(parseComments(schema), self.moduleName)
-        self.file.appendFile(`export interface ${name} ${result}`)
+        if (self.isMissing(name)) {
+          const result = parseTypes(parseComments(schema), self.moduleName)
+          missingImport.push(`export class ${name} ${result}`)
+          return
+        }
+
+        resultExport.push(name)
         return
       }
 
+      // handle implementations
       const implementation = $this.next().find('p > a')
       if (implementation) {
         const implementations = []
         implementation.each(function () {
-          implementations.push($(this).text())
+          const impl = $(this).text()
+          implementations.push(impl)
         })
-        self.file.appendFile(`export type ${name} = ${implementations.join(' | ')}\n`)
+        resultTypes.push(`/**
+ * ${description} ${self.url}
+ */
+export type ${name} = ${implementations.join(' | ')}`)
         return
       }
 
-      self.file.appendFile(`UNKNOWN \n`)
+      resultUnknown.push(`/**
+ * ${description} ${self.url}
+ */
+UNKNOWN`)
     })
+
+    this.file.appendFile(`import { ${resultExport.join(', ')} } from '../${toModuleName(
+      this.moduleName,
+      true,
+    )}'${resultUnknown.length > 0 ? `${resultUnknown.join('\n\n')}\n\n` : ''}
+export { ${resultExport.join(', ')} } from '../${toModuleName(this.moduleName, true)}'${
+      resultUnknown.length > 0 ? `${resultUnknown.join('\n\n')}\n\n` : ''
+    }
+
+${resultTypes.join('\n\n')}
+
+${resultEnums.join('\n\n')}
+
+${missingImport.join('\n\n')}`)
+  }
+
+  private isMissing(name: string) {
+    if (this.moduleName === 'account' && ['AccumulatedAccountState'].includes(name)) {
+      return true
+    }
+
+    if (
+      this.moduleName === 'instrument' &&
+      [
+        'CandlestickResponse',
+        'RawMarketPriceLevel',
+        'RawMarketPriceDepthOfMarket',
+        'PriceAdjustment',
+        'RawMarketPrice',
+      ].includes(name)
+    ) {
+      return true
+    }
+
+    if (
+      this.moduleName === 'primitives' &&
+      ['Tag', 'FinancingDayOfWeek', 'InstrumentFinancing'].includes(name)
+    ) {
+      return true
+    }
+
+    if (
+      this.moduleName === 'transaction' &&
+      ['DividendAdjustmentTransaction', 'OpenTradeDividendAdjustment'].includes(name)
+    ) {
+      return true
+    }
+
+    return false
   }
 }
 

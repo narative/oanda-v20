@@ -12,15 +12,35 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 var context = require("./context");
-var account = require("./api/account");
-var position = require("./api/position");
-var pricing = require("./api/pricing");
-var transaction = require("./api/transaction");
-var trade = require("./api/trade");
-var order = require("./api/order");
-var instrument = require("./api/instrument");
+var accountAPI = require("./api/account");
+var positionAPI = require("./api/position");
+var pricingAPI = require("./api/pricing");
+var transactionAPI = require("./api/transaction");
+var tradeAPI = require("./api/trade");
+var orderAPI = require("./api/order");
+var instrumentAPI = require("./api/instrument");
+__export(require("./context"));
+exports.account = require("./api/account");
+exports.position = require("./api/position");
+exports.pricing = require("./api/pricing");
+exports.transaction = require("./api/transaction");
+exports.trade = require("./api/trade");
+exports.order = require("./api/order");
+exports.instrument = require("./api/instrument");
+__export(require("./definitions/account"));
+__export(require("./definitions/instrument"));
+__export(require("./definitions/order"));
+__export(require("./definitions/position"));
+__export(require("./definitions/pricing"));
+__export(require("./definitions/pricingCommon"));
+__export(require("./definitions/primitives"));
+__export(require("./definitions/trade"));
+__export(require("./definitions/transaction"));
 var url = {
     practice: {
         api: 'api-fxpractice.oanda.com',
@@ -31,55 +51,26 @@ var url = {
         stream: 'https://stream-fxtrade.oanda.com',
     },
 };
-function resolver(resolve, reject) {
-    return function (err, res) {
-        if (err) {
-            reject(err);
-            return;
-        }
-        switch (res.statusCode) {
-            case '400':
-                reject(new Error('Bad request: https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400'));
-                return;
-            case '401':
-                reject(new Error('Unauthorized: https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400'));
-                return;
-            case '403':
-                reject(new Error('Forbidden: https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400'));
-                return;
-            case '404':
-                reject(new Error('Not found: https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400'));
-                return;
-            case '405':
-                reject(new Error('Method not allowed: https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400'));
-                return;
-            default: {
-                if (res.statusCode.startsWith('2')) {
-                    resolve(res.body);
-                    return;
-                }
-                reject(new Error("Unhandled status code: " + res.statusCode));
-                return;
-            }
-        }
-    };
-}
 var OANDA = /** @class */ (function () {
     function OANDA(applicationName, url, token, dateFormat) {
         if (dateFormat === void 0) { dateFormat = 'UNIX'; }
+        this.applicationName = applicationName;
+        this.url = url;
+        this.token = token;
+        this.dateFormat = dateFormat;
         var ctx = new context.Context(url, 443, true, applicationName);
         ctx.setToken(token);
         if (dateFormat === 'UNIX') {
             ctx.headers['Accept-Datetime-Format'] = 'UNIX';
         }
         this.context = ctx;
-        this.account = new account.API(ctx, resolver);
-        this.position = new position.API(ctx, resolver);
-        this.pricing = new pricing.API(ctx, resolver);
-        this.transaction = new transaction.API(ctx, resolver);
-        this.trade = new trade.API(ctx, resolver);
-        this.order = new order.API(ctx, resolver);
-        this.instrument = new instrument.API(ctx, resolver);
+        this.account = new accountAPI.API(ctx, resolver);
+        this.position = new positionAPI.API(ctx, resolver);
+        this.pricing = new pricingAPI.API(ctx, resolver);
+        this.transaction = new transactionAPI.API(ctx, resolver);
+        this.trade = new tradeAPI.API(ctx, resolver);
+        this.order = new orderAPI.API(ctx, resolver);
+        this.instrument = new instrumentAPI.API(ctx, resolver);
     }
     return OANDA;
 }());
@@ -103,4 +94,59 @@ var Stream = /** @class */ (function (_super) {
     return Stream;
 }(OANDA));
 exports.Stream = Stream;
+var APIError = /** @class */ (function (_super) {
+    __extends(APIError, _super);
+    function APIError(message, helpURL, path, body) {
+        var _this = _super.call(this, message + ": " + helpURL + "\npath=" + path + " errorCode=" + (body === null || body === void 0 ? void 0 : body.errorCode) + " errorMessage=" + (body === null || body === void 0 ? void 0 : body.errorMessage)) || this;
+        _this.helpURL = helpURL;
+        _this.path = path;
+        _this.body = body;
+        return _this;
+    }
+    return APIError;
+}(Error));
+exports.APIError = APIError;
+function resolver(resolve, reject) {
+    return function (err, res) {
+        if (err) {
+            reject(err);
+            return;
+        }
+        switch (res.statusCode) {
+            case '400':
+                reject(new APIError('Bad request', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
+                return;
+            case '401':
+                reject(new APIError('Unauthorized', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
+                return;
+            case '403':
+                reject(new APIError('Forbidden', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
+                return;
+            case '404':
+                reject(new APIError('Not found', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
+                return;
+            case '405':
+                reject(new APIError('Method not allowed', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
+                return;
+            default: {
+                if (res.statusCode.startsWith('2')) {
+                    resolve(res.body);
+                    return;
+                }
+                reject(new APIError('Unhandled status code', "" + res.statusCode, res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
+                return;
+            }
+        }
+    };
+}
+function toOANDATime(date, dateFormat) {
+    if (dateFormat === void 0) { dateFormat = 'UNIX'; }
+    return dateFormat === 'UNIX' ? "" + date.getTime() / 1000 : date.toString();
+}
+exports.toOANDATime = toOANDATime;
+function oandaTimeToDate(data, dateFormat) {
+    if (dateFormat === void 0) { dateFormat = 'UNIX'; }
+    return dateFormat === 'UNIX' ? new Date(Number(data) * 1000) : new Date(data);
+}
+exports.oandaTimeToDate = oandaTimeToDate;
 //# sourceMappingURL=index.js.map

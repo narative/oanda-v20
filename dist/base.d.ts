@@ -15,7 +15,7 @@ export declare class Definition {
     protected _nameFormat: string;
     protected _properties: Property[];
     constructor();
-    toJSON(key: any): {};
+    toJSON(): {};
     name(): string;
     summary(): string;
     title(): string;

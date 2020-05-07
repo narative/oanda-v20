@@ -72,7 +72,10 @@ import { EntitySpec } from '../${self.moduleName}'\n`)
 
       if (!name) {
         self.file.appendFile(`
-// ${name} ${key}
+///////////////////////////////////////////////////////////////////////////////
+// ${key}
+///////////////////////////////////////////////////////////////////////////////
+
 // no implementation
 
 `)
@@ -85,7 +88,9 @@ import { EntitySpec } from '../${self.moduleName}'\n`)
       endpoints.push({ key, name, requests, responses })
 
       self.file.appendFile(`
-// ${name} ${key}
+///////////////////////////////////////////////////////////////////////////////
+// ${name} - ${key}
+///////////////////////////////////////////////////////////////////////////////
         
 export interface ${capitalize(name)}Request {
 ${requests
@@ -97,31 +102,29 @@ ${requests
         .join(
           ``,
         )}${requests.find((r) => r.location === 'query') ? `  query: ${capitalize(name)}RequestQuery` : ''}${requests.find((r) => r.location === 'body') ? `  body: ${capitalize(name)}RequestBody` : ''}
-}
-${
-  requests.find((r) => r.location === 'query')
-    ? `\nexport interface ${capitalize(name)}RequestQuery {${requests
-        .filter((r) => r.location === 'query')
-        .map(
-          (r) => `
-  ${r.name}: ${r.type}`,
-        )
-        .join('')}
+}${
+        requests.find((r) => r.location === 'query')
+          ? `\n\nexport interface ${capitalize(name)}RequestQuery {${requests
+              .filter((r) => r.location === 'query')
+              .map(
+                (r) => `
+  ${r.name}?: ${r.type}`,
+              )
+              .join(`\n`)}
 }`
-    : ''
-}
+          : ''
+      }
 ${requests
   .filter((r) => r.location === 'body')
   .map((r) => `\nexport interface ${capitalize(name)}RequestBody ${r.type}`)
-  .join('\n')}
+  .join(``)}
 export type ${capitalize(
         name,
       )}Response = ${responses.length > 0 ? responses.map((r) => `${capitalize(name)}Response${r.status}`).join(` | `) : 'void'}
 
 ${responses
   .map((r) => `export interface ${capitalize(name)}Response${r.status} ${r.schema}`)
-  .join(`\n`)}
-`)
+  .join(`\n`)}`)
     })
 
     self.file.appendFile(`
@@ -136,7 +139,9 @@ ${endpoints
        * ${e.name}
        * ${e.key} 
        */
-      async ${e.name}(request: ${capitalize(e.name)}Request) {
+      async ${e.name}(request: ${capitalize(e.name)}Request${self.appendStreamRequest(
+      e.name,
+    )}): Promise<${capitalize(e.name)}Response> {
         return new Promise((resolve, reject) => {
           new EntitySpec(this.context).${e.name}(
 ${e.requests
@@ -146,13 +151,25 @@ ${e.requests
       e.requests.find((r) => r.location === 'query') ? '            request.query,\n' : ''
     }${
       e.requests.find((r) => r.location === 'body') ? '            request.body,\n' : ''
-    }            this.resolver(resolve, reject))
+    }${self.appendStreamRequest(e.name, true)}            this.resolver(resolve, reject))
         })
       }`,
   )
   .join(`\n`)}
     }
 `)
+  }
+
+  private appendStreamRequest(name: string, param = false) {
+    if (!['pricing', 'transaction'].includes(this.moduleName)) {
+      return ''
+    }
+
+    if (!['stream', 'candles'].includes(name)) {
+      return ''
+    }
+
+    return param ? `            streamChunkHandler,\n` : `, streamChunkHandler: any`
   }
 
   private parseRequest($: CheerioStatic, key: string, id: string) {
@@ -193,7 +210,7 @@ ${e.requests
     const idParts = id.replace('#', '').split('_') // #collapse_endpoint_2
 
     const responses: ResponseInfo[] = []
-    ;[200, 400].forEach((status) => {
+    ;[200, 201, 400, 404].forEach((status) => {
       const bodyID = `#${idParts[0]}_${idParts[2]}_${status}` // #collapse_2_200
 
       const raw = $(bodyID).find('.json_schema').html()

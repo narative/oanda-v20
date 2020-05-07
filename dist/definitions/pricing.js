@@ -1,5 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var pricing_1 = require("../pricing");
+exports.ClientPrice = pricing_1.ClientPrice;
+exports.QuoteHomeConversionFactors = pricing_1.QuoteHomeConversionFactors;
+exports.HomeConversions = pricing_1.HomeConversions;
+exports.PricingHeartbeat = pricing_1.PricingHeartbeat;
 /**
  * The status of the Price. https://developer.oanda.com/rest-live-v20/pricing-df/
  */

@@ -3,6 +3,8 @@
  */
 export function parseComments(data: string) {
   return data
+    .replace(/\n\n/g, '\n')
+    .replace(/  /g, ' ')
     .replace(/(?:&#x201C;|&#x201D;|&#x2019;)/g, `'`)
     .replace(
       /#\s*\n((?:\s*#[^\n]*\n)+)(\s*)#/g,
@@ -19,17 +21,12 @@ export function parseTypes(data: string, moduleName?: string) {
     /(\S*)\s*:\s*\(([\S\s]*?)(,\srequired)?(,\sdeprecated)?(,\sdefault=\S+)?\),?/gm,
     (match, p1, p2, required, deprecated, defaultValue) => {
       return `${p1}${required ? '' : '?'}: ${convertType(p2, moduleName)}${
-        defaultValue ? ` /* ${defaultValue.replace(/[,\s]*/, '')} */` : ''
+        defaultValue ? ` /* ${defaultValue.replace(', default=', '')} */` : ''
       }\n`
     },
   )
 
   return result
-
-  // .replace(
-  //   /(\S+\??)\s*:\s*\(?([\s\S]*?)\)?,?\n/gm,
-  //   (match, p1, p2) => `${p1}: ${convertType(p2, moduleName)}\n`,
-  // )
 }
 
 export function convertType(type: string, moduleName?: string) {
@@ -72,10 +69,10 @@ function convertSingleType(type: string, moduleName?: string) {
   }
 }
 
-export function toModuleName(name: string) {
+export function toModuleName(name: string, original = false) {
   switch (name) {
     case 'pricing-common':
-      return 'pricingCommon'
+      return original ? 'pricing_common' : 'pricingCommon'
     default:
       return name
   }

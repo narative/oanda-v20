@@ -1,5 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var primitives_1 = require("../primitives");
+exports.Instrument = primitives_1.Instrument;
+exports.InstrumentCommission = primitives_1.InstrumentCommission;
+exports.GuaranteedStopLossOrderLevelRestriction = primitives_1.GuaranteedStopLossOrderLevelRestriction;
 /**
  * The type of an Instrument. https://developer.oanda.com/rest-live-v20/primitives-df/
  */
@@ -80,4 +84,22 @@ var Direction;
      */
     Direction["SHORT"] = "SHORT";
 })(Direction = exports.Direction || (exports.Direction = {}));
+var Tag = /** @class */ (function () {
+    function Tag() {
+    }
+    return Tag;
+}());
+exports.Tag = Tag;
+var FinancingDayOfWeek = /** @class */ (function () {
+    function FinancingDayOfWeek() {
+    }
+    return FinancingDayOfWeek;
+}());
+exports.FinancingDayOfWeek = FinancingDayOfWeek;
+var InstrumentFinancing = /** @class */ (function () {
+    function InstrumentFinancing() {
+    }
+    return InstrumentFinancing;
+}());
+exports.InstrumentFinancing = InstrumentFinancing;
 //# sourceMappingURL=primitives.js.map

@@ -1,5 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var instrument_1 = require("../instrument");
+exports.Candlestick = instrument_1.Candlestick;
+exports.CandlestickData = instrument_1.CandlestickData;
+exports.OrderBook = instrument_1.OrderBook;
+exports.OrderBookBucket = instrument_1.OrderBookBucket;
+exports.PositionBook = instrument_1.PositionBook;
+exports.PositionBookBucket = instrument_1.PositionBookBucket;
 /**
  * The granularity of a candlestick https://developer.oanda.com/rest-live-v20/instrument-df/
  */
@@ -156,4 +163,34 @@ var SamplingInterval;
      */
     SamplingInterval["M1"] = "M1";
 })(SamplingInterval = exports.SamplingInterval || (exports.SamplingInterval = {}));
+var CandlestickResponse = /** @class */ (function () {
+    function CandlestickResponse() {
+    }
+    return CandlestickResponse;
+}());
+exports.CandlestickResponse = CandlestickResponse;
+var RawMarketPriceLevel = /** @class */ (function () {
+    function RawMarketPriceLevel() {
+    }
+    return RawMarketPriceLevel;
+}());
+exports.RawMarketPriceLevel = RawMarketPriceLevel;
+var RawMarketPriceDepthOfMarket = /** @class */ (function () {
+    function RawMarketPriceDepthOfMarket() {
+    }
+    return RawMarketPriceDepthOfMarket;
+}());
+exports.RawMarketPriceDepthOfMarket = RawMarketPriceDepthOfMarket;
+var PriceAdjustment = /** @class */ (function () {
+    function PriceAdjustment() {
+    }
+    return PriceAdjustment;
+}());
+exports.PriceAdjustment = PriceAdjustment;
+var RawMarketPrice = /** @class */ (function () {
+    function RawMarketPrice() {
+    }
+    return RawMarketPrice;
+}());
+exports.RawMarketPrice = RawMarketPrice;
 //# sourceMappingURL=instrument.js.map

@@ -7,10 +7,10 @@ export interface GetRequest {
     query: GetRequestQuery;
 }
 export interface GetRequestQuery {
-    instruments: primitives.InstrumentName[];
-    since: primitives.DateTime;
-    includeUnitsAvailable: boolean;
-    includeHomeConversions: boolean;
+    instruments?: primitives.InstrumentName[];
+    since?: primitives.DateTime;
+    includeUnitsAvailable?: boolean;
+    includeHomeConversions?: boolean;
 }
 export declare type GetResponse = GetResponse200;
 export interface GetResponse200 {
@@ -34,27 +34,26 @@ export interface StreamRequest {
     query: StreamRequestQuery;
 }
 export interface StreamRequestQuery {
-    instruments: primitives.InstrumentName[];
-    snapshot: boolean;
+    instruments?: primitives.InstrumentName[];
+    snapshot?: boolean;
 }
 export declare type StreamResponse = void;
 export interface CandlesRequest {
-    accountID: account.AccountID;
     instrument: primitives.InstrumentName;
     query: CandlesRequestQuery;
 }
 export interface CandlesRequestQuery {
-    price: primitives.PricingComponent;
-    granularity: instrument.CandlestickGranularity;
-    count: number;
-    from: primitives.DateTime;
-    to: primitives.DateTime;
-    smooth: boolean;
-    includeFirst: boolean;
-    dailyAlignment: number;
-    alignmentTimezone: string;
-    weeklyAlignment: instrument.WeeklyAlignment;
-    units: primitives.DecimalNumber;
+    price?: primitives.PricingComponent;
+    granularity?: instrument.CandlestickGranularity;
+    count?: number;
+    from?: primitives.DateTime;
+    to?: primitives.DateTime;
+    smooth?: boolean;
+    includeFirst?: boolean;
+    dailyAlignment?: number;
+    alignmentTimezone?: string;
+    weeklyAlignment?: instrument.WeeklyAlignment;
+    units?: primitives.DecimalNumber;
 }
 export declare type CandlesResponse = CandlesResponse200;
 export interface CandlesResponse200 {
@@ -79,15 +78,15 @@ export declare class API {
      * get
      * GET /v3/accounts/{accountID}/pricing
      */
-    get(request: GetRequest): Promise<unknown>;
+    get(request: GetRequest): Promise<GetResponse>;
     /**
      * stream
      * GET /v3/accounts/{accountID}/pricing/stream
      */
-    stream(request: StreamRequest, streamHandler: any): Promise<unknown>;
+    stream(request: StreamRequest, streamChunkHandler: any): Promise<StreamResponse>;
     /**
      * candles
      * GET /v3/accounts/{accountID}/instruments/{instrument}/candles
      */
-    candles(request: CandlesRequest): Promise<unknown>;
+    candles(request: CandlesRequest, streamChunkHandler: any): Promise<CandlesResponse>;
 }

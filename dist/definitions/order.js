@@ -1,5 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var order_1 = require("../order");
+exports.Order = order_1.Order;
+exports.MarketOrder = order_1.MarketOrder;
+exports.FixedPriceOrder = order_1.FixedPriceOrder;
+exports.LimitOrder = order_1.LimitOrder;
+exports.StopOrder = order_1.StopOrder;
+exports.MarketIfTouchedOrder = order_1.MarketIfTouchedOrder;
+exports.TakeProfitOrder = order_1.TakeProfitOrder;
+exports.StopLossOrder = order_1.StopLossOrder;
+exports.TrailingStopLossOrder = order_1.TrailingStopLossOrder;
+exports.MarketOrderRequest = order_1.MarketOrderRequest;
+exports.LimitOrderRequest = order_1.LimitOrderRequest;
+exports.StopOrderRequest = order_1.StopOrderRequest;
+exports.MarketIfTouchedOrderRequest = order_1.MarketIfTouchedOrderRequest;
+exports.TakeProfitOrderRequest = order_1.TakeProfitOrderRequest;
+exports.StopLossOrderRequest = order_1.StopLossOrderRequest;
+exports.TrailingStopLossOrderRequest = order_1.TrailingStopLossOrderRequest;
+exports.OrderIdentifier = order_1.OrderIdentifier;
+exports.DynamicOrderState = order_1.DynamicOrderState;
+exports.UnitsAvailableDetails = order_1.UnitsAvailableDetails;
+exports.UnitsAvailable = order_1.UnitsAvailable;
+exports.GuaranteedStopLossOrderEntryData = order_1.GuaranteedStopLossOrderEntryData;
 /**
  * The type of the Order. https://developer.oanda.com/rest-live-v20/order-df/
  */

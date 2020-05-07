@@ -12,7 +12,44 @@ export interface CreateRequestBody {
      */
     order?: order.OrderRequest;
 }
-export declare type CreateResponse = CreateResponse400;
+export declare type CreateResponse = CreateResponse201 | CreateResponse400 | CreateResponse404;
+export interface CreateResponse201 {
+    /**
+     * The Transaction that created the Order specified by the request.
+     */
+    orderCreateTransaction?: transaction.Transaction;
+    /**
+     * The Transaction that filled the newly created Order. Only provided when
+     * the Order was immediately filled.
+     */
+    orderFillTransaction?: transaction.OrderFillTransaction;
+    /**
+     * The Transaction that cancelled the newly created Order. Only provided
+     * when the Order was immediately cancelled.
+     */
+    orderCancelTransaction?: transaction.OrderCancelTransaction;
+    /**
+     * The Transaction that reissues the Order. Only provided when the Order is
+     * configured to be reissued for its remaining units after a partial fill
+     * and the reissue was successful.
+     */
+    orderReissueTransaction?: transaction.Transaction;
+    /**
+     * The Transaction that rejects the reissue of the Order. Only provided when
+     * the Order is configured to be reissued for its remaining units after a
+     * partial fill and the reissue was rejected.
+     */
+    orderReissueRejectTransaction?: transaction.Transaction;
+    /**
+     * The IDs of all Transactions that were created while satisfying the
+     * request.
+     */
+    relatedTransactionIDs?: transaction.TransactionID[];
+    /**
+     * The ID of the most recent Transaction created for the Account
+     */
+    lastTransactionID?: transaction.TransactionID;
+}
 export interface CreateResponse400 {
     /**
      * The Transaction that rejected the creation of the Order as requested
@@ -37,16 +74,42 @@ export interface CreateResponse400 {
      */
     errorMessage: string;
 }
+export interface CreateResponse404 {
+    /**
+     * The Transaction that rejected the creation of the Order as requested.
+     * Only present if the Account exists.
+     */
+    orderRejectTransaction?: transaction.Transaction;
+    /**
+     * The IDs of all Transactions that were created while satisfying the
+     * request. Only present if the Account exists.
+     */
+    relatedTransactionIDs?: transaction.TransactionID[];
+    /**
+     * The ID of the most recent Transaction created for the Account. Only
+     * present if the Account exists.
+     */
+    lastTransactionID?: transaction.TransactionID;
+    /**
+     * The code of the error that has occurred. This field may not be returned
+     * for some errors.
+     */
+    errorCode?: string;
+    /**
+     * The human-readable description of the error that has occurred.
+     */
+    errorMessage: string;
+}
 export interface ListRequest {
     accountID: account.AccountID;
     query: ListRequestQuery;
 }
 export interface ListRequestQuery {
-    ids: order.OrderID[];
-    state: order.OrderStateFilter;
-    instrument: primitives.InstrumentName;
-    count: number;
-    beforeID: order.OrderID;
+    ids?: order.OrderID[];
+    state?: order.OrderStateFilter;
+    instrument?: primitives.InstrumentName;
+    count?: number;
+    beforeID?: order.OrderID;
 }
 export declare type ListResponse = ListResponse200;
 export interface ListResponse200 {
@@ -99,7 +162,48 @@ export interface ReplaceRequestBody {
      */
     order?: order.OrderRequest;
 }
-export declare type ReplaceResponse = ReplaceResponse400;
+export declare type ReplaceResponse = ReplaceResponse201 | ReplaceResponse400 | ReplaceResponse404;
+export interface ReplaceResponse201 {
+    /**
+     * The Transaction that cancelled the Order to be replaced.
+     */
+    orderCancelTransaction?: transaction.OrderCancelTransaction;
+    /**
+     * The Transaction that created the replacing Order as requested.
+     */
+    orderCreateTransaction?: transaction.Transaction;
+    /**
+     * The Transaction that filled the replacing Order. This is only provided
+     * when the replacing Order was immediately filled.
+     */
+    orderFillTransaction?: transaction.OrderFillTransaction;
+    /**
+     * The Transaction that reissues the replacing Order. Only provided when the
+     * replacing Order was partially filled immediately and is configured to be
+     * reissued for its remaining units.
+     */
+    orderReissueTransaction?: transaction.Transaction;
+    /**
+     * The Transaction that rejects the reissue of the Order. Only provided when
+     * the replacing Order was partially filled immediately and was configured
+     * to be reissued, however the reissue was rejected.
+     */
+    orderReissueRejectTransaction?: transaction.Transaction;
+    /**
+     * The Transaction that cancelled the replacing Order. Only provided when
+     * the replacing Order was immediately cancelled.
+     */
+    replacingOrderCancelTransaction?: transaction.OrderCancelTransaction;
+    /**
+     * The IDs of all Transactions that were created while satisfying the
+     * request.
+     */
+    relatedTransactionIDs?: transaction.TransactionID[];
+    /**
+     * The ID of the most recent Transaction created for the Account
+     */
+    lastTransactionID?: transaction.TransactionID;
+}
 export interface ReplaceResponse400 {
     /**
      * The Transaction that rejected the creation of the replacing Order
@@ -124,11 +228,37 @@ export interface ReplaceResponse400 {
      */
     errorMessage: string;
 }
+export interface ReplaceResponse404 {
+    /**
+     * The Transaction that rejected the cancellation of the Order to be
+     * replaced. Only present if the Account exists.
+     */
+    orderCancelRejectTransaction?: transaction.Transaction;
+    /**
+     * The IDs of all Transactions that were created while satisfying the
+     * request. Only present if the Account exists.
+     */
+    relatedTransactionIDs?: transaction.TransactionID[];
+    /**
+     * The ID of the most recent Transaction created for the Account. Only
+     * present if the Account exists.
+     */
+    lastTransactionID?: transaction.TransactionID;
+    /**
+     * The code of the error that has occurred. This field may not be returned
+     * for some errors.
+     */
+    errorCode?: string;
+    /**
+     * The human-readable description of the error that has occurred.
+     */
+    errorMessage: string;
+}
 export interface CancelRequest {
     accountID: account.AccountID;
     orderSpecifier: order.OrderSpecifier;
 }
-export declare type CancelResponse = CancelResponse200;
+export declare type CancelResponse = CancelResponse200 | CancelResponse404;
 export interface CancelResponse200 {
     /**
      * The Transaction that cancelled the Order
@@ -143,6 +273,32 @@ export interface CancelResponse200 {
      * The ID of the most recent Transaction created for the Account
      */
     lastTransactionID?: transaction.TransactionID;
+}
+export interface CancelResponse404 {
+    /**
+     * The Transaction that rejected the cancellation of the Order. Only present
+     * if the Account exists.
+     */
+    orderCancelRejectTransaction?: transaction.OrderCancelRejectTransaction;
+    /**
+     * The IDs of all Transactions that were created while satisfying the
+     * request. Only present if the Account exists.
+     */
+    relatedTransactionIDs?: transaction.TransactionID[];
+    /**
+     * The ID of the most recent Transaction created for the Account. Only
+     * present if the Account exists.
+     */
+    lastTransactionID?: transaction.TransactionID;
+    /**
+     * The code of the error that has occurred. This field may not be returned
+     * for some errors.
+     */
+    errorCode?: string;
+    /**
+     * The human-readable description of the error that has occurred.
+     */
+    errorMessage: string;
 }
 export interface SetClientExtensionsRequest {
     accountID: account.AccountID;
@@ -162,7 +318,7 @@ export interface SetClientExtensionsRequestBody {
      */
     tradeClientExtensions?: transaction.ClientExtensions;
 }
-export declare type SetClientExtensionsResponse = SetClientExtensionsResponse200 | SetClientExtensionsResponse400;
+export declare type SetClientExtensionsResponse = SetClientExtensionsResponse200 | SetClientExtensionsResponse400 | SetClientExtensionsResponse404;
 export interface SetClientExtensionsResponse200 {
     /**
      * The Transaction that modified the Client Extensions for the Order
@@ -203,6 +359,32 @@ export interface SetClientExtensionsResponse400 {
      */
     errorMessage: string;
 }
+export interface SetClientExtensionsResponse404 {
+    /**
+     * The Transaction that rejected the modification of the Client Extensions
+     * for the Order. Only present if the Account exists.
+     */
+    orderClientExtensionsModifyRejectTransaction?: transaction.OrderClientExtensionsModifyRejectTransaction;
+    /**
+     * The ID of the most recent Transaction created for the Account. Only
+     * present if the Account exists.
+     */
+    lastTransactionID?: transaction.TransactionID;
+    /**
+     * The IDs of all Transactions that were created while satisfying the
+     * request. Only present if the Account exists.
+     */
+    relatedTransactionIDs?: transaction.TransactionID[];
+    /**
+     * The code of the error that has occurred. This field may not be returned
+     * for some errors.
+     */
+    errorCode?: string;
+    /**
+     * The human-readable description of the error that has occurred.
+     */
+    errorMessage: string;
+}
 export declare class API {
     private context;
     private resolver;
@@ -211,35 +393,35 @@ export declare class API {
      * create
      * POST /v3/accounts/{accountID}/orders
      */
-    create(request: CreateRequest): Promise<unknown>;
+    create(request: CreateRequest): Promise<CreateResponse>;
     /**
      * list
      * GET /v3/accounts/{accountID}/orders
      */
-    list(request: ListRequest): Promise<unknown>;
+    list(request: ListRequest): Promise<ListResponse>;
     /**
      * listPending
      * GET /v3/accounts/{accountID}/pendingOrders
      */
-    listPending(request: ListPendingRequest): Promise<unknown>;
+    listPending(request: ListPendingRequest): Promise<ListPendingResponse>;
     /**
      * get
      * GET /v3/accounts/{accountID}/orders/{orderSpecifier}
      */
-    get(request: GetRequest): Promise<unknown>;
+    get(request: GetRequest): Promise<GetResponse>;
     /**
      * replace
      * PUT /v3/accounts/{accountID}/orders/{orderSpecifier}
      */
-    replace(request: ReplaceRequest): Promise<unknown>;
+    replace(request: ReplaceRequest): Promise<ReplaceResponse>;
     /**
      * cancel
      * PUT /v3/accounts/{accountID}/orders/{orderSpecifier}/cancel
      */
-    cancel(request: CancelRequest): Promise<unknown>;
+    cancel(request: CancelRequest): Promise<CancelResponse>;
     /**
      * setClientExtensions
      * PUT /v3/accounts/{accountID}/orders/{orderSpecifier}/clientExtensions
      */
-    setClientExtensions(request: SetClientExtensionsRequest): Promise<unknown>;
+    setClientExtensions(request: SetClientExtensionsRequest): Promise<SetClientExtensionsResponse>;
 }

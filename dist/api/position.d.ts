@@ -76,7 +76,7 @@ export interface CloseRequestBody {
      */
     shortClientExtensions?: transaction.ClientExtensions;
 }
-export declare type CloseResponse = CloseResponse200 | CloseResponse400;
+export declare type CloseResponse = CloseResponse200 | CloseResponse400 | CloseResponse404;
 export interface CloseResponse200 {
     /**
      * The MarketOrderTransaction created to close the long Position.
@@ -144,6 +144,39 @@ export interface CloseResponse400 {
      */
     errorMessage: string;
 }
+export interface CloseResponse404 {
+    /**
+     * The Transaction created that rejects the creation of a MarketOrder to
+     * close the long Position. Only present if the Account exists and a long
+     * Position was specified.
+     */
+    longOrderRejectTransaction?: transaction.MarketOrderRejectTransaction;
+    /**
+     * The Transaction created that rejects the creation of a MarketOrder to
+     * close the short Position. Only present if the Account exists and a short
+     * Position was specified.
+     */
+    shortOrderRejectTransaction?: transaction.MarketOrderRejectTransaction;
+    /**
+     * The IDs of all Transactions that were created while satisfying the
+     * request. Only present if the Account exists.
+     */
+    relatedTransactionIDs?: transaction.TransactionID[];
+    /**
+     * The ID of the most recent Transaction created for the Account. Only
+     * present if the Account exists.
+     */
+    lastTransactionID?: transaction.TransactionID;
+    /**
+     * The code of the error that has occurred. This field may not be returned
+     * for some errors.
+     */
+    errorCode?: string;
+    /**
+     * The human-readable description of the error that has occurred.
+     */
+    errorMessage: string;
+}
 export declare class API {
     private context;
     private resolver;
@@ -152,20 +185,20 @@ export declare class API {
      * list
      * GET /v3/accounts/{accountID}/positions
      */
-    list(request: ListRequest): Promise<unknown>;
+    list(request: ListRequest): Promise<ListResponse>;
     /**
      * listOpen
      * GET /v3/accounts/{accountID}/openPositions
      */
-    listOpen(request: ListOpenRequest): Promise<unknown>;
+    listOpen(request: ListOpenRequest): Promise<ListOpenResponse>;
     /**
      * get
      * GET /v3/accounts/{accountID}/positions/{instrument}
      */
-    get(request: GetRequest): Promise<unknown>;
+    get(request: GetRequest): Promise<GetResponse>;
     /**
      * close
      * PUT /v3/accounts/{accountID}/positions/{instrument}/close
      */
-    close(request: CloseRequest): Promise<unknown>;
+    close(request: CloseRequest): Promise<CloseResponse>;
 }

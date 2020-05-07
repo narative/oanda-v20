@@ -1,5 +1,57 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var transaction_1 = require("../transaction");
+exports.Transaction = transaction_1.Transaction;
+exports.CreateTransaction = transaction_1.CreateTransaction;
+exports.CloseTransaction = transaction_1.CloseTransaction;
+exports.ReopenTransaction = transaction_1.ReopenTransaction;
+exports.ClientConfigureTransaction = transaction_1.ClientConfigureTransaction;
+exports.ClientConfigureRejectTransaction = transaction_1.ClientConfigureRejectTransaction;
+exports.TransferFundsTransaction = transaction_1.TransferFundsTransaction;
+exports.TransferFundsRejectTransaction = transaction_1.TransferFundsRejectTransaction;
+exports.MarketOrderTransaction = transaction_1.MarketOrderTransaction;
+exports.MarketOrderRejectTransaction = transaction_1.MarketOrderRejectTransaction;
+exports.FixedPriceOrderTransaction = transaction_1.FixedPriceOrderTransaction;
+exports.LimitOrderTransaction = transaction_1.LimitOrderTransaction;
+exports.LimitOrderRejectTransaction = transaction_1.LimitOrderRejectTransaction;
+exports.StopOrderTransaction = transaction_1.StopOrderTransaction;
+exports.StopOrderRejectTransaction = transaction_1.StopOrderRejectTransaction;
+exports.MarketIfTouchedOrderTransaction = transaction_1.MarketIfTouchedOrderTransaction;
+exports.MarketIfTouchedOrderRejectTransaction = transaction_1.MarketIfTouchedOrderRejectTransaction;
+exports.TakeProfitOrderTransaction = transaction_1.TakeProfitOrderTransaction;
+exports.TakeProfitOrderRejectTransaction = transaction_1.TakeProfitOrderRejectTransaction;
+exports.StopLossOrderTransaction = transaction_1.StopLossOrderTransaction;
+exports.StopLossOrderRejectTransaction = transaction_1.StopLossOrderRejectTransaction;
+exports.TrailingStopLossOrderTransaction = transaction_1.TrailingStopLossOrderTransaction;
+exports.TrailingStopLossOrderRejectTransaction = transaction_1.TrailingStopLossOrderRejectTransaction;
+exports.OrderFillTransaction = transaction_1.OrderFillTransaction;
+exports.OrderCancelTransaction = transaction_1.OrderCancelTransaction;
+exports.OrderCancelRejectTransaction = transaction_1.OrderCancelRejectTransaction;
+exports.OrderClientExtensionsModifyTransaction = transaction_1.OrderClientExtensionsModifyTransaction;
+exports.OrderClientExtensionsModifyRejectTransaction = transaction_1.OrderClientExtensionsModifyRejectTransaction;
+exports.TradeClientExtensionsModifyTransaction = transaction_1.TradeClientExtensionsModifyTransaction;
+exports.TradeClientExtensionsModifyRejectTransaction = transaction_1.TradeClientExtensionsModifyRejectTransaction;
+exports.MarginCallEnterTransaction = transaction_1.MarginCallEnterTransaction;
+exports.MarginCallExtendTransaction = transaction_1.MarginCallExtendTransaction;
+exports.MarginCallExitTransaction = transaction_1.MarginCallExitTransaction;
+exports.DelayedTradeClosureTransaction = transaction_1.DelayedTradeClosureTransaction;
+exports.DailyFinancingTransaction = transaction_1.DailyFinancingTransaction;
+exports.ResetResettablePLTransaction = transaction_1.ResetResettablePLTransaction;
+exports.ClientExtensions = transaction_1.ClientExtensions;
+exports.TakeProfitDetails = transaction_1.TakeProfitDetails;
+exports.StopLossDetails = transaction_1.StopLossDetails;
+exports.TrailingStopLossDetails = transaction_1.TrailingStopLossDetails;
+exports.TradeOpen = transaction_1.TradeOpen;
+exports.TradeReduce = transaction_1.TradeReduce;
+exports.MarketOrderTradeClose = transaction_1.MarketOrderTradeClose;
+exports.MarketOrderMarginCloseout = transaction_1.MarketOrderMarginCloseout;
+exports.MarketOrderDelayedTradeClose = transaction_1.MarketOrderDelayedTradeClose;
+exports.MarketOrderPositionCloseout = transaction_1.MarketOrderPositionCloseout;
+exports.LiquidityRegenerationSchedule = transaction_1.LiquidityRegenerationSchedule;
+exports.LiquidityRegenerationScheduleStep = transaction_1.LiquidityRegenerationScheduleStep;
+exports.OpenTradeFinancing = transaction_1.OpenTradeFinancing;
+exports.PositionFinancing = transaction_1.PositionFinancing;
+exports.TransactionHeartbeat = transaction_1.TransactionHeartbeat;
 /**
  * The possible types of a Transaction https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -1366,4 +1418,16 @@ var TransactionFilter;
      */
     TransactionFilter["RESET_RESETTABLE_PL"] = "RESET_RESETTABLE_PL";
 })(TransactionFilter = exports.TransactionFilter || (exports.TransactionFilter = {}));
+var DividendAdjustmentTransaction = /** @class */ (function () {
+    function DividendAdjustmentTransaction() {
+    }
+    return DividendAdjustmentTransaction;
+}());
+exports.DividendAdjustmentTransaction = DividendAdjustmentTransaction;
+var OpenTradeDividendAdjustment = /** @class */ (function () {
+    function OpenTradeDividendAdjustment() {
+    }
+    return OpenTradeDividendAdjustment;
+}());
+exports.OpenTradeDividendAdjustment = OpenTradeDividendAdjustment;
 //# sourceMappingURL=transaction.js.map

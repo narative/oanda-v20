@@ -1,5 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var account_1 = require("../account");
+exports.Account = account_1.Account;
+exports.AccountChangesState = account_1.AccountChangesState;
+exports.AccountProperties = account_1.AccountProperties;
+exports.AccountSummary = account_1.AccountSummary;
+exports.CalculatedAccountState = account_1.CalculatedAccountState;
+exports.AccountChanges = account_1.AccountChanges;
 /**
  * The overall behaviour of the Account regarding guaranteed Stop Loss Orders. https://developer.oanda.com/rest-live-v20/account-df/
  */
@@ -54,4 +61,10 @@ var PositionAggregationMode;
      */
     PositionAggregationMode["NET_SUM"] = "NET_SUM";
 })(PositionAggregationMode = exports.PositionAggregationMode || (exports.PositionAggregationMode = {}));
+var AccumulatedAccountState = /** @class */ (function () {
+    function AccumulatedAccountState() {
+    }
+    return AccumulatedAccountState;
+}());
+exports.AccumulatedAccountState = AccumulatedAccountState;
 //# sourceMappingURL=account.js.map

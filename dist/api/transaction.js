@@ -103,12 +103,12 @@ var API = /** @class */ (function () {
      * stream
      * GET /v3/accounts/{accountID}/transactions/stream
      */
-    API.prototype.stream = function (request, streamHandler) {
+    API.prototype.stream = function (request, streamChunkHandler) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        new transaction_1.EntitySpec(_this.context).stream(request.accountID, streamHandler, _this.resolver(resolve, reject));
+                        new transaction_1.EntitySpec(_this.context).stream(request.accountID, streamChunkHandler, _this.resolver(resolve, reject));
                     })];
             });
         });

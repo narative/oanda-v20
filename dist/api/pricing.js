@@ -61,12 +61,12 @@ var API = /** @class */ (function () {
      * stream
      * GET /v3/accounts/{accountID}/pricing/stream
      */
-    API.prototype.stream = function (request, streamHandler) {
+    API.prototype.stream = function (request, streamChunkHandler) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        new pricing_1.EntitySpec(_this.context).stream(request.accountID, request.query, streamHandler, _this.resolver(resolve, reject));
+                        new pricing_1.EntitySpec(_this.context).stream(request.accountID, request.query, streamChunkHandler, _this.resolver(resolve, reject));
                     })];
             });
         });
@@ -75,12 +75,12 @@ var API = /** @class */ (function () {
      * candles
      * GET /v3/accounts/{accountID}/instruments/{instrument}/candles
      */
-    API.prototype.candles = function (request) {
+    API.prototype.candles = function (request, streamChunkHandler) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        new pricing_1.EntitySpec(_this.context).candles(request.accountID, request.instrument, request.query, _this.resolver(resolve, reject));
+                        new pricing_1.EntitySpec(_this.context).candles(request.instrument, request.query, streamChunkHandler, _this.resolver(resolve, reject));
                     })];
             });
         });

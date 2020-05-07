@@ -5,16 +5,16 @@ export interface CandlesRequest {
     query: CandlesRequestQuery;
 }
 export interface CandlesRequestQuery {
-    price: primitives.PricingComponent;
-    granularity: instrument.CandlestickGranularity;
-    count: number;
-    from: primitives.DateTime;
-    to: primitives.DateTime;
-    smooth: boolean;
-    includeFirst: boolean;
-    dailyAlignment: number;
-    alignmentTimezone: string;
-    weeklyAlignment: instrument.WeeklyAlignment;
+    price?: primitives.PricingComponent;
+    granularity?: instrument.CandlestickGranularity;
+    count?: number;
+    from?: primitives.DateTime;
+    to?: primitives.DateTime;
+    smooth?: boolean;
+    includeFirst?: boolean;
+    dailyAlignment?: number;
+    alignmentTimezone?: string;
+    weeklyAlignment?: instrument.WeeklyAlignment;
 }
 export declare type CandlesResponse = CandlesResponse200;
 export interface CandlesResponse200 {
@@ -36,7 +36,7 @@ export interface OrderBookRequest {
     query: OrderBookRequestQuery;
 }
 export interface OrderBookRequestQuery {
-    time: primitives.DateTime;
+    time?: primitives.DateTime;
 }
 export declare type OrderBookResponse = OrderBookResponse200;
 export interface OrderBookResponse200 {
@@ -50,7 +50,7 @@ export interface PositionBookRequest {
     query: PositionBookRequestQuery;
 }
 export interface PositionBookRequestQuery {
-    time: primitives.DateTime;
+    time?: primitives.DateTime;
 }
 export declare type PositionBookResponse = PositionBookResponse200;
 export interface PositionBookResponse200 {
@@ -67,15 +67,15 @@ export declare class API {
      * candles
      * GET /v3/instruments/{instrument}/candles
      */
-    candles(request: CandlesRequest): Promise<unknown>;
+    candles(request: CandlesRequest): Promise<CandlesResponse>;
     /**
      * orderBook
      * GET /v3/instruments/{instrument}/orderBook
      */
-    orderBook(request: OrderBookRequest): Promise<unknown>;
+    orderBook(request: OrderBookRequest): Promise<OrderBookResponse>;
     /**
      * positionBook
      * GET /v3/instruments/{instrument}/positionBook
      */
-    positionBook(request: PositionBookRequest): Promise<unknown>;
+    positionBook(request: PositionBookRequest): Promise<PositionBookResponse>;
 }

@@ -40,21 +40,17 @@ var Definition = /** @class */ (function () {
         this._nameFormat = '';
         this._properties = [];
     }
-    Definition.prototype.toJSON = function (key) {
-        var repr = {};
-        for (var val in Object.keys(this)) {
-            if (val == '_properties') {
-                continue;
-            }
-            if (val == '_summaryFormat') {
-                continue;
-            }
-            if (val == '_nameFormat') {
-                continue;
-            }
-            repr[val] = this[val];
-        }
-        return repr;
+    Definition.prototype.toJSON = function () {
+        return Object.entries(this)
+            .filter(function (_a) {
+            var k = _a[0], v = _a[1];
+            return !['_summaryFormat', '_nameFormat', '_properties'].includes(k);
+        })
+            .reduce(function (acc, _a) {
+            var k = _a[0], v = _a[1];
+            acc[k] = v;
+            return acc;
+        }, {});
     };
     Definition.prototype.name = function () {
         var nameStr = this._nameFormat;
@@ -72,8 +68,10 @@ var Definition = /** @class */ (function () {
         var summaryStr = this._summaryFormat;
         var re = /{([^}]+)}/g;
         var matches = summaryStr.match(re);
+        console.log('AAAAA', matches);
         for (var _i = 0, _a = matches || []; _i < _a.length; _i++) {
             var match = _a[_i];
+            console.log('BBBBBBB', match);
             var key = match.slice(1, -1);
             var value = this[key] || match;
             summaryStr = summaryStr.replace(match, value);
