@@ -46,6 +46,7 @@ class Parser {
         .join('\n')}\n`,
     )
     self.file.appendFile(`
+import * as http from 'http'
 import { EntitySpec } from '../${self.moduleName}'\n`)
 
     const endpoints: {
@@ -53,6 +54,7 @@ import { EntitySpec } from '../${self.moduleName}'\n`)
       name: string
       requests: RequestInfo[]
       responses: ResponseInfo[]
+      type: 'stream' | 'rest'
     }[] = []
 
     $('.endpoint_header').each(function (i, e) {
@@ -73,7 +75,7 @@ import { EntitySpec } from '../${self.moduleName}'\n`)
       if (!name) {
         self.file.appendFile(`
 ///////////////////////////////////////////////////////////////////////////////
-// ${key}
+// ${key} (${id})
 ///////////////////////////////////////////////////////////////////////////////
 
 // no implementation
@@ -85,11 +87,17 @@ import { EntitySpec } from '../${self.moduleName}'\n`)
       const requests = self.parseRequest($, key, id)
       const responses = self.parseResponse($, key, id)
 
-      endpoints.push({ key, name, requests, responses })
+      endpoints.push({
+        key,
+        name,
+        requests,
+        responses,
+        type: self.isStream(name) ? 'stream' : 'rest',
+      })
 
       self.file.appendFile(`
 ///////////////////////////////////////////////////////////////////////////////
-// ${name} - ${key}
+// ${name} - ${key} (${id})
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface ${capitalize(name)}Request {
@@ -128,48 +136,72 @@ ${responses
     })
 
     self.file.appendFile(`
-    ///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-    export class API {
-      constructor(private context: any, private resolver: any) {}
+export class API {
+  constructor(private context: any, private resolver: any) {}
 ${endpoints
+  .filter((e) => e.type === 'rest')
   .map(
     (e) => `
-      /**
-       * ${e.name}
-       * ${e.key} 
-       */
-      async ${e.name}(request: ${capitalize(e.name)}Request${self.appendStreamRequest(
-      e.name,
-    )}): Promise<${capitalize(e.name)}Response> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).${e.name}(
+  /**
+   * ${e.name}
+   * ${e.key} 
+   */
+  async ${e.name}(request: ${capitalize(e.name)}Request): Promise<${capitalize(e.name)}Response> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).${e.name}(
 ${e.requests
   .filter((r) => r.location === 'path')
-  .map((r) => `            request.${r.name},\n`)
-  .join('')}${
-      e.requests.find((r) => r.location === 'query') ? '            request.query,\n' : ''
-    }${
-      e.requests.find((r) => r.location === 'body') ? '            request.body,\n' : ''
-    }${self.appendStreamRequest(e.name, true)}            this.resolver(resolve, reject))
-        })
-      }`,
+  .map((r) => `       request.${r.name},\n`)
+  .join('')}${e.requests.find((r) => r.location === 'query') ? '        request.query,\n' : ''}${
+      e.requests.find((r) => r.location === 'body') ? '        request.body,\n' : ''
+    }        this.resolver(resolve, reject))
+    })
+  }`,
   )
   .join(`\n`)}
-    }
+}
+
+export class Stream {
+  constructor(private context: any, private resolver: any) {}
+${endpoints
+  .filter((e) => e.type === 'stream')
+  .map(
+    (e) => `
+  /**
+   * ${e.name}
+   * ${e.key} 
+   */
+  ${e.name}(request: ${capitalize(
+      e.name,
+    )}Request, streamHandler: (data: any) => void, doneHandler: (err: any, data: any) => void): http.ClientRequest {
+    return new EntitySpec(this.context).${e.name}(
+${e.requests
+  .filter((r) => r.location === 'path')
+  .map((r) => `      request.${r.name},\n`)
+  .join('')}${e.requests.find((r) => r.location === 'query') ? '      request.query,\n' : ''}${
+      e.requests.find((r) => r.location === 'body') ? '      request.body,\n' : ''
+    }      streamHandler,
+      this.resolver((data: any) => doneHandler(null, data), (err: any) => doneHandler(err, null))
+    )
+  }
+`,
+  )}
+}
 `)
   }
 
-  private appendStreamRequest(name: string, param = false) {
-    if (!['pricing', 'transaction'].includes(this.moduleName)) {
-      return ''
+  private isStream(name: string) {
+    if (this.moduleName === 'pricing' && name === 'stream') {
+      return true
     }
 
-    if (!['stream', 'candles'].includes(name)) {
-      return ''
+    if (this.moduleName === 'transaction' && name === 'stream') {
+      return true
     }
 
-    return param ? `            streamChunkHandler,\n` : `, streamChunkHandler: any`
+    return false
   }
 
   private parseRequest($: CheerioStatic, key: string, id: string) {
@@ -190,6 +222,11 @@ ${e.requests
 
         requests.push({ name, location, type })
       })
+
+    // doc error, forgot accountID
+    if (self.moduleName === 'pricing' && id === '#collapse_endpoint_5') {
+      requests.push({ name: 'accountID', location: 'path', type: 'account.AccountID' })
+    }
 
     $(paramID) // <div id=collapse_2_parameters />
       .find('.body_schema > .json_schema')

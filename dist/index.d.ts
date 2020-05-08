@@ -29,6 +29,9 @@ declare class OANDA {
     token: string;
     dateFormat: 'UNIX' | 'RFC3339';
     context: context.Context;
+    constructor(applicationName: string, url: string, token: string, dateFormat?: 'UNIX' | 'RFC3339');
+}
+export declare class Rest extends OANDA {
     account: accountAPI.API;
     position: positionAPI.API;
     pricing: pricingAPI.API;
@@ -36,12 +39,11 @@ declare class OANDA {
     trade: tradeAPI.API;
     order: orderAPI.API;
     instrument: instrumentAPI.API;
-    constructor(applicationName: string, url: string, token: string, dateFormat?: 'UNIX' | 'RFC3339');
-}
-export declare class Rest extends OANDA {
     constructor(applicationName: string, token: string, practice?: boolean, dateFormat?: 'UNIX' | 'RFC3339');
 }
 export declare class Stream extends OANDA {
+    pricing: pricingAPI.Stream;
+    transaction: transactionAPI.Stream;
     constructor(applicationName: string, token: string, practice?: boolean, dateFormat?: 'UNIX' | 'RFC3339');
 }
 export declare class APIError extends Error {

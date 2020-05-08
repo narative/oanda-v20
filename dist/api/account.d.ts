@@ -162,3 +162,8 @@ export declare class API {
      */
     changes(request: ChangesRequest): Promise<ChangesResponse>;
 }
+export declare class Stream {
+    private context;
+    private resolver;
+    constructor(context: any, resolver: any);
+}

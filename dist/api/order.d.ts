@@ -425,3 +425,8 @@ export declare class API {
      */
     setClientExtensions(request: SetClientExtensionsRequest): Promise<SetClientExtensionsResponse>;
 }
+export declare class Stream {
+    private context;
+    private resolver;
+    constructor(context: any, resolver: any);
+}

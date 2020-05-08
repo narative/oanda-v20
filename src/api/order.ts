@@ -8,10 +8,11 @@ import * as pricing from '../definitions/pricing'
 import * as pricingCommon from '../definitions/pricingCommon'
 import * as primitives from '../definitions/primitives'
 
+import * as http from 'http'
 import { EntitySpec } from '../order'
 
 ///////////////////////////////////////////////////////////////////////////////
-// create - POST /v3/accounts/{accountID}/orders
+// create - POST /v3/accounts/{accountID}/orders (#collapse_endpoint_2)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface CreateRequest {
@@ -139,7 +140,7 @@ export interface CreateResponse404 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// list - GET /v3/accounts/{accountID}/orders
+// list - GET /v3/accounts/{accountID}/orders (#collapse_endpoint_3)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface ListRequest {
@@ -177,7 +178,7 @@ export interface ListResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// listPending - GET /v3/accounts/{accountID}/pendingOrders
+// listPending - GET /v3/accounts/{accountID}/pendingOrders (#collapse_endpoint_4)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface ListPendingRequest {
@@ -203,7 +204,7 @@ export interface ListPendingResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// get - GET /v3/accounts/{accountID}/orders/{orderSpecifier}
+// get - GET /v3/accounts/{accountID}/orders/{orderSpecifier} (#collapse_endpoint_5)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface GetRequest {
@@ -230,7 +231,7 @@ export interface GetResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// replace - PUT /v3/accounts/{accountID}/orders/{orderSpecifier}
+// replace - PUT /v3/accounts/{accountID}/orders/{orderSpecifier} (#collapse_endpoint_6)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface ReplaceRequest {
@@ -365,7 +366,7 @@ export interface ReplaceResponse404 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// cancel - PUT /v3/accounts/{accountID}/orders/{orderSpecifier}/cancel
+// cancel - PUT /v3/accounts/{accountID}/orders/{orderSpecifier}/cancel (#collapse_endpoint_7)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface CancelRequest {
@@ -431,7 +432,7 @@ export interface CancelResponse404 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// setClientExtensions - PUT /v3/accounts/{accountID}/orders/{orderSpecifier}/clientExtensions
+// setClientExtensions - PUT /v3/accounts/{accountID}/orders/{orderSpecifier}/clientExtensions (#collapse_endpoint_8)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface SetClientExtensionsRequest {
@@ -542,100 +543,105 @@ export interface SetClientExtensionsResponse404 {
 
 }
 
-    ///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-    export class API {
-      constructor(private context: any, private resolver: any) {}
+export class API {
+  constructor(private context: any, private resolver: any) {}
 
-      /**
-       * create
-       * POST /v3/accounts/{accountID}/orders 
-       */
-      async create(request: CreateRequest): Promise<CreateResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).create(
-            request.accountID,
-            request.body,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * create
+   * POST /v3/accounts/{accountID}/orders 
+   */
+  async create(request: CreateRequest): Promise<CreateResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).create(
+       request.accountID,
+        request.body,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * list
-       * GET /v3/accounts/{accountID}/orders 
-       */
-      async list(request: ListRequest): Promise<ListResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).list(
-            request.accountID,
-            request.query,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * list
+   * GET /v3/accounts/{accountID}/orders 
+   */
+  async list(request: ListRequest): Promise<ListResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).list(
+       request.accountID,
+        request.query,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * listPending
-       * GET /v3/accounts/{accountID}/pendingOrders 
-       */
-      async listPending(request: ListPendingRequest): Promise<ListPendingResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).listPending(
-            request.accountID,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * listPending
+   * GET /v3/accounts/{accountID}/pendingOrders 
+   */
+  async listPending(request: ListPendingRequest): Promise<ListPendingResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).listPending(
+       request.accountID,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * get
-       * GET /v3/accounts/{accountID}/orders/{orderSpecifier} 
-       */
-      async get(request: GetRequest): Promise<GetResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).get(
-            request.accountID,
-            request.orderSpecifier,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * get
+   * GET /v3/accounts/{accountID}/orders/{orderSpecifier} 
+   */
+  async get(request: GetRequest): Promise<GetResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).get(
+       request.accountID,
+       request.orderSpecifier,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * replace
-       * PUT /v3/accounts/{accountID}/orders/{orderSpecifier} 
-       */
-      async replace(request: ReplaceRequest): Promise<ReplaceResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).replace(
-            request.accountID,
-            request.orderSpecifier,
-            request.body,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * replace
+   * PUT /v3/accounts/{accountID}/orders/{orderSpecifier} 
+   */
+  async replace(request: ReplaceRequest): Promise<ReplaceResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).replace(
+       request.accountID,
+       request.orderSpecifier,
+        request.body,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * cancel
-       * PUT /v3/accounts/{accountID}/orders/{orderSpecifier}/cancel 
-       */
-      async cancel(request: CancelRequest): Promise<CancelResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).cancel(
-            request.accountID,
-            request.orderSpecifier,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * cancel
+   * PUT /v3/accounts/{accountID}/orders/{orderSpecifier}/cancel 
+   */
+  async cancel(request: CancelRequest): Promise<CancelResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).cancel(
+       request.accountID,
+       request.orderSpecifier,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * setClientExtensions
-       * PUT /v3/accounts/{accountID}/orders/{orderSpecifier}/clientExtensions 
-       */
-      async setClientExtensions(request: SetClientExtensionsRequest): Promise<SetClientExtensionsResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).setClientExtensions(
-            request.accountID,
-            request.orderSpecifier,
-            request.body,
-            this.resolver(resolve, reject))
-        })
-      }
-    }
+  /**
+   * setClientExtensions
+   * PUT /v3/accounts/{accountID}/orders/{orderSpecifier}/clientExtensions 
+   */
+  async setClientExtensions(request: SetClientExtensionsRequest): Promise<SetClientExtensionsResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).setClientExtensions(
+       request.accountID,
+       request.orderSpecifier,
+        request.body,
+        this.resolver(resolve, reject))
+    })
+  }
+}
+
+export class Stream {
+  constructor(private context: any, private resolver: any) {}
+
+}

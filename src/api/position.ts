@@ -8,10 +8,11 @@ import * as pricing from '../definitions/pricing'
 import * as pricingCommon from '../definitions/pricingCommon'
 import * as primitives from '../definitions/primitives'
 
+import * as http from 'http'
 import { EntitySpec } from '../position'
 
 ///////////////////////////////////////////////////////////////////////////////
-// list - GET /v3/accounts/{accountID}/positions
+// list - GET /v3/accounts/{accountID}/positions (#collapse_endpoint_2)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface ListRequest {
@@ -36,7 +37,7 @@ export interface ListResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// listOpen - GET /v3/accounts/{accountID}/openPositions
+// listOpen - GET /v3/accounts/{accountID}/openPositions (#collapse_endpoint_3)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface ListOpenRequest {
@@ -61,7 +62,7 @@ export interface ListOpenResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// get - GET /v3/accounts/{accountID}/positions/{instrument}
+// get - GET /v3/accounts/{accountID}/positions/{instrument} (#collapse_endpoint_4)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface GetRequest {
@@ -87,7 +88,7 @@ export interface GetResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// close - PUT /v3/accounts/{accountID}/positions/{instrument}/close
+// close - PUT /v3/accounts/{accountID}/positions/{instrument}/close (#collapse_endpoint_5)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface CloseRequest {
@@ -254,59 +255,64 @@ export interface CloseResponse404 {
 
 }
 
-    ///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-    export class API {
-      constructor(private context: any, private resolver: any) {}
+export class API {
+  constructor(private context: any, private resolver: any) {}
 
-      /**
-       * list
-       * GET /v3/accounts/{accountID}/positions 
-       */
-      async list(request: ListRequest): Promise<ListResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).list(
-            request.accountID,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * list
+   * GET /v3/accounts/{accountID}/positions 
+   */
+  async list(request: ListRequest): Promise<ListResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).list(
+       request.accountID,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * listOpen
-       * GET /v3/accounts/{accountID}/openPositions 
-       */
-      async listOpen(request: ListOpenRequest): Promise<ListOpenResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).listOpen(
-            request.accountID,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * listOpen
+   * GET /v3/accounts/{accountID}/openPositions 
+   */
+  async listOpen(request: ListOpenRequest): Promise<ListOpenResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).listOpen(
+       request.accountID,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * get
-       * GET /v3/accounts/{accountID}/positions/{instrument} 
-       */
-      async get(request: GetRequest): Promise<GetResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).get(
-            request.accountID,
-            request.instrument,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * get
+   * GET /v3/accounts/{accountID}/positions/{instrument} 
+   */
+  async get(request: GetRequest): Promise<GetResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).get(
+       request.accountID,
+       request.instrument,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * close
-       * PUT /v3/accounts/{accountID}/positions/{instrument}/close 
-       */
-      async close(request: CloseRequest): Promise<CloseResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).close(
-            request.accountID,
-            request.instrument,
-            request.body,
-            this.resolver(resolve, reject))
-        })
-      }
-    }
+  /**
+   * close
+   * PUT /v3/accounts/{accountID}/positions/{instrument}/close 
+   */
+  async close(request: CloseRequest): Promise<CloseResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).close(
+       request.accountID,
+       request.instrument,
+        request.body,
+        this.resolver(resolve, reject))
+    })
+  }
+}
+
+export class Stream {
+  constructor(private context: any, private resolver: any) {}
+
+}

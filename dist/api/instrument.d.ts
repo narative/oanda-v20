@@ -79,3 +79,8 @@ export declare class API {
      */
     positionBook(request: PositionBookRequest): Promise<PositionBookResponse>;
 }
+export declare class Stream {
+    private context;
+    private resolver;
+    constructor(context: any, resolver: any);
+}

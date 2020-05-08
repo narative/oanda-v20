@@ -389,12 +389,17 @@ var EntitySpec = /** @class */ (function () {
         };
         function generateStreamParser(streamChunkHandler) {
             return function (chunk) {
-                var msg = JSON.parse(chunk);
-                if (msg.type == 'HEARTBEAT') {
-                    streamChunkHandler(new PricingHeartbeat(msg));
+                try {
+                    var msg = JSON.parse(chunk);
+                    if (msg.type == 'HEARTBEAT') {
+                        streamChunkHandler(new PricingHeartbeat(msg));
+                    }
+                    else if (msg.type == 'PRICE') {
+                        streamChunkHandler(new ClientPrice(msg));
+                    }
                 }
-                else if (msg.type == 'PRICE') {
-                    streamChunkHandler(new ClientPrice(msg));
+                catch (err) {
+                    // failed to parse chunk so ignore it
                 }
             };
         }

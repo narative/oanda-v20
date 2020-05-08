@@ -399,3 +399,8 @@ export declare class API {
      */
     setDependentOrders(request: SetDependentOrdersRequest): Promise<SetDependentOrdersResponse>;
 }
+export declare class Stream {
+    private context;
+    private resolver;
+    constructor(context: any, resolver: any);
+}

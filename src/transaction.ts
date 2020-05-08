@@ -10767,12 +10767,16 @@ export class EntitySpec {
 
     function generateStreamParser(streamChunkHandler) {
       return (chunk) => {
-        let msg = JSON.parse(chunk)
+        try {
+          let msg = JSON.parse(chunk)
 
-        if (msg.type == 'HEARTBEAT') {
-          streamChunkHandler(new TransactionHeartbeat(msg))
-        } else if (msg.type) {
-          streamChunkHandler(Transaction.create(msg))
+          if (msg.type == 'HEARTBEAT') {
+            streamChunkHandler(new TransactionHeartbeat(msg))
+          } else if (msg.type) {
+            streamChunkHandler(Transaction.create(msg))
+          }
+        } catch (err) {
+          // failed to parse chunk so ignore
         }
       }
     }

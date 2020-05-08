@@ -1,7 +1,9 @@
+/// <reference types="node" />
 import * as account from '../definitions/account';
 import * as instrument from '../definitions/instrument';
 import * as pricing from '../definitions/pricing';
 import * as primitives from '../definitions/primitives';
+import * as http from 'http';
 export interface GetRequest {
     accountID: account.AccountID;
     query: GetRequestQuery;
@@ -40,6 +42,7 @@ export interface StreamRequestQuery {
 export declare type StreamResponse = void;
 export interface CandlesRequest {
     instrument: primitives.InstrumentName;
+    accountID: account.AccountID;
     query: CandlesRequestQuery;
 }
 export interface CandlesRequestQuery {
@@ -80,13 +83,18 @@ export declare class API {
      */
     get(request: GetRequest): Promise<GetResponse>;
     /**
-     * stream
-     * GET /v3/accounts/{accountID}/pricing/stream
-     */
-    stream(request: StreamRequest, streamChunkHandler: any): Promise<StreamResponse>;
-    /**
      * candles
      * GET /v3/accounts/{accountID}/instruments/{instrument}/candles
      */
-    candles(request: CandlesRequest, streamChunkHandler: any): Promise<CandlesResponse>;
+    candles(request: CandlesRequest): Promise<CandlesResponse>;
+}
+export declare class Stream {
+    private context;
+    private resolver;
+    constructor(context: any, resolver: any);
+    /**
+     * stream
+     * GET /v3/accounts/{accountID}/pricing/stream
+     */
+    stream(request: StreamRequest, streamHandler: (data: any) => void, doneHandler: (err: any, data: any) => void): http.ClientRequest;
 }

@@ -202,3 +202,8 @@ export declare class API {
      */
     close(request: CloseRequest): Promise<CloseResponse>;
 }
+export declare class Stream {
+    private context;
+    private resolver;
+    constructor(context: any, resolver: any);
+}

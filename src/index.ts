@@ -39,13 +39,6 @@ const url = {
 
 class OANDA {
   public context: context.Context
-  public account: accountAPI.API
-  public position: positionAPI.API
-  public pricing: pricingAPI.API
-  public transaction: transactionAPI.API
-  public trade: tradeAPI.API
-  public order: orderAPI.API
-  public instrument: instrumentAPI.API
 
   constructor(
     public applicationName: string,
@@ -60,17 +53,18 @@ class OANDA {
     }
 
     this.context = ctx
-    this.account = new accountAPI.API(ctx, resolver)
-    this.position = new positionAPI.API(ctx, resolver)
-    this.pricing = new pricingAPI.API(ctx, resolver)
-    this.transaction = new transactionAPI.API(ctx, resolver)
-    this.trade = new tradeAPI.API(ctx, resolver)
-    this.order = new orderAPI.API(ctx, resolver)
-    this.instrument = new instrumentAPI.API(ctx, resolver)
   }
 }
 
 export class Rest extends OANDA {
+  public account: accountAPI.API
+  public position: positionAPI.API
+  public pricing: pricingAPI.API
+  public transaction: transactionAPI.API
+  public trade: tradeAPI.API
+  public order: orderAPI.API
+  public instrument: instrumentAPI.API
+
   constructor(
     applicationName: string,
     token: string,
@@ -78,10 +72,21 @@ export class Rest extends OANDA {
     dateFormat: 'UNIX' | 'RFC3339' = 'UNIX',
   ) {
     super(applicationName, practice ? url.practice.api : url.production.api, token, dateFormat)
+
+    this.account = new accountAPI.API(this.context, resolver)
+    this.position = new positionAPI.API(this.context, resolver)
+    this.pricing = new pricingAPI.API(this.context, resolver)
+    this.transaction = new transactionAPI.API(this.context, resolver)
+    this.trade = new tradeAPI.API(this.context, resolver)
+    this.order = new orderAPI.API(this.context, resolver)
+    this.instrument = new instrumentAPI.API(this.context, resolver)
   }
 }
 
 export class Stream extends OANDA {
+  public pricing: pricingAPI.Stream
+  public transaction: transactionAPI.Stream
+
   constructor(
     applicationName: string,
     token: string,
@@ -94,6 +99,9 @@ export class Stream extends OANDA {
       token,
       dateFormat,
     )
+
+    this.pricing = new pricingAPI.Stream(this.context, resolver)
+    this.transaction = new transactionAPI.Stream(this.context, resolver)
   }
 }
 

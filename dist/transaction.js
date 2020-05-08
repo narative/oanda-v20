@@ -3775,12 +3775,17 @@ var EntitySpec = /** @class */ (function () {
         };
         function generateStreamParser(streamChunkHandler) {
             return function (chunk) {
-                var msg = JSON.parse(chunk);
-                if (msg.type == 'HEARTBEAT') {
-                    streamChunkHandler(new TransactionHeartbeat(msg));
+                try {
+                    var msg = JSON.parse(chunk);
+                    if (msg.type == 'HEARTBEAT') {
+                        streamChunkHandler(new TransactionHeartbeat(msg));
+                    }
+                    else if (msg.type) {
+                        streamChunkHandler(Transaction.create(msg));
+                    }
                 }
-                else if (msg.type) {
-                    streamChunkHandler(Transaction.create(msg));
+                catch (err) {
+                    // failed to parse chunk so ignore
                 }
             };
         }

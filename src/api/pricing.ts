@@ -8,17 +8,18 @@ import * as pricing from '../definitions/pricing'
 import * as pricingCommon from '../definitions/pricingCommon'
 import * as primitives from '../definitions/primitives'
 
+import * as http from 'http'
 import { EntitySpec } from '../pricing'
 
 ///////////////////////////////////////////////////////////////////////////////
-// GET /v3/accounts/{accountID}/candles/latest
+// GET /v3/accounts/{accountID}/candles/latest (#collapse_endpoint_2)
 ///////////////////////////////////////////////////////////////////////////////
 
 // no implementation
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// get - GET /v3/accounts/{accountID}/pricing
+// get - GET /v3/accounts/{accountID}/pricing (#collapse_endpoint_3)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface GetRequest {
@@ -61,7 +62,7 @@ export interface GetResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// stream - GET /v3/accounts/{accountID}/pricing/stream
+// stream - GET /v3/accounts/{accountID}/pricing/stream (#collapse_endpoint_4)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface StreamRequest {
@@ -81,13 +82,14 @@ export type StreamResponse = void
 
 
 ///////////////////////////////////////////////////////////////////////////////
-// candles - GET /v3/accounts/{accountID}/instruments/{instrument}/candles
+// candles - GET /v3/accounts/{accountID}/instruments/{instrument}/candles (#collapse_endpoint_5)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface CandlesRequest {
   // Authorization: string // header
   // Accept-Datetime-Format: primitives.AcceptDatetimeFormat // header
   instrument: primitives.InstrumentName // path
+  accountID: account.AccountID // path
   query: CandlesRequestQuery
 }
 
@@ -135,49 +137,53 @@ export interface CandlesResponse200 {
 
 }
 
-    ///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-    export class API {
-      constructor(private context: any, private resolver: any) {}
+export class API {
+  constructor(private context: any, private resolver: any) {}
 
-      /**
-       * get
-       * GET /v3/accounts/{accountID}/pricing 
-       */
-      async get(request: GetRequest): Promise<GetResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).get(
-            request.accountID,
-            request.query,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * get
+   * GET /v3/accounts/{accountID}/pricing 
+   */
+  async get(request: GetRequest): Promise<GetResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).get(
+       request.accountID,
+        request.query,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * stream
-       * GET /v3/accounts/{accountID}/pricing/stream 
-       */
-      async stream(request: StreamRequest, streamChunkHandler: any): Promise<StreamResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).stream(
-            request.accountID,
-            request.query,
-            streamChunkHandler,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * candles
+   * GET /v3/accounts/{accountID}/instruments/{instrument}/candles 
+   */
+  async candles(request: CandlesRequest): Promise<CandlesResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).candles(
+       request.instrument,
+       request.accountID,
+        request.query,
+        this.resolver(resolve, reject))
+    })
+  }
+}
 
-      /**
-       * candles
-       * GET /v3/accounts/{accountID}/instruments/{instrument}/candles 
-       */
-      async candles(request: CandlesRequest, streamChunkHandler: any): Promise<CandlesResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).candles(
-            request.instrument,
-            request.query,
-            streamChunkHandler,
-            this.resolver(resolve, reject))
-        })
-      }
-    }
+export class Stream {
+  constructor(private context: any, private resolver: any) {}
+
+  /**
+   * stream
+   * GET /v3/accounts/{accountID}/pricing/stream 
+   */
+  stream(request: StreamRequest, streamHandler: (data: any) => void, doneHandler: (err: any, data: any) => void): http.ClientRequest {
+    return new EntitySpec(this.context).stream(
+      request.accountID,
+      request.query,
+      streamHandler,
+      this.resolver((data: any) => doneHandler(null, data), (err: any) => doneHandler(err, null))
+    )
+  }
+
+}

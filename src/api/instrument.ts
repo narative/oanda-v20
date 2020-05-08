@@ -8,10 +8,11 @@ import * as pricing from '../definitions/pricing'
 import * as pricingCommon from '../definitions/pricingCommon'
 import * as primitives from '../definitions/primitives'
 
+import * as http from 'http'
 import { EntitySpec } from '../instrument'
 
 ///////////////////////////////////////////////////////////////////////////////
-// candles - GET /v3/instruments/{instrument}/candles
+// candles - GET /v3/instruments/{instrument}/candles (#collapse_endpoint_2)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface CandlesRequest {
@@ -64,7 +65,7 @@ export interface CandlesResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// orderBook - GET /v3/instruments/{instrument}/orderBook
+// orderBook - GET /v3/instruments/{instrument}/orderBook (#collapse_endpoint_3)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface OrderBookRequest {
@@ -89,7 +90,7 @@ export interface OrderBookResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// positionBook - GET /v3/instruments/{instrument}/positionBook
+// positionBook - GET /v3/instruments/{instrument}/positionBook (#collapse_endpoint_4)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface PositionBookRequest {
@@ -113,47 +114,52 @@ export interface PositionBookResponse200 {
 
 }
 
-    ///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-    export class API {
-      constructor(private context: any, private resolver: any) {}
+export class API {
+  constructor(private context: any, private resolver: any) {}
 
-      /**
-       * candles
-       * GET /v3/instruments/{instrument}/candles 
-       */
-      async candles(request: CandlesRequest): Promise<CandlesResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).candles(
-            request.instrument,
-            request.query,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * candles
+   * GET /v3/instruments/{instrument}/candles 
+   */
+  async candles(request: CandlesRequest): Promise<CandlesResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).candles(
+       request.instrument,
+        request.query,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * orderBook
-       * GET /v3/instruments/{instrument}/orderBook 
-       */
-      async orderBook(request: OrderBookRequest): Promise<OrderBookResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).orderBook(
-            request.instrument,
-            request.query,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * orderBook
+   * GET /v3/instruments/{instrument}/orderBook 
+   */
+  async orderBook(request: OrderBookRequest): Promise<OrderBookResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).orderBook(
+       request.instrument,
+        request.query,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * positionBook
-       * GET /v3/instruments/{instrument}/positionBook 
-       */
-      async positionBook(request: PositionBookRequest): Promise<PositionBookResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).positionBook(
-            request.instrument,
-            request.query,
-            this.resolver(resolve, reject))
-        })
-      }
-    }
+  /**
+   * positionBook
+   * GET /v3/instruments/{instrument}/positionBook 
+   */
+  async positionBook(request: PositionBookRequest): Promise<PositionBookResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).positionBook(
+       request.instrument,
+        request.query,
+        this.resolver(resolve, reject))
+    })
+  }
+}
+
+export class Stream {
+  constructor(private context: any, private resolver: any) {}
+
+}

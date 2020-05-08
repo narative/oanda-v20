@@ -637,12 +637,16 @@ export class EntitySpec {
 
     function generateStreamParser(streamChunkHandler) {
       return (chunk) => {
-        let msg = JSON.parse(chunk)
+        try {
+          let msg = JSON.parse(chunk)
 
-        if (msg.type == 'HEARTBEAT') {
-          streamChunkHandler(new PricingHeartbeat(msg))
-        } else if (msg.type == 'PRICE') {
-          streamChunkHandler(new ClientPrice(msg))
+          if (msg.type == 'HEARTBEAT') {
+            streamChunkHandler(new PricingHeartbeat(msg))
+          } else if (msg.type == 'PRICE') {
+            streamChunkHandler(new ClientPrice(msg))
+          }
+        } catch (err) {
+          // failed to parse chunk so ignore it
         }
       }
     }

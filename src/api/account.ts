@@ -8,10 +8,11 @@ import * as pricing from '../definitions/pricing'
 import * as pricingCommon from '../definitions/pricingCommon'
 import * as primitives from '../definitions/primitives'
 
+import * as http from 'http'
 import { EntitySpec } from '../account'
 
 ///////////////////////////////////////////////////////////////////////////////
-// list - GET /v3/accounts
+// list - GET /v3/accounts (#collapse_endpoint_2)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface ListRequest {
@@ -31,7 +32,7 @@ export interface ListResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// get - GET /v3/accounts/{accountID}
+// get - GET /v3/accounts/{accountID} (#collapse_endpoint_3)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface GetRequest {
@@ -57,7 +58,7 @@ export interface GetResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// summary - GET /v3/accounts/{accountID}/summary
+// summary - GET /v3/accounts/{accountID}/summary (#collapse_endpoint_4)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface SummaryRequest {
@@ -83,7 +84,7 @@ export interface SummaryResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// instruments - GET /v3/accounts/{accountID}/instruments
+// instruments - GET /v3/accounts/{accountID}/instruments (#collapse_endpoint_5)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface InstrumentsRequest {
@@ -112,7 +113,7 @@ export interface InstrumentsResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// configure - PATCH /v3/accounts/{accountID}/configuration
+// configure - PATCH /v3/accounts/{accountID}/configuration (#collapse_endpoint_6)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface ConfigureRequest {
@@ -175,7 +176,7 @@ export interface ConfigureResponse400 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// changes - GET /v3/accounts/{accountID}/changes
+// changes - GET /v3/accounts/{accountID}/changes (#collapse_endpoint_7)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface ChangesRequest {
@@ -213,82 +214,87 @@ export interface ChangesResponse200 {
 
 }
 
-    ///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-    export class API {
-      constructor(private context: any, private resolver: any) {}
+export class API {
+  constructor(private context: any, private resolver: any) {}
 
-      /**
-       * list
-       * GET /v3/accounts 
-       */
-      async list(request: ListRequest): Promise<ListResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).list(
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * list
+   * GET /v3/accounts 
+   */
+  async list(request: ListRequest): Promise<ListResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).list(
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * get
-       * GET /v3/accounts/{accountID} 
-       */
-      async get(request: GetRequest): Promise<GetResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).get(
-            request.accountID,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * get
+   * GET /v3/accounts/{accountID} 
+   */
+  async get(request: GetRequest): Promise<GetResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).get(
+       request.accountID,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * summary
-       * GET /v3/accounts/{accountID}/summary 
-       */
-      async summary(request: SummaryRequest): Promise<SummaryResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).summary(
-            request.accountID,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * summary
+   * GET /v3/accounts/{accountID}/summary 
+   */
+  async summary(request: SummaryRequest): Promise<SummaryResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).summary(
+       request.accountID,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * instruments
-       * GET /v3/accounts/{accountID}/instruments 
-       */
-      async instruments(request: InstrumentsRequest): Promise<InstrumentsResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).instruments(
-            request.accountID,
-            request.query,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * instruments
+   * GET /v3/accounts/{accountID}/instruments 
+   */
+  async instruments(request: InstrumentsRequest): Promise<InstrumentsResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).instruments(
+       request.accountID,
+        request.query,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * configure
-       * PATCH /v3/accounts/{accountID}/configuration 
-       */
-      async configure(request: ConfigureRequest): Promise<ConfigureResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).configure(
-            request.accountID,
-            request.body,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * configure
+   * PATCH /v3/accounts/{accountID}/configuration 
+   */
+  async configure(request: ConfigureRequest): Promise<ConfigureResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).configure(
+       request.accountID,
+        request.body,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * changes
-       * GET /v3/accounts/{accountID}/changes 
-       */
-      async changes(request: ChangesRequest): Promise<ChangesResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).changes(
-            request.accountID,
-            request.query,
-            this.resolver(resolve, reject))
-        })
-      }
-    }
+  /**
+   * changes
+   * GET /v3/accounts/{accountID}/changes 
+   */
+  async changes(request: ChangesRequest): Promise<ChangesResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).changes(
+       request.accountID,
+        request.query,
+        this.resolver(resolve, reject))
+    })
+  }
+}
+
+export class Stream {
+  constructor(private context: any, private resolver: any) {}
+
+}

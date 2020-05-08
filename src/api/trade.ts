@@ -8,10 +8,11 @@ import * as pricing from '../definitions/pricing'
 import * as pricingCommon from '../definitions/pricingCommon'
 import * as primitives from '../definitions/primitives'
 
+import * as http from 'http'
 import { EntitySpec } from '../trade'
 
 ///////////////////////////////////////////////////////////////////////////////
-// list - GET /v3/accounts/{accountID}/trades
+// list - GET /v3/accounts/{accountID}/trades (#collapse_endpoint_2)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface ListRequest {
@@ -49,7 +50,7 @@ export interface ListResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// listOpen - GET /v3/accounts/{accountID}/openTrades
+// listOpen - GET /v3/accounts/{accountID}/openTrades (#collapse_endpoint_3)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface ListOpenRequest {
@@ -75,7 +76,7 @@ export interface ListOpenResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// get - GET /v3/accounts/{accountID}/trades/{tradeSpecifier}
+// get - GET /v3/accounts/{accountID}/trades/{tradeSpecifier} (#collapse_endpoint_4)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface GetRequest {
@@ -102,7 +103,7 @@ export interface GetResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// close - PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/close
+// close - PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/close (#collapse_endpoint_5)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface CloseRequest {
@@ -212,7 +213,7 @@ export interface CloseResponse404 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// setClientExtensions - PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/clientExtensions
+// setClientExtensions - PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/clientExtensions (#collapse_endpoint_6)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface SetClientExtensionsRequest {
@@ -317,7 +318,7 @@ export interface SetClientExtensionsResponse404 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// setDependentOrders - PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/orders
+// setDependentOrders - PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/orders (#collapse_endpoint_7)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface SetDependentOrdersRequest {
@@ -500,88 +501,93 @@ export interface SetDependentOrdersResponse400 {
 
 }
 
-    ///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-    export class API {
-      constructor(private context: any, private resolver: any) {}
+export class API {
+  constructor(private context: any, private resolver: any) {}
 
-      /**
-       * list
-       * GET /v3/accounts/{accountID}/trades 
-       */
-      async list(request: ListRequest): Promise<ListResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).list(
-            request.accountID,
-            request.query,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * list
+   * GET /v3/accounts/{accountID}/trades 
+   */
+  async list(request: ListRequest): Promise<ListResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).list(
+       request.accountID,
+        request.query,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * listOpen
-       * GET /v3/accounts/{accountID}/openTrades 
-       */
-      async listOpen(request: ListOpenRequest): Promise<ListOpenResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).listOpen(
-            request.accountID,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * listOpen
+   * GET /v3/accounts/{accountID}/openTrades 
+   */
+  async listOpen(request: ListOpenRequest): Promise<ListOpenResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).listOpen(
+       request.accountID,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * get
-       * GET /v3/accounts/{accountID}/trades/{tradeSpecifier} 
-       */
-      async get(request: GetRequest): Promise<GetResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).get(
-            request.accountID,
-            request.tradeSpecifier,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * get
+   * GET /v3/accounts/{accountID}/trades/{tradeSpecifier} 
+   */
+  async get(request: GetRequest): Promise<GetResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).get(
+       request.accountID,
+       request.tradeSpecifier,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * close
-       * PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/close 
-       */
-      async close(request: CloseRequest): Promise<CloseResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).close(
-            request.accountID,
-            request.tradeSpecifier,
-            request.body,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * close
+   * PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/close 
+   */
+  async close(request: CloseRequest): Promise<CloseResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).close(
+       request.accountID,
+       request.tradeSpecifier,
+        request.body,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * setClientExtensions
-       * PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/clientExtensions 
-       */
-      async setClientExtensions(request: SetClientExtensionsRequest): Promise<SetClientExtensionsResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).setClientExtensions(
-            request.accountID,
-            request.tradeSpecifier,
-            request.body,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * setClientExtensions
+   * PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/clientExtensions 
+   */
+  async setClientExtensions(request: SetClientExtensionsRequest): Promise<SetClientExtensionsResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).setClientExtensions(
+       request.accountID,
+       request.tradeSpecifier,
+        request.body,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * setDependentOrders
-       * PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/orders 
-       */
-      async setDependentOrders(request: SetDependentOrdersRequest): Promise<SetDependentOrdersResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).setDependentOrders(
-            request.accountID,
-            request.tradeSpecifier,
-            request.body,
-            this.resolver(resolve, reject))
-        })
-      }
-    }
+  /**
+   * setDependentOrders
+   * PUT /v3/accounts/{accountID}/trades/{tradeSpecifier}/orders 
+   */
+  async setDependentOrders(request: SetDependentOrdersRequest): Promise<SetDependentOrdersResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).setDependentOrders(
+       request.accountID,
+       request.tradeSpecifier,
+        request.body,
+        this.resolver(resolve, reject))
+    })
+  }
+}
+
+export class Stream {
+  constructor(private context: any, private resolver: any) {}
+
+}

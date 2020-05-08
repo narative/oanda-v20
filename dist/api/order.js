@@ -144,4 +144,12 @@ var API = /** @class */ (function () {
     return API;
 }());
 exports.API = API;
+var Stream = /** @class */ (function () {
+    function Stream(context, resolver) {
+        this.context = context;
+        this.resolver = resolver;
+    }
+    return Stream;
+}());
+exports.Stream = Stream;
 //# sourceMappingURL=order.js.map

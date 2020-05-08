@@ -64,13 +64,6 @@ var OANDA = /** @class */ (function () {
             ctx.headers['Accept-Datetime-Format'] = 'UNIX';
         }
         this.context = ctx;
-        this.account = new accountAPI.API(ctx, resolver);
-        this.position = new positionAPI.API(ctx, resolver);
-        this.pricing = new pricingAPI.API(ctx, resolver);
-        this.transaction = new transactionAPI.API(ctx, resolver);
-        this.trade = new tradeAPI.API(ctx, resolver);
-        this.order = new orderAPI.API(ctx, resolver);
-        this.instrument = new instrumentAPI.API(ctx, resolver);
     }
     return OANDA;
 }());
@@ -79,7 +72,15 @@ var Rest = /** @class */ (function (_super) {
     function Rest(applicationName, token, practice, dateFormat) {
         if (practice === void 0) { practice = false; }
         if (dateFormat === void 0) { dateFormat = 'UNIX'; }
-        return _super.call(this, applicationName, practice ? url.practice.api : url.production.api, token, dateFormat) || this;
+        var _this = _super.call(this, applicationName, practice ? url.practice.api : url.production.api, token, dateFormat) || this;
+        _this.account = new accountAPI.API(_this.context, resolver);
+        _this.position = new positionAPI.API(_this.context, resolver);
+        _this.pricing = new pricingAPI.API(_this.context, resolver);
+        _this.transaction = new transactionAPI.API(_this.context, resolver);
+        _this.trade = new tradeAPI.API(_this.context, resolver);
+        _this.order = new orderAPI.API(_this.context, resolver);
+        _this.instrument = new instrumentAPI.API(_this.context, resolver);
+        return _this;
     }
     return Rest;
 }(OANDA));
@@ -89,7 +90,10 @@ var Stream = /** @class */ (function (_super) {
     function Stream(applicationName, token, practice, dateFormat) {
         if (practice === void 0) { practice = false; }
         if (dateFormat === void 0) { dateFormat = 'UNIX'; }
-        return _super.call(this, applicationName, practice ? url.practice.stream : url.production.stream, token, dateFormat) || this;
+        var _this = _super.call(this, applicationName, practice ? url.practice.stream : url.production.stream, token, dateFormat) || this;
+        _this.pricing = new pricingAPI.Stream(_this.context, resolver);
+        _this.transaction = new transactionAPI.Stream(_this.context, resolver);
+        return _this;
     }
     return Stream;
 }(OANDA));

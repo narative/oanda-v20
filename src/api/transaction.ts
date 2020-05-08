@@ -8,10 +8,11 @@ import * as pricing from '../definitions/pricing'
 import * as pricingCommon from '../definitions/pricingCommon'
 import * as primitives from '../definitions/primitives'
 
+import * as http from 'http'
 import { EntitySpec } from '../transaction'
 
 ///////////////////////////////////////////////////////////////////////////////
-// list - GET /v3/accounts/{accountID}/transactions
+// list - GET /v3/accounts/{accountID}/transactions (#collapse_endpoint_2)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface ListRequest {
@@ -73,7 +74,7 @@ export interface ListResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// get - GET /v3/accounts/{accountID}/transactions/{transactionID}
+// get - GET /v3/accounts/{accountID}/transactions/{transactionID} (#collapse_endpoint_3)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface GetRequest {
@@ -100,7 +101,7 @@ export interface GetResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// range - GET /v3/accounts/{accountID}/transactions/idrange
+// range - GET /v3/accounts/{accountID}/transactions/idrange (#collapse_endpoint_4)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface RangeRequest {
@@ -134,7 +135,7 @@ export interface RangeResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// since - GET /v3/accounts/{accountID}/transactions/sinceid
+// since - GET /v3/accounts/{accountID}/transactions/sinceid (#collapse_endpoint_5)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface SinceRequest {
@@ -166,7 +167,7 @@ export interface SinceResponse200 {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// stream - GET /v3/accounts/{accountID}/transactions/stream
+// stream - GET /v3/accounts/{accountID}/transactions/stream (#collapse_endpoint_6)
 ///////////////////////////////////////////////////////////////////////////////
         
 export interface StreamRequest {
@@ -178,73 +179,77 @@ export interface StreamRequest {
 export type StreamResponse = void
 
 
-    ///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-    export class API {
-      constructor(private context: any, private resolver: any) {}
+export class API {
+  constructor(private context: any, private resolver: any) {}
 
-      /**
-       * list
-       * GET /v3/accounts/{accountID}/transactions 
-       */
-      async list(request: ListRequest): Promise<ListResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).list(
-            request.accountID,
-            request.query,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * list
+   * GET /v3/accounts/{accountID}/transactions 
+   */
+  async list(request: ListRequest): Promise<ListResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).list(
+       request.accountID,
+        request.query,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * get
-       * GET /v3/accounts/{accountID}/transactions/{transactionID} 
-       */
-      async get(request: GetRequest): Promise<GetResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).get(
-            request.accountID,
-            request.transactionID,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * get
+   * GET /v3/accounts/{accountID}/transactions/{transactionID} 
+   */
+  async get(request: GetRequest): Promise<GetResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).get(
+       request.accountID,
+       request.transactionID,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * range
-       * GET /v3/accounts/{accountID}/transactions/idrange 
-       */
-      async range(request: RangeRequest): Promise<RangeResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).range(
-            request.accountID,
-            request.query,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * range
+   * GET /v3/accounts/{accountID}/transactions/idrange 
+   */
+  async range(request: RangeRequest): Promise<RangeResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).range(
+       request.accountID,
+        request.query,
+        this.resolver(resolve, reject))
+    })
+  }
 
-      /**
-       * since
-       * GET /v3/accounts/{accountID}/transactions/sinceid 
-       */
-      async since(request: SinceRequest): Promise<SinceResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).since(
-            request.accountID,
-            request.query,
-            this.resolver(resolve, reject))
-        })
-      }
+  /**
+   * since
+   * GET /v3/accounts/{accountID}/transactions/sinceid 
+   */
+  async since(request: SinceRequest): Promise<SinceResponse> {
+    return new Promise((resolve, reject) => {
+      new EntitySpec(this.context).since(
+       request.accountID,
+        request.query,
+        this.resolver(resolve, reject))
+    })
+  }
+}
 
-      /**
-       * stream
-       * GET /v3/accounts/{accountID}/transactions/stream 
-       */
-      async stream(request: StreamRequest, streamChunkHandler: any): Promise<StreamResponse> {
-        return new Promise((resolve, reject) => {
-          new EntitySpec(this.context).stream(
-            request.accountID,
-            streamChunkHandler,
-            this.resolver(resolve, reject))
-        })
-      }
-    }
+export class Stream {
+  constructor(private context: any, private resolver: any) {}
+
+  /**
+   * stream
+   * GET /v3/accounts/{accountID}/transactions/stream 
+   */
+  stream(request: StreamRequest, streamHandler: (data: any) => void, doneHandler: (err: any, data: any) => void): http.ClientRequest {
+    return new EntitySpec(this.context).stream(
+      request.accountID,
+      streamHandler,
+      this.resolver((data: any) => doneHandler(null, data), (err: any) => doneHandler(err, null))
+    )
+  }
+
+}

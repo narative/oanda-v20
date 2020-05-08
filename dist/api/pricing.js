@@ -58,29 +58,15 @@ var API = /** @class */ (function () {
         });
     };
     /**
-     * stream
-     * GET /v3/accounts/{accountID}/pricing/stream
-     */
-    API.prototype.stream = function (request, streamChunkHandler) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        new pricing_1.EntitySpec(_this.context).stream(request.accountID, request.query, streamChunkHandler, _this.resolver(resolve, reject));
-                    })];
-            });
-        });
-    };
-    /**
      * candles
      * GET /v3/accounts/{accountID}/instruments/{instrument}/candles
      */
-    API.prototype.candles = function (request, streamChunkHandler) {
+    API.prototype.candles = function (request) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        new pricing_1.EntitySpec(_this.context).candles(request.instrument, request.query, streamChunkHandler, _this.resolver(resolve, reject));
+                        new pricing_1.EntitySpec(_this.context).candles(request.instrument, request.accountID, request.query, _this.resolver(resolve, reject));
                     })];
             });
         });
@@ -88,4 +74,19 @@ var API = /** @class */ (function () {
     return API;
 }());
 exports.API = API;
+var Stream = /** @class */ (function () {
+    function Stream(context, resolver) {
+        this.context = context;
+        this.resolver = resolver;
+    }
+    /**
+     * stream
+     * GET /v3/accounts/{accountID}/pricing/stream
+     */
+    Stream.prototype.stream = function (request, streamHandler, doneHandler) {
+        return new pricing_1.EntitySpec(this.context).stream(request.accountID, request.query, streamHandler, this.resolver(function (data) { return doneHandler(null, data); }, function (err) { return doneHandler(err, null); }));
+    };
+    return Stream;
+}());
+exports.Stream = Stream;
 //# sourceMappingURL=pricing.js.map

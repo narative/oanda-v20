@@ -1,6 +1,8 @@
+/// <reference types="node" />
 import * as account from '../definitions/account';
 import * as transaction from '../definitions/transaction';
 import * as primitives from '../definitions/primitives';
+import * as http from 'http';
 export interface ListRequest {
     accountID: account.AccountID;
     query: ListRequestQuery;
@@ -125,9 +127,14 @@ export declare class API {
      * GET /v3/accounts/{accountID}/transactions/sinceid
      */
     since(request: SinceRequest): Promise<SinceResponse>;
+}
+export declare class Stream {
+    private context;
+    private resolver;
+    constructor(context: any, resolver: any);
     /**
      * stream
      * GET /v3/accounts/{accountID}/transactions/stream
      */
-    stream(request: StreamRequest, streamChunkHandler: any): Promise<StreamResponse>;
+    stream(request: StreamRequest, streamHandler: (data: any) => void, doneHandler: (err: any, data: any) => void): http.ClientRequest;
 }

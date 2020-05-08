@@ -99,21 +99,22 @@ var API = /** @class */ (function () {
             });
         });
     };
+    return API;
+}());
+exports.API = API;
+var Stream = /** @class */ (function () {
+    function Stream(context, resolver) {
+        this.context = context;
+        this.resolver = resolver;
+    }
     /**
      * stream
      * GET /v3/accounts/{accountID}/transactions/stream
      */
-    API.prototype.stream = function (request, streamChunkHandler) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _this = this;
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        new transaction_1.EntitySpec(_this.context).stream(request.accountID, streamChunkHandler, _this.resolver(resolve, reject));
-                    })];
-            });
-        });
+    Stream.prototype.stream = function (request, streamHandler, doneHandler) {
+        return new transaction_1.EntitySpec(this.context).stream(request.accountID, streamHandler, this.resolver(function (data) { return doneHandler(null, data); }, function (err) { return doneHandler(err, null); }));
     };
-    return API;
+    return Stream;
 }());
-exports.API = API;
+exports.Stream = Stream;
 //# sourceMappingURL=transaction.js.map
