@@ -41,8 +41,8 @@ export interface StreamRequestQuery {
 }
 export declare type StreamResponse = void;
 export interface CandlesRequest {
-    instrument: primitives.InstrumentName;
     accountID: account.AccountID;
+    instrument: primitives.InstrumentName;
     query: CandlesRequestQuery;
 }
 export interface CandlesRequestQuery {

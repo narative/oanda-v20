@@ -66,7 +66,7 @@ var API = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 return [2 /*return*/, new Promise(function (resolve, reject) {
-                        new pricing_1.EntitySpec(_this.context).candles(request.instrument, request.accountID, request.query, _this.resolver(resolve, reject));
+                        new pricing_1.EntitySpec(_this.context).candles(request.accountID, request.instrument, request.query, _this.resolver(resolve, reject));
                     })];
             });
         });

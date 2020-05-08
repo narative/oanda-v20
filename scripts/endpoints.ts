@@ -225,7 +225,7 @@ ${e.requests
 
     // doc error, forgot accountID
     if (self.moduleName === 'pricing' && id === '#collapse_endpoint_5') {
-      requests.push({ name: 'accountID', location: 'path', type: 'account.AccountID' })
+      requests.unshift({ name: 'accountID', location: 'path', type: 'account.AccountID' })
     }
 
     $(paramID) // <div id=collapse_2_parameters />

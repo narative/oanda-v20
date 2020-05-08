@@ -88,8 +88,8 @@ export type StreamResponse = void
 export interface CandlesRequest {
   // Authorization: string // header
   // Accept-Datetime-Format: primitives.AcceptDatetimeFormat // header
-  instrument: primitives.InstrumentName // path
   accountID: account.AccountID // path
+  instrument: primitives.InstrumentName // path
   query: CandlesRequestQuery
 }
 
@@ -162,8 +162,8 @@ export class API {
   async candles(request: CandlesRequest): Promise<CandlesResponse> {
     return new Promise((resolve, reject) => {
       new EntitySpec(this.context).candles(
-       request.instrument,
        request.accountID,
+       request.instrument,
         request.query,
         this.resolver(resolve, reject))
     })
