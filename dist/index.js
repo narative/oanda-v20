@@ -47,8 +47,8 @@ var url = {
         stream: 'stream-fxpractice.oanda.com',
     },
     production: {
-        api: 'https://api-fxtrade.oanda.com',
-        stream: 'https://stream-fxtrade.oanda.com',
+        api: 'api-fxtrade.oanda.com',
+        stream: 'stream-fxtrade.oanda.com',
     },
 };
 var OANDA = /** @class */ (function () {
