@@ -12,6 +12,7 @@ import * as instrument from './instrument'
 
 export class Response {
   constructor(
+    public hostname: any,
     public method: any,
     public path: any,
     public statusCode: any,
@@ -121,6 +122,7 @@ export class Context {
           responseHandler(
             null,
             new Response(
+              this.hostname,
               method,
               path,
               response.statusCode,

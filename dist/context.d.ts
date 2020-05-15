@@ -10,6 +10,7 @@ import * as pricing_common from './pricing_common';
 import * as order from './order';
 import * as instrument from './instrument';
 export declare class Response {
+    hostname: any;
     method: any;
     path: any;
     statusCode: any;
@@ -17,7 +18,7 @@ export declare class Response {
     contentType: any;
     rawBody: any;
     body: any;
-    constructor(method: any, path: any, statusCode: any, statusMessage: any, contentType: any, rawBody: any, body?: any);
+    constructor(hostname: any, method: any, path: any, statusCode: any, statusMessage: any, contentType: any, rawBody: any, body?: any);
     isSuccess(): any;
     isRedirection(): any;
     isClientError(): any;

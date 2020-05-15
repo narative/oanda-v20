@@ -12,8 +12,9 @@ var pricing_common = require("./pricing_common");
 var order = require("./order");
 var instrument = require("./instrument");
 var Response = /** @class */ (function () {
-    function Response(method, path, statusCode, statusMessage, contentType, rawBody, body) {
+    function Response(hostname, method, path, statusCode, statusMessage, contentType, rawBody, body) {
         if (body === void 0) { body = null; }
+        this.hostname = hostname;
         this.method = method;
         this.path = path;
         this.statusCode = statusCode;
@@ -78,6 +79,7 @@ var Context = /** @class */ (function () {
         this.headers['Authorization'] = 'Bearer ' + this.token;
     };
     Context.prototype.request = function (method, path, body, streamChunkHandler, responseHandler) {
+        var _this = this;
         var headers = JSON.parse(JSON.stringify(this.headers));
         var postData = '';
         if (Object.keys(body).length > 0) {
@@ -107,7 +109,7 @@ var Context = /** @class */ (function () {
             });
             response.on('end', function () {
                 if (responseHandler) {
-                    responseHandler(null, new Response(method, path, response.statusCode, response.statusMessage, response.headers['content-type'], responseBody));
+                    responseHandler(null, new Response(_this.hostname, method, path, response.statusCode, response.statusMessage, response.headers['content-type'], responseBody));
                 }
             });
         });

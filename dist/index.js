@@ -100,9 +100,10 @@ var Stream = /** @class */ (function (_super) {
 exports.Stream = Stream;
 var APIError = /** @class */ (function (_super) {
     __extends(APIError, _super);
-    function APIError(message, helpURL, path, body) {
-        var _this = _super.call(this, message + ": " + helpURL + "\npath=" + path + " errorCode=" + (body === null || body === void 0 ? void 0 : body.errorCode) + " errorMessage=" + (body === null || body === void 0 ? void 0 : body.errorMessage)) || this;
+    function APIError(message, helpURL, hostname, path, body) {
+        var _this = _super.call(this, message + ": host=" + hostname + " path=" + path + " errorCode=" + ((body === null || body === void 0 ? void 0 : body.errorCode) || '') + " errorMessage=" + ((body === null || body === void 0 ? void 0 : body.errorMessage) || '') + " help=" + helpURL) || this;
         _this.helpURL = helpURL;
+        _this.hostname = hostname;
         _this.path = path;
         _this.body = body;
         return _this;
@@ -118,26 +119,26 @@ function resolver(resolve, reject) {
         }
         switch (res.statusCode) {
             case '400':
-                reject(new APIError('Bad request', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
+                reject(new APIError('Bad request', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.hostname, res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
                 return;
             case '401':
-                reject(new APIError('Unauthorized', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
+                reject(new APIError('Unauthorized', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.hostname, res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
                 return;
             case '403':
-                reject(new APIError('Forbidden', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
+                reject(new APIError('Forbidden', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.hostname, res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
                 return;
             case '404':
-                reject(new APIError('Not found', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
+                reject(new APIError('Not found', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.hostname, res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
                 return;
             case '405':
-                reject(new APIError('Method not allowed', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
+                reject(new APIError('Method not allowed', 'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400', res === null || res === void 0 ? void 0 : res.hostname, res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
                 return;
             default: {
                 if (res.statusCode.startsWith('2')) {
                     resolve(res.body);
                     return;
                 }
-                reject(new APIError('Unhandled status code', "" + res.statusCode, res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
+                reject(new APIError('Unhandled status code', "" + res.statusCode, res === null || res === void 0 ? void 0 : res.hostname, res === null || res === void 0 ? void 0 : res.path, res === null || res === void 0 ? void 0 : res.body));
                 return;
             }
         }

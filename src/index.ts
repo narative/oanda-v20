@@ -106,9 +106,17 @@ export class Stream extends OANDA {
 }
 
 export class APIError extends Error {
-  constructor(message: string, public helpURL: string, public path: string, public body: any) {
+  constructor(
+    message: string,
+    public helpURL: string,
+    public hostname: string,
+    public path: string,
+    public body: any,
+  ) {
     super(
-      `${message}: ${helpURL}\npath=${path} errorCode=${body?.errorCode} errorMessage=${body?.errorMessage}`,
+      `${message}: host=${hostname} path=${path} errorCode=${body?.errorCode || ''} errorMessage=${
+        body?.errorMessage || ''
+      } help=${helpURL}`,
     )
   }
 }
@@ -126,6 +134,7 @@ function resolver(resolve, reject) {
           new APIError(
             'Bad request',
             'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400',
+            res?.hostname,
             res?.path,
             res?.body,
           ),
@@ -136,6 +145,7 @@ function resolver(resolve, reject) {
           new APIError(
             'Unauthorized',
             'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400',
+            res?.hostname,
             res?.path,
             res?.body,
           ),
@@ -146,6 +156,7 @@ function resolver(resolve, reject) {
           new APIError(
             'Forbidden',
             'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400',
+            res?.hostname,
             res?.path,
             res?.body,
           ),
@@ -156,6 +167,7 @@ function resolver(resolve, reject) {
           new APIError(
             'Not found',
             'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400',
+            res?.hostname,
             res?.path,
             res?.body,
           ),
@@ -166,6 +178,7 @@ function resolver(resolve, reject) {
           new APIError(
             'Method not allowed',
             'https://developer.oanda.com/rest-live-v20/troubleshooting-errors/#400',
+            res?.hostname,
             res?.path,
             res?.body,
           ),
@@ -177,7 +190,15 @@ function resolver(resolve, reject) {
           return
         }
 
-        reject(new APIError('Unhandled status code', `${res.statusCode}`, res?.path, res?.body))
+        reject(
+          new APIError(
+            'Unhandled status code',
+            `${res.statusCode}`,
+            res?.hostname,
+            res?.path,
+            res?.body,
+          ),
+        )
         return
       }
     }
