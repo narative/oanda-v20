@@ -1,3 +1,7 @@
+import pkg from '../package.json'
+import * as http from 'http'
+import * as https from 'https'
+
 import * as account from './account'
 import * as user from './user'
 import * as position from './position'
@@ -66,22 +70,26 @@ export class Context {
     public username = '',
     public headers = {
       'Content-Type': 'application/json',
-      'OANDA-Agent': `v20-javascript/3.0.25 (${application})`,
+      'OANDA-Agent': `${pkg.name.replace('@', '')}/${pkg.version} (${application})`,
     },
     public token = '',
-    // @ts-ignore
-    public http = ssl ? require('https') : require('http'),
   ) {
     application = application || ''
   }
 
-  setToken(token) {
+  public setToken(token) {
     this.token = token
     this.headers['Authorization'] = 'Bearer ' + this.token
   }
 
-  request(method, path, body, streamChunkHandler, responseHandler) {
-    let headers = JSON.parse(JSON.stringify(this.headers))
+  public request(
+    method: string,
+    path: string,
+    body: string,
+    streamChunkHandler: any,
+    responseHandler: any,
+  ) {
+    const headers = { ...this.headers }
 
     let postData = ''
 
@@ -90,15 +98,15 @@ export class Context {
       headers['Content-Length'] = postData.length
     }
 
-    let options = {
+    const options = {
       hostname: this.hostname,
       port: this.port,
       method: method,
       path: path,
-      headers: headers,
+      headers,
     }
 
-    let req = this.http.request(options, (response) => {
+    const req = (this.ssl ? https : http).request(options, (response) => {
       let responseBody = ''
 
       response.on('data', (d) => {
