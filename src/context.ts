@@ -1,4 +1,3 @@
-import pkg from '../package.json'
 import * as http from 'http'
 import * as https from 'https'
 
@@ -70,7 +69,7 @@ export class Context {
     public username = '',
     public headers = {
       'Content-Type': 'application/json',
-      'OANDA-Agent': `${pkg.name.replace('@', '')}/${pkg.version} (${application})`,
+      'OANDA-Agent': `narative-oanda-v20/3.x (${application})`,
     },
     public token = '',
   ) {

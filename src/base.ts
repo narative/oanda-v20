@@ -43,10 +43,19 @@ export class Definition {
   constructor() {}
 
   public toJSON() {
+    const recursiveConvert = (value: any) => {
+      if (Array.isArray(value)) {
+        return value.map((v) => recursiveConvert(v))
+      } else if (value.toJSON) {
+        return value.toJSON()
+      } else {
+        return value
+      }
+    }
     return Object.entries(this)
       .filter(([k, v]) => !['_summaryFormat', '_nameFormat', '_properties'].includes(k))
       .reduce((acc, [k, v]) => {
-        acc[k] = v
+        acc[k] = recursiveConvert(v)
         return acc
       }, {})
   }
@@ -76,10 +85,7 @@ export class Definition {
 
     let matches = summaryStr.match(re)
 
-    console.log('AAAAA', matches)
-
     for (let match of matches || []) {
-      console.log('BBBBBBB', match)
       let key = match.slice(1, -1)
 
       let value = this[key] || match

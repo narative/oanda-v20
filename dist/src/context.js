@@ -11,6 +11,7 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var pkg = require("../package.json");
 var http = require("http");
 var https = require("https");
 var account = require("./account");
@@ -60,7 +61,7 @@ var Context = /** @class */ (function () {
         if (username === void 0) { username = ''; }
         if (headers === void 0) { headers = {
             'Content-Type': 'application/json',
-            'OANDA-Agent': "narative-oanda-v20/3.x (" + application + ")",
+            'OANDA-Agent': pkg.name.replace('@', '') + "/" + pkg.version + " (" + application + ")",
         }; }
         if (token === void 0) { token = ''; }
         this.hostname = hostname;

@@ -42,11 +42,11 @@ var Definition = /** @class */ (function () {
     }
     Definition.prototype.toJSON = function () {
         var recursiveConvert = function (value) {
-            if (Array.isArray(value)) {
-                return value.map(function (v) { return recursiveConvert(v); });
-            }
-            else if (value.toJSON) {
+            if (value.toJSON) {
                 return value.toJSON();
+            }
+            else if (Array.isArray(value)) {
+                return value.map(function (v) { return recursiveConvert(v); });
             }
             else {
                 return value;
