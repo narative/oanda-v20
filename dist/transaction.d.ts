@@ -27,6 +27,10 @@ export declare class Transaction extends Definition {
      * The Request ID of the request which generated the transaction.
      */
     requestID: primitives.RequestID;
+    /**
+     * Raw response
+     */
+    raw: any;
     constructor(data: any);
     static create(transaction: any): Transaction | MarketOrderTransaction | OrderFillTransaction | OrderCancelTransaction | MarketOrderRejectTransaction | TradeClientExtensionsModifyTransaction | TradeClientExtensionsModifyRejectTransaction | TakeProfitOrderTransaction | StopLossOrderTransaction | TrailingStopLossOrderTransaction | OrderCancelRejectTransaction | TakeProfitOrderRejectTransaction | StopLossOrderRejectTransaction | TrailingStopLossOrderRejectTransaction | ClientConfigureTransaction | ClientConfigureRejectTransaction | CreateTransaction | CloseTransaction | ReopenTransaction | TransferFundsTransaction | TransferFundsRejectTransaction | FixedPriceOrderTransaction | LimitOrderTransaction | LimitOrderRejectTransaction | StopOrderTransaction | StopOrderRejectTransaction | MarketIfTouchedOrderTransaction | MarketIfTouchedOrderRejectTransaction | OrderClientExtensionsModifyTransaction | OrderClientExtensionsModifyRejectTransaction | MarginCallEnterTransaction | MarginCallExtendTransaction | MarginCallExitTransaction | DelayedTradeClosureTransaction | DailyFinancingTransaction | ResetResettablePLTransaction;
 }

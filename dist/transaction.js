@@ -49,6 +49,7 @@ var Transaction = /** @class */ (function (_super) {
         if (data['requestID'] !== undefined) {
             _this.requestID = data['requestID'];
         }
+        _this.raw = data;
         return _this;
     }
     Transaction.create = function (transaction) {

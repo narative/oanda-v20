@@ -79,6 +79,11 @@ export class Transaction extends Definition {
    */
   public requestID: primitives.RequestID
 
+  /**
+   * Raw response
+   */
+  public raw: any
+
   constructor(data) {
     super()
 
@@ -113,6 +118,8 @@ export class Transaction extends Definition {
     if (data['requestID'] !== undefined) {
       this.requestID = data['requestID']
     }
+
+    this.raw = data
   }
 
   static create(transaction) {
