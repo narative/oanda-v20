@@ -82,7 +82,7 @@ export class Transaction extends Definition {
   /**
    * Raw response
    */
-  public raw: any
+  public raw?: any
 
   constructor(data) {
     super()
