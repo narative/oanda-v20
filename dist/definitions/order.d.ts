@@ -49,6 +49,16 @@ export declare enum OrderType {
      */
     'FIXED_PRICE' = "FIXED_PRICE"
 }
+export declare const OrderTypeDescription: {
+    MARKET: string;
+    LIMIT: string;
+    STOP: string;
+    MARKET_IF_TOUCHED: string;
+    TAKE_PROFIT: string;
+    STOP_LOSS: string;
+    TRAILING_STOP_LOSS: string;
+    FIXED_PRICE: string;
+};
 /**
  * The type of the Order. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -78,6 +88,14 @@ export declare enum CancellableOrderType {
      */
     'TRAILING_STOP_LOSS' = "TRAILING_STOP_LOSS"
 }
+export declare const CancellableOrderTypeDescription: {
+    LIMIT: string;
+    STOP: string;
+    MARKET_IF_TOUCHED: string;
+    TAKE_PROFIT: string;
+    STOP_LOSS: string;
+    TRAILING_STOP_LOSS: string;
+};
 /**
  * The current state of the Order. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -99,6 +117,12 @@ export declare enum OrderState {
      */
     'CANCELLED' = "CANCELLED"
 }
+export declare const OrderStateDescription: {
+    PENDING: string;
+    FILLED: string;
+    TRIGGERED: string;
+    CANCELLED: string;
+};
 /**
  * The state to filter the requested Orders by. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -124,6 +148,13 @@ export declare enum OrderStateFilter {
      */
     'ALL' = "ALL"
 }
+export declare const OrderStateFilterDescription: {
+    PENDING: string;
+    FILLED: string;
+    TRIGGERED: string;
+    CANCELLED: string;
+    ALL: string;
+};
 /**
  * The time-in-force of an Order. TimeInForce describes how long an Order should remain pending before being automatically cancelled by the execution system. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -149,6 +180,13 @@ export declare enum TimeInForce {
      */
     'IOC' = "IOC"
 }
+export declare const TimeInForceDescription: {
+    GTC: string;
+    GTD: string;
+    GFD: string;
+    FOK: string;
+    IOC: string;
+};
 /**
  * Specification of how Positions in the Account are modified when the Order is filled. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -170,6 +208,12 @@ export declare enum OrderPositionFill {
      */
     'DEFAULT' = "DEFAULT"
 }
+export declare const OrderPositionFillDescription: {
+    OPEN_ONLY: string;
+    REDUCE_FIRST: string;
+    REDUCE_ONLY: string;
+    DEFAULT: string;
+};
 /**
  * Specification of which price component should be used when determining if an Order should be triggered and filled. This allows Orders to be triggered based on the bid, ask, mid, default (ask for buy, bid for sell) or inverse (ask for sell, bid for buy) price depending on the desired behaviour. Orders are always filled using their default price component.
 This feature is only provided through the REST API. Clients who choose to specify a non-default trigger condition will not see it reflected in any of OANDA’s proprietary or partner trading platforms, their transaction history or their account statements. OANDA platforms always assume that an Order’s trigger condition is set to the default value when indicating the distance from an Order’s trigger price, and will always provide the default trigger condition when creating or modifying an Order.
@@ -197,3 +241,10 @@ export declare enum OrderTriggerCondition {
      */
     'MID' = "MID"
 }
+export declare const OrderTriggerConditionDescription: {
+    DEFAULT: string;
+    INVERSE: string;
+    BID: string;
+    ASK: string;
+    MID: string;
+};

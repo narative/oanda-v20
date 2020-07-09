@@ -24,6 +24,11 @@ export declare enum TradeState {
      */
     'CLOSE_WHEN_TRADEABLE' = "CLOSE_WHEN_TRADEABLE"
 }
+export declare const TradeStateDescription: {
+    OPEN: string;
+    CLOSED: string;
+    CLOSE_WHEN_TRADEABLE: string;
+};
 /**
  * The state to filter the Trades by https://developer.oanda.com/rest-live-v20/trade-df/
  */
@@ -45,6 +50,12 @@ export declare enum TradeStateFilter {
      */
     'ALL' = "ALL"
 }
+export declare const TradeStateFilterDescription: {
+    OPEN: string;
+    CLOSED: string;
+    CLOSE_WHEN_TRADEABLE: string;
+    ALL: string;
+};
 /**
  * The classification of TradePLs. https://developer.oanda.com/rest-live-v20/trade-df/
  */
@@ -62,3 +73,8 @@ export declare enum TradePL {
      */
     'ZERO' = "ZERO"
 }
+export declare const TradePLDescription: {
+    POSITIVE: string;
+    NEGATIVE: string;
+    ZERO: string;
+};

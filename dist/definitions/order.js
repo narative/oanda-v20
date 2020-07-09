@@ -60,6 +60,16 @@ var OrderType;
      */
     OrderType["FIXED_PRICE"] = "FIXED_PRICE";
 })(OrderType = exports.OrderType || (exports.OrderType = {}));
+exports.OrderTypeDescription = {
+    'MARKET': 'A Market Order',
+    'LIMIT': 'A Limit Order',
+    'STOP': 'A Stop Order',
+    'MARKET_IF_TOUCHED': 'A Market-if-touched Order',
+    'TAKE_PROFIT': 'A Take Profit Order',
+    'STOP_LOSS': 'A Stop Loss Order',
+    'TRAILING_STOP_LOSS': 'A Trailing Stop Loss Order',
+    'FIXED_PRICE': 'A Fixed Price Order',
+};
 /**
  * The type of the Order. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -90,6 +100,14 @@ var CancellableOrderType;
      */
     CancellableOrderType["TRAILING_STOP_LOSS"] = "TRAILING_STOP_LOSS";
 })(CancellableOrderType = exports.CancellableOrderType || (exports.CancellableOrderType = {}));
+exports.CancellableOrderTypeDescription = {
+    'LIMIT': 'A Limit Order',
+    'STOP': 'A Stop Order',
+    'MARKET_IF_TOUCHED': 'A Market-if-touched Order',
+    'TAKE_PROFIT': 'A Take Profit Order',
+    'STOP_LOSS': 'A Stop Loss Order',
+    'TRAILING_STOP_LOSS': 'A Trailing Stop Loss Order',
+};
 /**
  * The current state of the Order. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -112,6 +130,12 @@ var OrderState;
      */
     OrderState["CANCELLED"] = "CANCELLED";
 })(OrderState = exports.OrderState || (exports.OrderState = {}));
+exports.OrderStateDescription = {
+    'PENDING': 'The Order is currently pending execution',
+    'FILLED': 'The Order has been filled',
+    'TRIGGERED': 'The Order has been triggered',
+    'CANCELLED': 'The Order has been cancelled',
+};
 /**
  * The state to filter the requested Orders by. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -138,6 +162,13 @@ var OrderStateFilter;
      */
     OrderStateFilter["ALL"] = "ALL";
 })(OrderStateFilter = exports.OrderStateFilter || (exports.OrderStateFilter = {}));
+exports.OrderStateFilterDescription = {
+    'PENDING': 'The Orders that are currently pending execution',
+    'FILLED': 'The Orders that have been filled',
+    'TRIGGERED': 'The Orders that have been triggered',
+    'CANCELLED': 'The Orders that have been cancelled',
+    'ALL': 'The Orders that are in any of the possible states listed above',
+};
 /**
  * The time-in-force of an Order. TimeInForce describes how long an Order should remain pending before being automatically cancelled by the execution system. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -164,6 +195,13 @@ var TimeInForce;
      */
     TimeInForce["IOC"] = "IOC";
 })(TimeInForce = exports.TimeInForce || (exports.TimeInForce = {}));
+exports.TimeInForceDescription = {
+    'GTC': 'The Order is “Good unTil Cancelled”',
+    'GTD': 'The Order is “Good unTil Date” and will be cancelled at the provided time',
+    'GFD': 'The Order is “Good For Day” and will be cancelled at 5pm New York time',
+    'FOK': 'The Order must be immediately “Filled Or Killed”',
+    'IOC': 'The Order must be “Immediately partially filled Or Cancelled”',
+};
 /**
  * Specification of how Positions in the Account are modified when the Order is filled. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -186,6 +224,12 @@ var OrderPositionFill;
      */
     OrderPositionFill["DEFAULT"] = "DEFAULT";
 })(OrderPositionFill = exports.OrderPositionFill || (exports.OrderPositionFill = {}));
+exports.OrderPositionFillDescription = {
+    'OPEN_ONLY': 'When the Order is filled, only allow Positions to be opened or extended.',
+    'REDUCE_FIRST': 'When the Order is filled, always fully reduce an existing Position before opening a new Position.',
+    'REDUCE_ONLY': 'When the Order is filled, only reduce an existing Position.',
+    'DEFAULT': 'When the Order is filled, use REDUCE_FIRST behaviour for non-client hedging Accounts, and OPEN_ONLY behaviour for client hedging Accounts.',
+};
 /**
  * Specification of which price component should be used when determining if an Order should be triggered and filled. This allows Orders to be triggered based on the bid, ask, mid, default (ask for buy, bid for sell) or inverse (ask for sell, bid for buy) price depending on the desired behaviour. Orders are always filled using their default price component.
 This feature is only provided through the REST API. Clients who choose to specify a non-default trigger condition will not see it reflected in any of OANDA’s proprietary or partner trading platforms, their transaction history or their account statements. OANDA platforms always assume that an Order’s trigger condition is set to the default value when indicating the distance from an Order’s trigger price, and will always provide the default trigger condition when creating or modifying an Order.
@@ -214,4 +258,11 @@ var OrderTriggerCondition;
      */
     OrderTriggerCondition["MID"] = "MID";
 })(OrderTriggerCondition = exports.OrderTriggerCondition || (exports.OrderTriggerCondition = {}));
+exports.OrderTriggerConditionDescription = {
+    'DEFAULT': 'Trigger an Order the “natural” way: compare its price to the ask for long Orders and bid for short Orders.',
+    'INVERSE': 'Trigger an Order the opposite of the “natural” way: compare its price the bid for long Orders and ask for short Orders.',
+    'BID': 'Trigger an Order by comparing its price to the bid regardless of whether it is long or short.',
+    'ASK': 'Trigger an Order by comparing its price to the ask regardless of whether it is long or short.',
+    'MID': 'Trigger an Order by comparing its price to the midpoint regardless of whether it is long or short.',
+};
 //# sourceMappingURL=order.js.map

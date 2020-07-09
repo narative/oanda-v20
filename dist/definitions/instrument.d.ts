@@ -90,6 +90,29 @@ export declare enum CandlestickGranularity {
      */
     'M' = "M"
 }
+export declare const CandlestickGranularityDescription: {
+    S5: string;
+    S10: string;
+    S15: string;
+    S30: string;
+    M1: string;
+    M2: string;
+    M4: string;
+    M5: string;
+    M10: string;
+    M15: string;
+    M30: string;
+    H1: string;
+    H2: string;
+    H3: string;
+    H4: string;
+    H6: string;
+    H8: string;
+    H12: string;
+    D: string;
+    W: string;
+    M: string;
+};
 /**
  * The day of the week to use for candlestick granularities with weekly alignment. https://developer.oanda.com/rest-live-v20/instrument-df/
  */
@@ -123,6 +146,15 @@ export declare enum WeeklyAlignment {
      */
     'Sunday' = "Sunday"
 }
+export declare const WeeklyAlignmentDescription: {
+    Monday: string;
+    Tuesday: string;
+    Wednesday: string;
+    Thursday: string;
+    Friday: string;
+    Saturday: string;
+    Sunday: string;
+};
 /**
  * The type of price adjustment. https://developer.oanda.com/rest-live-v20/instrument-df/
  */
@@ -144,6 +176,12 @@ export declare enum PriceAdjustmentType {
      */
     'FAIR_VALUE' = "FAIR_VALUE"
 }
+export declare const PriceAdjustmentTypeDescription: {
+    PRESENT_VALUE: string;
+    DIVIDEND: string;
+    BASIS: string;
+    FAIR_VALUE: string;
+};
 /**
  * Time interval at which data is sampled. https://developer.oanda.com/rest-live-v20/instrument-df/
  */
@@ -153,6 +191,9 @@ export declare enum SamplingInterval {
      */
     'M1' = "M1"
 }
+export declare const SamplingIntervalDescription: {
+    M1: string;
+};
 export declare class CandlestickResponse {
     /**
      * The instrument whose Prices are represented by the candlesticks.

@@ -102,7 +102,12 @@ ${values
 `,
   )
   .join('\n')}}`
-        resultEnums.push(`${enumValue}`)
+
+        // enum description
+        const enumDescription = `export const ${name}Description = {
+${values.map((v) => `  ${convertEnumName(v.value)}: '${v.description}',`).join('\n')}\n}`
+
+        resultEnums.push(`${enumValue}\n\n${enumDescription}`)
         return
       }
 

@@ -122,6 +122,30 @@ export enum CandlestickGranularity {
   'M' = 'M',
 }
 
+export const CandlestickGranularityDescription = {
+  'S5': '5 second candlesticks, minute alignment',
+  'S10': '10 second candlesticks, minute alignment',
+  'S15': '15 second candlesticks, minute alignment',
+  'S30': '30 second candlesticks, minute alignment',
+  'M1': '1 minute candlesticks, minute alignment',
+  'M2': '2 minute candlesticks, hour alignment',
+  'M4': '4 minute candlesticks, hour alignment',
+  'M5': '5 minute candlesticks, hour alignment',
+  'M10': '10 minute candlesticks, hour alignment',
+  'M15': '15 minute candlesticks, hour alignment',
+  'M30': '30 minute candlesticks, hour alignment',
+  'H1': '1 hour candlesticks, hour alignment',
+  'H2': '2 hour candlesticks, day alignment',
+  'H3': '3 hour candlesticks, day alignment',
+  'H4': '4 hour candlesticks, day alignment',
+  'H6': '6 hour candlesticks, day alignment',
+  'H8': '8 hour candlesticks, day alignment',
+  'H12': '12 hour candlesticks, day alignment',
+  'D': '1 day candlesticks, day alignment',
+  'W': '1 week candlesticks, aligned to start of week',
+  'M': '1 month candlesticks, aligned to first day of the month',
+}
+
 /**
  * The day of the week to use for candlestick granularities with weekly alignment. https://developer.oanda.com/rest-live-v20/instrument-df/
  */
@@ -162,6 +186,16 @@ export enum WeeklyAlignment {
   'Sunday' = 'Sunday',
 }
 
+export const WeeklyAlignmentDescription = {
+  'Monday': 'Monday',
+  'Tuesday': 'Tuesday',
+  'Wednesday': 'Wednesday',
+  'Thursday': 'Thursday',
+  'Friday': 'Friday',
+  'Saturday': 'Saturday',
+  'Sunday': 'Sunday',
+}
+
 /**
  * The type of price adjustment. https://developer.oanda.com/rest-live-v20/instrument-df/
  */
@@ -187,6 +221,13 @@ export enum PriceAdjustmentType {
   'FAIR_VALUE' = 'FAIR_VALUE',
 }
 
+export const PriceAdjustmentTypeDescription = {
+  'PRESENT_VALUE': 'The present value adjustment is intended to back-out the interest component of the future-date contract expiry.',
+  'DIVIDEND': 'The dividend adjustment is intended to include the impact of the dividend payment from the equities that make up the index.',
+  'BASIS': 'The basis adjustment is intended to offset the difference in the basis between the futures price and the index price.',
+  'FAIR_VALUE': 'The fair value adjustment is intended to be configured manually by the Trading team to adjust the price of the CFD for any reason which is not captured by the other adjustments, and will typically be the 0.',
+}
+
 /**
  * Time interval at which data is sampled. https://developer.oanda.com/rest-live-v20/instrument-df/
  */
@@ -195,6 +236,10 @@ export enum SamplingInterval {
    * One minute sampling.
    */
   'M1' = 'M1',
+}
+
+export const SamplingIntervalDescription = {
+  'M1': 'One minute sampling.',
 }
 
 export class CandlestickResponse {

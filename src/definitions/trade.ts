@@ -40,6 +40,12 @@ export enum TradeState {
   'CLOSE_WHEN_TRADEABLE' = 'CLOSE_WHEN_TRADEABLE',
 }
 
+export const TradeStateDescription = {
+  'OPEN': 'The Trade is currently open',
+  'CLOSED': 'The Trade has been fully closed',
+  'CLOSE_WHEN_TRADEABLE': 'The Trade will be closed as soon as the trade’s instrument becomes tradeable',
+}
+
 /**
  * The state to filter the Trades by https://developer.oanda.com/rest-live-v20/trade-df/
  */
@@ -65,6 +71,13 @@ export enum TradeStateFilter {
   'ALL' = 'ALL',
 }
 
+export const TradeStateFilterDescription = {
+  'OPEN': 'The Trades that are currently open',
+  'CLOSED': 'The Trades that have been fully closed',
+  'CLOSE_WHEN_TRADEABLE': 'The Trades  that will be closed as soon as the trades’ instrument becomes tradeable',
+  'ALL': 'The Trades that are in any of the possible states listed above.',
+}
+
 /**
  * The classification of TradePLs. https://developer.oanda.com/rest-live-v20/trade-df/
  */
@@ -83,5 +96,11 @@ export enum TradePL {
    * An open Trade currently has unrealized P/L of zero (neither profitable nor losing), or a closed Trade realized a P/L amount of zero.
    */
   'ZERO' = 'ZERO',
+}
+
+export const TradePLDescription = {
+  'POSITIVE': 'An open Trade currently has a positive (profitable) unrealized P/L, or a closed Trade realized a positive amount of P/L.',
+  'NEGATIVE': 'An open Trade currently has a negative (losing) unrealized P/L, or a closed Trade realized a negative amount of P/L.',
+  'ZERO': 'An open Trade currently has unrealized P/L of zero (neither profitable nor losing), or a closed Trade realized a P/L amount of zero.',
 }
 

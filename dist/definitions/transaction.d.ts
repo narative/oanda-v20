@@ -175,6 +175,44 @@ export declare enum TransactionType {
      */
     'RESET_RESETTABLE_PL' = "RESET_RESETTABLE_PL"
 }
+export declare const TransactionTypeDescription: {
+    CREATE: string;
+    CLOSE: string;
+    REOPEN: string;
+    CLIENT_CONFIGURE: string;
+    CLIENT_CONFIGURE_REJECT: string;
+    TRANSFER_FUNDS: string;
+    TRANSFER_FUNDS_REJECT: string;
+    MARKET_ORDER: string;
+    MARKET_ORDER_REJECT: string;
+    FIXED_PRICE_ORDER: string;
+    LIMIT_ORDER: string;
+    LIMIT_ORDER_REJECT: string;
+    STOP_ORDER: string;
+    STOP_ORDER_REJECT: string;
+    MARKET_IF_TOUCHED_ORDER: string;
+    MARKET_IF_TOUCHED_ORDER_REJECT: string;
+    TAKE_PROFIT_ORDER: string;
+    TAKE_PROFIT_ORDER_REJECT: string;
+    STOP_LOSS_ORDER: string;
+    STOP_LOSS_ORDER_REJECT: string;
+    TRAILING_STOP_LOSS_ORDER: string;
+    TRAILING_STOP_LOSS_ORDER_REJECT: string;
+    ORDER_FILL: string;
+    ORDER_CANCEL: string;
+    ORDER_CANCEL_REJECT: string;
+    ORDER_CLIENT_EXTENSIONS_MODIFY: string;
+    ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT: string;
+    TRADE_CLIENT_EXTENSIONS_MODIFY: string;
+    TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT: string;
+    MARGIN_CALL_ENTER: string;
+    MARGIN_CALL_EXTEND: string;
+    MARGIN_CALL_EXIT: string;
+    DELAYED_TRADE_CLOSURE: string;
+    DAILY_FINANCING: string;
+    DIVIDEND_ADJUSTMENT: string;
+    RESET_RESETTABLE_PL: string;
+};
 /**
  * The reason that an Account is being funded. https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -200,6 +238,13 @@ export declare enum FundingReason {
      */
     'ADJUSTMENT' = "ADJUSTMENT"
 }
+export declare const FundingReasonDescription: {
+    CLIENT_FUNDING: string;
+    ACCOUNT_TRANSFER: string;
+    DIVISION_MIGRATION: string;
+    SITE_MIGRATION: string;
+    ADJUSTMENT: string;
+};
 /**
  * The reason that the Market Order was created https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -225,6 +270,13 @@ export declare enum MarketOrderReason {
      */
     'DELAYED_TRADE_CLOSE' = "DELAYED_TRADE_CLOSE"
 }
+export declare const MarketOrderReasonDescription: {
+    CLIENT_ORDER: string;
+    TRADE_CLOSE: string;
+    POSITION_CLOSEOUT: string;
+    MARGIN_CLOSEOUT: string;
+    DELAYED_TRADE_CLOSE: string;
+};
 /**
  * The reason that the Fixed Price Order was created https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -242,6 +294,11 @@ export declare enum FixedPriceOrderReason {
      */
     'TRADE_CLOSE_ADMINISTRATIVE_ACTION' = "TRADE_CLOSE_ADMINISTRATIVE_ACTION"
 }
+export declare const FixedPriceOrderReasonDescription: {
+    PLATFORM_ACCOUNT_MIGRATION: string;
+    TRADE_CLOSE_DIVISION_ACCOUNT_MIGRATION: string;
+    TRADE_CLOSE_ADMINISTRATIVE_ACTION: string;
+};
 /**
  * The reason that the Limit Order was initiated https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -255,6 +312,10 @@ export declare enum LimitOrderReason {
      */
     'REPLACEMENT' = "REPLACEMENT"
 }
+export declare const LimitOrderReasonDescription: {
+    CLIENT_ORDER: string;
+    REPLACEMENT: string;
+};
 /**
  * The reason that the Stop Order was initiated https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -268,6 +329,10 @@ export declare enum StopOrderReason {
      */
     'REPLACEMENT' = "REPLACEMENT"
 }
+export declare const StopOrderReasonDescription: {
+    CLIENT_ORDER: string;
+    REPLACEMENT: string;
+};
 /**
  * The reason that the Market-if-touched Order was initiated https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -281,6 +346,10 @@ export declare enum MarketIfTouchedOrderReason {
      */
     'REPLACEMENT' = "REPLACEMENT"
 }
+export declare const MarketIfTouchedOrderReasonDescription: {
+    CLIENT_ORDER: string;
+    REPLACEMENT: string;
+};
 /**
  * The reason that the Take Profit Order was initiated https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -298,6 +367,11 @@ export declare enum TakeProfitOrderReason {
      */
     'ON_FILL' = "ON_FILL"
 }
+export declare const TakeProfitOrderReasonDescription: {
+    CLIENT_ORDER: string;
+    REPLACEMENT: string;
+    ON_FILL: string;
+};
 /**
  * The reason that the Stop Loss Order was initiated https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -315,6 +389,11 @@ export declare enum StopLossOrderReason {
      */
     'ON_FILL' = "ON_FILL"
 }
+export declare const StopLossOrderReasonDescription: {
+    CLIENT_ORDER: string;
+    REPLACEMENT: string;
+    ON_FILL: string;
+};
 /**
  * The reason that the Trailing Stop Loss Order was initiated https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -332,6 +411,11 @@ export declare enum TrailingStopLossOrderReason {
      */
     'ON_FILL' = "ON_FILL"
 }
+export declare const TrailingStopLossOrderReasonDescription: {
+    CLIENT_ORDER: string;
+    REPLACEMENT: string;
+    ON_FILL: string;
+};
 /**
  * The reason that an Order was filled https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -397,6 +481,23 @@ export declare enum OrderFillReason {
      */
     'FIXED_PRICE_ORDER_ADMINISTRATIVE_ACTION' = "FIXED_PRICE_ORDER_ADMINISTRATIVE_ACTION"
 }
+export declare const OrderFillReasonDescription: {
+    LIMIT_ORDER: string;
+    STOP_ORDER: string;
+    MARKET_IF_TOUCHED_ORDER: string;
+    TAKE_PROFIT_ORDER: string;
+    STOP_LOSS_ORDER: string;
+    TRAILING_STOP_LOSS_ORDER: string;
+    MARKET_ORDER: string;
+    MARKET_ORDER_TRADE_CLOSE: string;
+    MARKET_ORDER_POSITION_CLOSEOUT: string;
+    MARKET_ORDER_MARGIN_CLOSEOUT: string;
+    MARKET_ORDER_DELAYED_TRADE_CLOSE: string;
+    FIXED_PRICE_ORDER: string;
+    FIXED_PRICE_ORDER_PLATFORM_ACCOUNT_MIGRATION: string;
+    FIXED_PRICE_ORDER_DIVISION_ACCOUNT_MIGRATION: string;
+    FIXED_PRICE_ORDER_ADMINISTRATIVE_ACTION: string;
+};
 /**
  * The reason that an Order was cancelled. https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -598,6 +699,57 @@ export declare enum OrderCancelReason {
      */
     'FIFO_VIOLATION_SAFEGUARD_PARTIAL_CLOSE_VIOLATION' = "FIFO_VIOLATION_SAFEGUARD_PARTIAL_CLOSE_VIOLATION"
 }
+export declare const OrderCancelReasonDescription: {
+    INTERNAL_SERVER_ERROR: string;
+    ACCOUNT_LOCKED: string;
+    ACCOUNT_NEW_POSITIONS_LOCKED: string;
+    ACCOUNT_ORDER_CREATION_LOCKED: string;
+    ACCOUNT_ORDER_FILL_LOCKED: string;
+    CLIENT_REQUEST: string;
+    MIGRATION: string;
+    MARKET_HALTED: string;
+    LINKED_TRADE_CLOSED: string;
+    TIME_IN_FORCE_EXPIRED: string;
+    INSUFFICIENT_MARGIN: string;
+    FIFO_VIOLATION: string;
+    BOUNDS_VIOLATION: string;
+    CLIENT_REQUEST_REPLACED: string;
+    INSUFFICIENT_LIQUIDITY: string;
+    TAKE_PROFIT_ON_FILL_GTD_TIMESTAMP_IN_PAST: string;
+    TAKE_PROFIT_ON_FILL_LOSS: string;
+    LOSING_TAKE_PROFIT: string;
+    STOP_LOSS_ON_FILL_GTD_TIMESTAMP_IN_PAST: string;
+    STOP_LOSS_ON_FILL_LOSS: string;
+    STOP_LOSS_ON_FILL_PRICE_DISTANCE_MAXIMUM_EXCEEDED: string;
+    STOP_LOSS_ON_FILL_REQUIRED: string;
+    STOP_LOSS_ON_FILL_GUARANTEED_REQUIRED: string;
+    STOP_LOSS_ON_FILL_GUARANTEED_NOT_ALLOWED: string;
+    STOP_LOSS_ON_FILL_GUARANTEED_MINIMUM_DISTANCE_NOT_MET: string;
+    STOP_LOSS_ON_FILL_GUARANTEED_LEVEL_RESTRICTION_EXCEEDED: string;
+    STOP_LOSS_ON_FILL_GUARANTEED_HEDGING_NOT_ALLOWED: string;
+    STOP_LOSS_ON_FILL_TIME_IN_FORCE_INVALID: string;
+    STOP_LOSS_ON_FILL_TRIGGER_CONDITION_INVALID: string;
+    TAKE_PROFIT_ON_FILL_PRICE_DISTANCE_MAXIMUM_EXCEEDED: string;
+    TRAILING_STOP_LOSS_ON_FILL_GTD_TIMESTAMP_IN_PAST: string;
+    CLIENT_TRADE_ID_ALREADY_EXISTS: string;
+    POSITION_CLOSEOUT_FAILED: string;
+    OPEN_TRADES_ALLOWED_EXCEEDED: string;
+    PENDING_ORDERS_ALLOWED_EXCEEDED: string;
+    TAKE_PROFIT_ON_FILL_CLIENT_ORDER_ID_ALREADY_EXISTS: string;
+    STOP_LOSS_ON_FILL_CLIENT_ORDER_ID_ALREADY_EXISTS: string;
+    TRAILING_STOP_LOSS_ON_FILL_CLIENT_ORDER_ID_ALREADY_EXISTS: string;
+    POSITION_SIZE_EXCEEDED: string;
+    HEDGING_GSLO_VIOLATION: string;
+    ACCOUNT_POSITION_VALUE_LIMIT_EXCEEDED: string;
+    INSTRUMENT_BID_REDUCE_ONLY: string;
+    INSTRUMENT_ASK_REDUCE_ONLY: string;
+    INSTRUMENT_BID_HALTED: string;
+    INSTRUMENT_ASK_HALTED: string;
+    STOP_LOSS_ON_FILL_GUARANTEED_BID_HALTED: string;
+    STOP_LOSS_ON_FILL_GUARANTEED_ASK_HALTED: string;
+    FIFO_VIOLATION_SAFEGUARD_VIOLATION: string;
+    FIFO_VIOLATION_SAFEGUARD_PARTIAL_CLOSE_VIOLATION: string;
+};
 /**
  * The reason that the Market Order was created to perform a margin closeout https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -615,6 +767,11 @@ export declare enum MarketOrderMarginCloseoutReason {
      */
     'REGULATORY_MARGIN_CHECK_VIOLATION' = "REGULATORY_MARGIN_CHECK_VIOLATION"
 }
+export declare const MarketOrderMarginCloseoutReasonDescription: {
+    MARGIN_CHECK_VIOLATION: string;
+    REGULATORY_MARGIN_CALL_VIOLATION: string;
+    REGULATORY_MARGIN_CHECK_VIOLATION: string;
+};
 /**
  * The reason that a Transaction was rejected. https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -1212,6 +1369,156 @@ export declare enum TransactionRejectReason {
      */
     'ORDER_CANCEL_WOULD_TRIGGER_CLOSEOUT' = "ORDER_CANCEL_WOULD_TRIGGER_CLOSEOUT"
 }
+export declare const TransactionRejectReasonDescription: {
+    INTERNAL_SERVER_ERROR: string;
+    INSTRUMENT_PRICE_UNKNOWN: string;
+    ACCOUNT_NOT_ACTIVE: string;
+    ACCOUNT_LOCKED: string;
+    ACCOUNT_ORDER_CREATION_LOCKED: string;
+    ACCOUNT_CONFIGURATION_LOCKED: string;
+    ACCOUNT_DEPOSIT_LOCKED: string;
+    ACCOUNT_WITHDRAWAL_LOCKED: string;
+    ACCOUNT_ORDER_CANCEL_LOCKED: string;
+    INSTRUMENT_NOT_TRADEABLE: string;
+    PENDING_ORDERS_ALLOWED_EXCEEDED: string;
+    ORDER_ID_UNSPECIFIED: string;
+    ORDER_DOESNT_EXIST: string;
+    ORDER_IDENTIFIER_INCONSISTENCY: string;
+    TRADE_ID_UNSPECIFIED: string;
+    TRADE_DOESNT_EXIST: string;
+    TRADE_IDENTIFIER_INCONSISTENCY: string;
+    INSUFFICIENT_MARGIN: string;
+    INSTRUMENT_MISSING: string;
+    INSTRUMENT_UNKNOWN: string;
+    UNITS_MISSING: string;
+    UNITS_INVALID: string;
+    UNITS_PRECISION_EXCEEDED: string;
+    UNITS_LIMIT_EXCEEDED: string;
+    UNITS_MINIMUM_NOT_MET: string;
+    PRICE_MISSING: string;
+    PRICE_INVALID: string;
+    PRICE_PRECISION_EXCEEDED: string;
+    PRICE_DISTANCE_MISSING: string;
+    PRICE_DISTANCE_INVALID: string;
+    PRICE_DISTANCE_PRECISION_EXCEEDED: string;
+    PRICE_DISTANCE_MAXIMUM_EXCEEDED: string;
+    PRICE_DISTANCE_MINIMUM_NOT_MET: string;
+    TIME_IN_FORCE_MISSING: string;
+    TIME_IN_FORCE_INVALID: string;
+    TIME_IN_FORCE_GTD_TIMESTAMP_MISSING: string;
+    TIME_IN_FORCE_GTD_TIMESTAMP_IN_PAST: string;
+    PRICE_BOUND_INVALID: string;
+    PRICE_BOUND_PRECISION_EXCEEDED: string;
+    ORDERS_ON_FILL_DUPLICATE_CLIENT_ORDER_IDS: string;
+    TRADE_ON_FILL_CLIENT_EXTENSIONS_NOT_SUPPORTED: string;
+    CLIENT_ORDER_ID_INVALID: string;
+    CLIENT_ORDER_ID_ALREADY_EXISTS: string;
+    CLIENT_ORDER_TAG_INVALID: string;
+    CLIENT_ORDER_COMMENT_INVALID: string;
+    CLIENT_TRADE_ID_INVALID: string;
+    CLIENT_TRADE_ID_ALREADY_EXISTS: string;
+    CLIENT_TRADE_TAG_INVALID: string;
+    CLIENT_TRADE_COMMENT_INVALID: string;
+    ORDER_FILL_POSITION_ACTION_MISSING: string;
+    ORDER_FILL_POSITION_ACTION_INVALID: string;
+    TRIGGER_CONDITION_MISSING: string;
+    TRIGGER_CONDITION_INVALID: string;
+    ORDER_PARTIAL_FILL_OPTION_MISSING: string;
+    ORDER_PARTIAL_FILL_OPTION_INVALID: string;
+    INVALID_REISSUE_IMMEDIATE_PARTIAL_FILL: string;
+    TAKE_PROFIT_ORDER_ALREADY_EXISTS: string;
+    TAKE_PROFIT_ORDER_WOULD_VIOLATE_FIFO_VIOLATION_SAFEGUARD: string;
+    TAKE_PROFIT_ON_FILL_PRICE_MISSING: string;
+    TAKE_PROFIT_ON_FILL_PRICE_INVALID: string;
+    TAKE_PROFIT_ON_FILL_PRICE_PRECISION_EXCEEDED: string;
+    TAKE_PROFIT_ON_FILL_TIME_IN_FORCE_MISSING: string;
+    TAKE_PROFIT_ON_FILL_TIME_IN_FORCE_INVALID: string;
+    TAKE_PROFIT_ON_FILL_GTD_TIMESTAMP_MISSING: string;
+    TAKE_PROFIT_ON_FILL_GTD_TIMESTAMP_IN_PAST: string;
+    TAKE_PROFIT_ON_FILL_CLIENT_ORDER_ID_INVALID: string;
+    TAKE_PROFIT_ON_FILL_CLIENT_ORDER_TAG_INVALID: string;
+    TAKE_PROFIT_ON_FILL_CLIENT_ORDER_COMMENT_INVALID: string;
+    TAKE_PROFIT_ON_FILL_TRIGGER_CONDITION_MISSING: string;
+    TAKE_PROFIT_ON_FILL_TRIGGER_CONDITION_INVALID: string;
+    STOP_LOSS_ORDER_ALREADY_EXISTS: string;
+    STOP_LOSS_ORDER_GUARANTEED_REQUIRED: string;
+    STOP_LOSS_ORDER_GUARANTEED_PRICE_WITHIN_SPREAD: string;
+    STOP_LOSS_ORDER_GUARANTEED_NOT_ALLOWED: string;
+    STOP_LOSS_ORDER_GUARANTEED_HALTED_CREATE_VIOLATION: string;
+    STOP_LOSS_ORDER_GUARANTEED_HALTED_TIGHTEN_VIOLATION: string;
+    STOP_LOSS_ORDER_GUARANTEED_HEDGING_NOT_ALLOWED: string;
+    STOP_LOSS_ORDER_GUARANTEED_MINIMUM_DISTANCE_NOT_MET: string;
+    STOP_LOSS_ORDER_NOT_CANCELABLE: string;
+    STOP_LOSS_ORDER_NOT_REPLACEABLE: string;
+    STOP_LOSS_ORDER_GUARANTEED_LEVEL_RESTRICTION_EXCEEDED: string;
+    STOP_LOSS_ORDER_PRICE_AND_DISTANCE_BOTH_SPECIFIED: string;
+    STOP_LOSS_ORDER_PRICE_AND_DISTANCE_BOTH_MISSING: string;
+    STOP_LOSS_ORDER_WOULD_VIOLATE_FIFO_VIOLATION_SAFEGUARD: string;
+    STOP_LOSS_ON_FILL_REQUIRED_FOR_PENDING_ORDER: string;
+    STOP_LOSS_ON_FILL_GUARANTEED_NOT_ALLOWED: string;
+    STOP_LOSS_ON_FILL_GUARANTEED_REQUIRED: string;
+    STOP_LOSS_ON_FILL_PRICE_MISSING: string;
+    STOP_LOSS_ON_FILL_PRICE_INVALID: string;
+    STOP_LOSS_ON_FILL_PRICE_PRECISION_EXCEEDED: string;
+    STOP_LOSS_ON_FILL_GUARANTEED_MINIMUM_DISTANCE_NOT_MET: string;
+    STOP_LOSS_ON_FILL_GUARANTEED_LEVEL_RESTRICTION_EXCEEDED: string;
+    STOP_LOSS_ON_FILL_DISTANCE_INVALID: string;
+    STOP_LOSS_ON_FILL_PRICE_DISTANCE_MAXIMUM_EXCEEDED: string;
+    STOP_LOSS_ON_FILL_DISTANCE_PRECISION_EXCEEDED: string;
+    STOP_LOSS_ON_FILL_PRICE_AND_DISTANCE_BOTH_SPECIFIED: string;
+    STOP_LOSS_ON_FILL_PRICE_AND_DISTANCE_BOTH_MISSING: string;
+    STOP_LOSS_ON_FILL_TIME_IN_FORCE_MISSING: string;
+    STOP_LOSS_ON_FILL_TIME_IN_FORCE_INVALID: string;
+    STOP_LOSS_ON_FILL_GTD_TIMESTAMP_MISSING: string;
+    STOP_LOSS_ON_FILL_GTD_TIMESTAMP_IN_PAST: string;
+    STOP_LOSS_ON_FILL_CLIENT_ORDER_ID_INVALID: string;
+    STOP_LOSS_ON_FILL_CLIENT_ORDER_TAG_INVALID: string;
+    STOP_LOSS_ON_FILL_CLIENT_ORDER_COMMENT_INVALID: string;
+    STOP_LOSS_ON_FILL_TRIGGER_CONDITION_MISSING: string;
+    STOP_LOSS_ON_FILL_TRIGGER_CONDITION_INVALID: string;
+    TRAILING_STOP_LOSS_ORDER_ALREADY_EXISTS: string;
+    TRAILING_STOP_LOSS_ORDER_WOULD_VIOLATE_FIFO_VIOLATION_SAFEGUARD: string;
+    TRAILING_STOP_LOSS_ON_FILL_PRICE_DISTANCE_MISSING: string;
+    TRAILING_STOP_LOSS_ON_FILL_PRICE_DISTANCE_INVALID: string;
+    TRAILING_STOP_LOSS_ON_FILL_PRICE_DISTANCE_PRECISION_EXCEEDED: string;
+    TRAILING_STOP_LOSS_ON_FILL_PRICE_DISTANCE_MAXIMUM_EXCEEDED: string;
+    TRAILING_STOP_LOSS_ON_FILL_PRICE_DISTANCE_MINIMUM_NOT_MET: string;
+    TRAILING_STOP_LOSS_ON_FILL_TIME_IN_FORCE_MISSING: string;
+    TRAILING_STOP_LOSS_ON_FILL_TIME_IN_FORCE_INVALID: string;
+    TRAILING_STOP_LOSS_ON_FILL_GTD_TIMESTAMP_MISSING: string;
+    TRAILING_STOP_LOSS_ON_FILL_GTD_TIMESTAMP_IN_PAST: string;
+    TRAILING_STOP_LOSS_ON_FILL_CLIENT_ORDER_ID_INVALID: string;
+    TRAILING_STOP_LOSS_ON_FILL_CLIENT_ORDER_TAG_INVALID: string;
+    TRAILING_STOP_LOSS_ON_FILL_CLIENT_ORDER_COMMENT_INVALID: string;
+    TRAILING_STOP_LOSS_ORDERS_NOT_SUPPORTED: string;
+    TRAILING_STOP_LOSS_ON_FILL_TRIGGER_CONDITION_MISSING: string;
+    TRAILING_STOP_LOSS_ON_FILL_TRIGGER_CONDITION_INVALID: string;
+    CLOSE_TRADE_TYPE_MISSING: string;
+    CLOSE_TRADE_PARTIAL_UNITS_MISSING: string;
+    CLOSE_TRADE_UNITS_EXCEED_TRADE_SIZE: string;
+    CLOSEOUT_POSITION_DOESNT_EXIST: string;
+    CLOSEOUT_POSITION_INCOMPLETE_SPECIFICATION: string;
+    CLOSEOUT_POSITION_UNITS_EXCEED_POSITION_SIZE: string;
+    CLOSEOUT_POSITION_REJECT: string;
+    CLOSEOUT_POSITION_PARTIAL_UNITS_MISSING: string;
+    MARKUP_GROUP_ID_INVALID: string;
+    POSITION_AGGREGATION_MODE_INVALID: string;
+    ADMIN_CONFIGURE_DATA_MISSING: string;
+    MARGIN_RATE_INVALID: string;
+    MARGIN_RATE_WOULD_TRIGGER_CLOSEOUT: string;
+    ALIAS_INVALID: string;
+    CLIENT_CONFIGURE_DATA_MISSING: string;
+    MARGIN_RATE_WOULD_TRIGGER_MARGIN_CALL: string;
+    AMOUNT_INVALID: string;
+    INSUFFICIENT_FUNDS: string;
+    AMOUNT_MISSING: string;
+    FUNDING_REASON_MISSING: string;
+    OCA_ORDER_IDS_STOP_LOSS_NOT_ALLOWED: string;
+    CLIENT_EXTENSIONS_DATA_MISSING: string;
+    REPLACING_ORDER_INVALID: string;
+    REPLACING_TRADE_ID_INVALID: string;
+    ORDER_CANCEL_WOULD_TRIGGER_CLOSEOUT: string;
+};
 /**
  * A filter that can be used when fetching Transactions https://developer.oanda.com/rest-live-v20/transaction-df/
  */
@@ -1377,6 +1684,48 @@ export declare enum TransactionFilter {
      */
     'RESET_RESETTABLE_PL' = "RESET_RESETTABLE_PL"
 }
+export declare const TransactionFilterDescription: {
+    ORDER: string;
+    FUNDING: string;
+    ADMIN: string;
+    CREATE: string;
+    CLOSE: string;
+    REOPEN: string;
+    CLIENT_CONFIGURE: string;
+    CLIENT_CONFIGURE_REJECT: string;
+    TRANSFER_FUNDS: string;
+    TRANSFER_FUNDS_REJECT: string;
+    MARKET_ORDER: string;
+    MARKET_ORDER_REJECT: string;
+    LIMIT_ORDER: string;
+    LIMIT_ORDER_REJECT: string;
+    STOP_ORDER: string;
+    STOP_ORDER_REJECT: string;
+    MARKET_IF_TOUCHED_ORDER: string;
+    MARKET_IF_TOUCHED_ORDER_REJECT: string;
+    TAKE_PROFIT_ORDER: string;
+    TAKE_PROFIT_ORDER_REJECT: string;
+    STOP_LOSS_ORDER: string;
+    STOP_LOSS_ORDER_REJECT: string;
+    TRAILING_STOP_LOSS_ORDER: string;
+    TRAILING_STOP_LOSS_ORDER_REJECT: string;
+    ONE_CANCELS_ALL_ORDER: string;
+    ONE_CANCELS_ALL_ORDER_REJECT: string;
+    ONE_CANCELS_ALL_ORDER_TRIGGERED: string;
+    ORDER_FILL: string;
+    ORDER_CANCEL: string;
+    ORDER_CANCEL_REJECT: string;
+    ORDER_CLIENT_EXTENSIONS_MODIFY: string;
+    ORDER_CLIENT_EXTENSIONS_MODIFY_REJECT: string;
+    TRADE_CLIENT_EXTENSIONS_MODIFY: string;
+    TRADE_CLIENT_EXTENSIONS_MODIFY_REJECT: string;
+    MARGIN_CALL_ENTER: string;
+    MARGIN_CALL_EXTEND: string;
+    MARGIN_CALL_EXIT: string;
+    DELAYED_TRADE_CLOSURE: string;
+    DAILY_FINANCING: string;
+    RESET_RESETTABLE_PL: string;
+};
 export declare class DividendAdjustmentTransaction {
     /**
      * The Transaction's Identifier.

@@ -21,6 +21,11 @@ export declare enum GuaranteedStopLossOrderMode {
      */
     'REQUIRED' = "REQUIRED"
 }
+export declare const GuaranteedStopLossOrderModeDescription: {
+    DISABLED: string;
+    ALLOWED: string;
+    REQUIRED: string;
+};
 /**
  * The financing mode of an Account https://developer.oanda.com/rest-live-v20/account-df/
  */
@@ -38,6 +43,11 @@ export declare enum AccountFinancingMode {
      */
     'DAILY' = "DAILY"
 }
+export declare const AccountFinancingModeDescription: {
+    NO_FINANCING: string;
+    SECOND_BY_SECOND: string;
+    DAILY: string;
+};
 /**
  * The way that position values for an Account are calculated and aggregated. https://developer.oanda.com/rest-live-v20/account-df/
  */
@@ -55,6 +65,11 @@ export declare enum PositionAggregationMode {
      */
     'NET_SUM' = "NET_SUM"
 }
+export declare const PositionAggregationModeDescription: {
+    ABSOLUTE_SUM: string;
+    MAXIMAL_SIDE: string;
+    NET_SUM: string;
+};
 export declare class AccumulatedAccountState {
     /**
      * The current balance of the account.

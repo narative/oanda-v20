@@ -70,6 +70,17 @@ export enum OrderType {
   'FIXED_PRICE' = 'FIXED_PRICE',
 }
 
+export const OrderTypeDescription = {
+  'MARKET': 'A Market Order',
+  'LIMIT': 'A Limit Order',
+  'STOP': 'A Stop Order',
+  'MARKET_IF_TOUCHED': 'A Market-if-touched Order',
+  'TAKE_PROFIT': 'A Take Profit Order',
+  'STOP_LOSS': 'A Stop Loss Order',
+  'TRAILING_STOP_LOSS': 'A Trailing Stop Loss Order',
+  'FIXED_PRICE': 'A Fixed Price Order',
+}
+
 /**
  * The type of the Order. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -105,6 +116,15 @@ export enum CancellableOrderType {
   'TRAILING_STOP_LOSS' = 'TRAILING_STOP_LOSS',
 }
 
+export const CancellableOrderTypeDescription = {
+  'LIMIT': 'A Limit Order',
+  'STOP': 'A Stop Order',
+  'MARKET_IF_TOUCHED': 'A Market-if-touched Order',
+  'TAKE_PROFIT': 'A Take Profit Order',
+  'STOP_LOSS': 'A Stop Loss Order',
+  'TRAILING_STOP_LOSS': 'A Trailing Stop Loss Order',
+}
+
 /**
  * The current state of the Order. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -128,6 +148,13 @@ export enum OrderState {
    * The Order has been cancelled
    */
   'CANCELLED' = 'CANCELLED',
+}
+
+export const OrderStateDescription = {
+  'PENDING': 'The Order is currently pending execution',
+  'FILLED': 'The Order has been filled',
+  'TRIGGERED': 'The Order has been triggered',
+  'CANCELLED': 'The Order has been cancelled',
 }
 
 /**
@@ -160,6 +187,14 @@ export enum OrderStateFilter {
   'ALL' = 'ALL',
 }
 
+export const OrderStateFilterDescription = {
+  'PENDING': 'The Orders that are currently pending execution',
+  'FILLED': 'The Orders that have been filled',
+  'TRIGGERED': 'The Orders that have been triggered',
+  'CANCELLED': 'The Orders that have been cancelled',
+  'ALL': 'The Orders that are in any of the possible states listed above',
+}
+
 /**
  * The time-in-force of an Order. TimeInForce describes how long an Order should remain pending before being automatically cancelled by the execution system. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -190,6 +225,14 @@ export enum TimeInForce {
   'IOC' = 'IOC',
 }
 
+export const TimeInForceDescription = {
+  'GTC': 'The Order is “Good unTil Cancelled”',
+  'GTD': 'The Order is “Good unTil Date” and will be cancelled at the provided time',
+  'GFD': 'The Order is “Good For Day” and will be cancelled at 5pm New York time',
+  'FOK': 'The Order must be immediately “Filled Or Killed”',
+  'IOC': 'The Order must be “Immediately partially filled Or Cancelled”',
+}
+
 /**
  * Specification of how Positions in the Account are modified when the Order is filled. https://developer.oanda.com/rest-live-v20/order-df/
  */
@@ -213,6 +256,13 @@ export enum OrderPositionFill {
    * When the Order is filled, use REDUCE_FIRST behaviour for non-client hedging Accounts, and OPEN_ONLY behaviour for client hedging Accounts.
    */
   'DEFAULT' = 'DEFAULT',
+}
+
+export const OrderPositionFillDescription = {
+  'OPEN_ONLY': 'When the Order is filled, only allow Positions to be opened or extended.',
+  'REDUCE_FIRST': 'When the Order is filled, always fully reduce an existing Position before opening a new Position.',
+  'REDUCE_ONLY': 'When the Order is filled, only reduce an existing Position.',
+  'DEFAULT': 'When the Order is filled, use REDUCE_FIRST behaviour for non-client hedging Accounts, and OPEN_ONLY behaviour for client hedging Accounts.',
 }
 
 /**
@@ -245,5 +295,13 @@ export enum OrderTriggerCondition {
    * Trigger an Order by comparing its price to the midpoint regardless of whether it is long or short.
    */
   'MID' = 'MID',
+}
+
+export const OrderTriggerConditionDescription = {
+  'DEFAULT': 'Trigger an Order the “natural” way: compare its price to the ask for long Orders and bid for short Orders.',
+  'INVERSE': 'Trigger an Order the opposite of the “natural” way: compare its price the bid for long Orders and ask for short Orders.',
+  'BID': 'Trigger an Order by comparing its price to the bid regardless of whether it is long or short.',
+  'ASK': 'Trigger an Order by comparing its price to the ask regardless of whether it is long or short.',
+  'MID': 'Trigger an Order by comparing its price to the midpoint regardless of whether it is long or short.',
 }
 

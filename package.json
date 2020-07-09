@@ -1,7 +1,7 @@
 {
   "name": "@narative/oanda-v20",
   "description": "OANDA v20 bindings for Javascript",
-  "version": "3.0.47",
+  "version": "3.0.48",
   "author": "OANDA Corporation",
   "repository": "https://github.com/narative/v20-javascript",
   "license": "MIT",

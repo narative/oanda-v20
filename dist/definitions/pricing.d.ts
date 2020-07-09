@@ -20,3 +20,8 @@ export declare enum PriceStatus {
      */
     'invalid' = "invalid"
 }
+export declare const PriceStatusDescription: {
+    tradeable: string;
+    'non-tradeable': string;
+    invalid: string;
+};

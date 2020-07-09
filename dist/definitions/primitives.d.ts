@@ -40,6 +40,11 @@ export declare enum InstrumentType {
      */
     'METAL' = "METAL"
 }
+export declare const InstrumentTypeDescription: {
+    CURRENCY: string;
+    CFD: string;
+    METAL: string;
+};
 /**
  * The DayOfWeek provides a representation of the day of the week. https://developer.oanda.com/rest-live-v20/primitives-df/
  */
@@ -73,6 +78,15 @@ export declare enum DayOfWeek {
      */
     'SATURDAY' = "SATURDAY"
 }
+export declare const DayOfWeekDescription: {
+    SUNDAY: string;
+    MONDAY: string;
+    TUESDAY: string;
+    WEDNESDAY: string;
+    THURSDAY: string;
+    FRIDAY: string;
+    SATURDAY: string;
+};
 /**
  * DateTime header https://developer.oanda.com/rest-live-v20/primitives-df/
  */
@@ -86,6 +100,10 @@ export declare enum AcceptDatetimeFormat {
      */
     'RFC3339' = "RFC3339"
 }
+export declare const AcceptDatetimeFormatDescription: {
+    UNIX: string;
+    RFC3339: string;
+};
 /**
  * In the context of an Order or a Trade, defines whether the units are positive or negative. https://developer.oanda.com/rest-live-v20/primitives-df/
  */
@@ -99,6 +117,10 @@ export declare enum Direction {
      */
     'SHORT' = "SHORT"
 }
+export declare const DirectionDescription: {
+    LONG: string;
+    SHORT: string;
+};
 export declare class Tag {
     /**
      * The type of the tag.

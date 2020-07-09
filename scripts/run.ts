@@ -38,7 +38,7 @@ async function main() {
   // })
 
   await parseAllDefinitions()
-  await parseAllEndpoints()
+  // await parseAllEndpoints()
 }
 
 main()
