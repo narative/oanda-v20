@@ -106,6 +106,8 @@ var APIError = /** @class */ (function (_super) {
         _this.hostname = hostname;
         _this.path = path;
         _this.body = body;
+        // Fix: Typescript breaks `err instanceof ...`
+        Object.setPrototypeOf(_this, APIError.prototype);
         return _this;
     }
     return APIError;

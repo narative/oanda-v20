@@ -118,6 +118,9 @@ export class APIError extends Error {
         body?.errorMessage || ''
       } help=${helpURL}`,
     )
+
+    // Fix: Typescript breaks `err instanceof ...`
+    Object.setPrototypeOf(this, APIError.prototype)
   }
 }
 
