@@ -1,15 +1,12 @@
 {
   "name": "@narative/oanda-v20",
   "description": "OANDA v20 bindings for Javascript",
-  "version": "3.0.48",
+  "version": "3.0.49",
   "author": "OANDA Corporation",
   "repository": "https://github.com/narative/v20-javascript",
   "license": "MIT",
   "homepage": "http://developer.oanda.com/rest-live-v20/introduction",
   "main": "dist/index.js",
-  "exports": {
-    "./": "./dist/"
-  },
   "scripts": {
     "build": "tsc",
     "dev": "nodemon --watch 'scripts' --ext 'ts' --exec 'ts-node scripts/run.ts'"
