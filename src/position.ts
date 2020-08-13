@@ -464,14 +464,12 @@ export class EntitySpec {
         //
         // Assume standard error response with errorCode and errorMessage
         //
-        else {
-          if (msg['errorCode'] !== undefined) {
-            response.body.errorCode = msg['errorCode']
-          }
+        if (msg['errorCode'] !== undefined) {
+          response.body.errorCode = msg['errorCode']
+        }
 
-          if (msg['errorMessage'] !== undefined) {
-            response.body.errorMessage = msg['errorMessage']
-          }
+        if (msg['errorMessage'] !== undefined) {
+          response.body.errorMessage = msg['errorMessage']
         }
       }
 
@@ -517,14 +515,12 @@ export class EntitySpec {
         //
         // Assume standard error response with errorCode and errorMessage
         //
-        else {
-          if (msg['errorCode'] !== undefined) {
-            response.body.errorCode = msg['errorCode']
-          }
+        if (msg['errorCode'] !== undefined) {
+          response.body.errorCode = msg['errorCode']
+        }
 
-          if (msg['errorMessage'] !== undefined) {
-            response.body.errorMessage = msg['errorMessage']
-          }
+        if (msg['errorMessage'] !== undefined) {
+          response.body.errorMessage = msg['errorMessage']
         }
       }
 
@@ -571,14 +567,12 @@ export class EntitySpec {
         //
         // Assume standard error response with errorCode and errorMessage
         //
-        else {
-          if (msg['errorCode'] !== undefined) {
-            response.body.errorCode = msg['errorCode']
-          }
+        if (msg['errorCode'] !== undefined) {
+          response.body.errorCode = msg['errorCode']
+        }
 
-          if (msg['errorMessage'] !== undefined) {
-            response.body.errorMessage = msg['errorMessage']
-          }
+        if (msg['errorMessage'] !== undefined) {
+          response.body.errorMessage = msg['errorMessage']
         }
       }
 

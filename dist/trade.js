@@ -281,13 +281,11 @@ var EntitySpec = /** @class */ (function () {
                 //
                 // Assume standard error response with errorCode and errorMessage
                 //
-                else {
-                    if (msg['errorCode'] !== undefined) {
-                        response.body.errorCode = msg['errorCode'];
-                    }
-                    if (msg['errorMessage'] !== undefined) {
-                        response.body.errorMessage = msg['errorMessage'];
-                    }
+                if (msg['errorCode'] !== undefined) {
+                    response.body.errorCode = msg['errorCode'];
+                }
+                if (msg['errorMessage'] !== undefined) {
+                    response.body.errorMessage = msg['errorMessage'];
                 }
             }
             responseHandler(null, response);
@@ -326,13 +324,11 @@ var EntitySpec = /** @class */ (function () {
                 //
                 // Assume standard error response with errorCode and errorMessage
                 //
-                else {
-                    if (msg['errorCode'] !== undefined) {
-                        response.body.errorCode = msg['errorCode'];
-                    }
-                    if (msg['errorMessage'] !== undefined) {
-                        response.body.errorMessage = msg['errorMessage'];
-                    }
+                if (msg['errorCode'] !== undefined) {
+                    response.body.errorCode = msg['errorCode'];
+                }
+                if (msg['errorMessage'] !== undefined) {
+                    response.body.errorMessage = msg['errorMessage'];
                 }
             }
             responseHandler(null, response);
@@ -372,13 +368,11 @@ var EntitySpec = /** @class */ (function () {
                 //
                 // Assume standard error response with errorCode and errorMessage
                 //
-                else {
-                    if (msg['errorCode'] !== undefined) {
-                        response.body.errorCode = msg['errorCode'];
-                    }
-                    if (msg['errorMessage'] !== undefined) {
-                        response.body.errorMessage = msg['errorMessage'];
-                    }
+                if (msg['errorCode'] !== undefined) {
+                    response.body.errorCode = msg['errorCode'];
+                }
+                if (msg['errorMessage'] !== undefined) {
+                    response.body.errorMessage = msg['errorMessage'];
                 }
             }
             responseHandler(null, response);
@@ -540,13 +534,11 @@ var EntitySpec = /** @class */ (function () {
                 //
                 // Assume standard error response with errorCode and errorMessage
                 //
-                else {
-                    if (msg['errorCode'] !== undefined) {
-                        response.body.errorCode = msg['errorCode'];
-                    }
-                    if (msg['errorMessage'] !== undefined) {
-                        response.body.errorMessage = msg['errorMessage'];
-                    }
+                if (msg['errorCode'] !== undefined) {
+                    response.body.errorCode = msg['errorCode'];
+                }
+                if (msg['errorMessage'] !== undefined) {
+                    response.body.errorMessage = msg['errorMessage'];
                 }
             }
             responseHandler(null, response);
@@ -658,13 +650,11 @@ var EntitySpec = /** @class */ (function () {
                 //
                 // Assume standard error response with errorCode and errorMessage
                 //
-                else {
-                    if (msg['errorCode'] !== undefined) {
-                        response.body.errorCode = msg['errorCode'];
-                    }
-                    if (msg['errorMessage'] !== undefined) {
-                        response.body.errorMessage = msg['errorMessage'];
-                    }
+                if (msg['errorCode'] !== undefined) {
+                    response.body.errorCode = msg['errorCode'];
+                }
+                if (msg['errorMessage'] !== undefined) {
+                    response.body.errorMessage = msg['errorMessage'];
                 }
             }
             responseHandler(null, response);
