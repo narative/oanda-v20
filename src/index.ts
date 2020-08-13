@@ -213,5 +213,5 @@ export function toOANDATime(date: Date, dateFormat: 'UNIX' | 'RFC3339' = 'UNIX')
 }
 
 export function oandaTimeToDate(data: any, dateFormat: 'UNIX' | 'RFC3339' = 'UNIX') {
-  return dateFormat === 'UNIX' ? new Date(Number(data) * 1000) : Date.parse(data)
+  return dateFormat === 'UNIX' ? new Date(Number(data) * 1000) : new Date(Date.parse(data))
 }

@@ -54,4 +54,4 @@ export declare class APIError extends Error {
     constructor(message: string, helpURL: string, hostname: string, path: string, body: any);
 }
 export declare function toOANDATime(date: Date, dateFormat?: 'UNIX' | 'RFC3339'): string;
-export declare function oandaTimeToDate(data: any, dateFormat?: 'UNIX' | 'RFC3339'): number | Date;
+export declare function oandaTimeToDate(data: any, dateFormat?: 'UNIX' | 'RFC3339'): Date;

@@ -153,7 +153,7 @@ function toOANDATime(date, dateFormat) {
 exports.toOANDATime = toOANDATime;
 function oandaTimeToDate(data, dateFormat) {
     if (dateFormat === void 0) { dateFormat = 'UNIX'; }
-    return dateFormat === 'UNIX' ? new Date(Number(data) * 1000) : Date.parse(data);
+    return dateFormat === 'UNIX' ? new Date(Number(data) * 1000) : new Date(Date.parse(data));
 }
 exports.oandaTimeToDate = oandaTimeToDate;
 //# sourceMappingURL=index.js.map
