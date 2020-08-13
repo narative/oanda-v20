@@ -1,10 +1,9 @@
-import { Definition, Property, Field } from './base'
-
-import * as trade from './trade'
-import * as position from './position'
+import { Definition, Field, Property } from './base'
 import * as order from './order'
-import * as transaction from './transaction'
+import * as position from './position'
 import * as primitives from './primitives'
+import * as trade from './trade'
+import * as transaction from './transaction'
 
 export const Account_Properties = [
   new Property('id', 'Account ID', "The Account's identifier", 'primitive', 'account.AccountID'),
@@ -2020,14 +2019,13 @@ export class EntitySpec {
         //
         // Assume standard error response with errorCode and errorMessage
         //
-        else {
-          if (msg['errorCode'] !== undefined) {
-            response.body.errorCode = msg['errorCode']
-          }
 
-          if (msg['errorMessage'] !== undefined) {
-            response.body.errorMessage = msg['errorMessage']
-          }
+        if (msg['errorCode'] !== undefined) {
+          response.body.errorCode = msg['errorCode']
+        }
+
+        if (msg['errorMessage'] !== undefined) {
+          response.body.errorMessage = msg['errorMessage']
         }
       }
 

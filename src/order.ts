@@ -1,7 +1,6 @@
-import { Definition, Property, Field } from './base'
-
-import * as transaction from './transaction'
+import { Definition, Field, Property } from './base'
 import * as primitives from './primitives'
+import * as transaction from './transaction'
 
 export const OrderIdentifier_Properties = [
   new Property('orderID', 'orderID', 'The OANDA-assigned Order ID', 'primitive', 'order.OrderID'),
@@ -5328,14 +5327,13 @@ export class EntitySpec {
         //
         // Assume standard error response with errorCode and errorMessage
         //
-        else {
-          if (msg['errorCode'] !== undefined) {
-            response.body.errorCode = msg['errorCode']
-          }
 
-          if (msg['errorMessage'] !== undefined) {
-            response.body.errorMessage = msg['errorMessage']
-          }
+        if (msg['errorCode'] !== undefined) {
+          response.body.errorCode = msg['errorCode']
+        }
+
+        if (msg['errorMessage'] !== undefined) {
+          response.body.errorMessage = msg['errorMessage']
         }
       }
 

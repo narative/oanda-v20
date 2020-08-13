@@ -1,8 +1,7 @@
-import { Definition, Property, Field } from './base'
-
-import * as pricing_common from './pricing_common'
-import * as order from './order'
+import { Definition, Field, Property } from './base'
 import * as instrumentModule from './instrument'
+import * as order from './order'
+import * as pricing_common from './pricing_common'
 import * as primitives from './primitives'
 
 export const ClientPrice_Properties = [
@@ -477,14 +476,13 @@ export class EntitySpec {
         //
         // Assume standard error response with errorCode and errorMessage
         //
-        else {
-          if (msg['errorCode'] !== undefined) {
-            response.body.errorCode = msg['errorCode']
-          }
 
-          if (msg['errorMessage'] !== undefined) {
-            response.body.errorMessage = msg['errorMessage']
-          }
+        if (msg['errorCode'] !== undefined) {
+          response.body.errorCode = msg['errorCode']
+        }
+
+        if (msg['errorMessage'] !== undefined) {
+          response.body.errorMessage = msg['errorMessage']
         }
       }
 

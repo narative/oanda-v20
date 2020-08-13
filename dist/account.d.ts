@@ -1,9 +1,9 @@
 import { Definition, Property } from './base';
-import * as trade from './trade';
-import * as position from './position';
 import * as order from './order';
-import * as transaction from './transaction';
+import * as position from './position';
 import * as primitives from './primitives';
+import * as trade from './trade';
+import * as transaction from './transaction';
 export declare const Account_Properties: Property[];
 export declare class Account extends Definition {
     /**

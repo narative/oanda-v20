@@ -16,14 +16,14 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-var context = require("./context");
 var accountAPI = require("./api/account");
+var instrumentAPI = require("./api/instrument");
+var orderAPI = require("./api/order");
 var positionAPI = require("./api/position");
 var pricingAPI = require("./api/pricing");
-var transactionAPI = require("./api/transaction");
 var tradeAPI = require("./api/trade");
-var orderAPI = require("./api/order");
-var instrumentAPI = require("./api/instrument");
+var transactionAPI = require("./api/transaction");
+var context = require("./context");
 __export(require("./context"));
 exports.account = require("./api/account");
 exports.position = require("./api/position");
@@ -148,12 +148,12 @@ function resolver(resolve, reject) {
 }
 function toOANDATime(date, dateFormat) {
     if (dateFormat === void 0) { dateFormat = 'UNIX'; }
-    return dateFormat === 'UNIX' ? "" + date.getTime() / 1000 : date.toString();
+    return dateFormat === 'UNIX' ? "" + date.getTime() / 1000 : date.toISOString();
 }
 exports.toOANDATime = toOANDATime;
 function oandaTimeToDate(data, dateFormat) {
     if (dateFormat === void 0) { dateFormat = 'UNIX'; }
-    return dateFormat === 'UNIX' ? new Date(Number(data) * 1000) : new Date(data);
+    return dateFormat === 'UNIX' ? new Date(Number(data) * 1000) : Date.parse(data);
 }
 exports.oandaTimeToDate = oandaTimeToDate;
 //# sourceMappingURL=index.js.map

@@ -1,6 +1,6 @@
 import { Definition, Property } from './base';
-import * as pricing_common from './pricing_common';
 import * as order from './order';
+import * as pricing_common from './pricing_common';
 import * as primitives from './primitives';
 export declare const ClientPrice_Properties: Property[];
 export declare class ClientPrice extends Definition {

@@ -1,7 +1,7 @@
 import { Definition, Property } from './base';
-import * as transaction from './transaction';
 import * as order from './order';
 import * as primitives from './primitives';
+import * as transaction from './transaction';
 export declare const Trade_Properties: Property[];
 export declare class Trade extends Definition {
     /**

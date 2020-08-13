@@ -14,9 +14,9 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var base_1 = require("./base");
-var pricing_common = require("./pricing_common");
-var order = require("./order");
 var instrumentModule = require("./instrument");
+var order = require("./order");
+var pricing_common = require("./pricing_common");
 exports.ClientPrice_Properties = [
     new base_1.Property('type', 'Type', 'The string "PRICE". Used to identify the a Price object when found in a stream.', 'primitive', 'string'),
     new base_1.Property('instrument', 'Instrument', "The Price's Instrument.", 'primitive', 'primitives.InstrumentName'),
@@ -254,13 +254,11 @@ var EntitySpec = /** @class */ (function () {
                 //
                 // Assume standard error response with errorCode and errorMessage
                 //
-                else {
-                    if (msg['errorCode'] !== undefined) {
-                        response.body.errorCode = msg['errorCode'];
-                    }
-                    if (msg['errorMessage'] !== undefined) {
-                        response.body.errorMessage = msg['errorMessage'];
-                    }
+                if (msg['errorCode'] !== undefined) {
+                    response.body.errorCode = msg['errorCode'];
+                }
+                if (msg['errorMessage'] !== undefined) {
+                    response.body.errorMessage = msg['errorMessage'];
                 }
             }
             responseHandler(null, response);

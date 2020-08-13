@@ -14,11 +14,11 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var base_1 = require("./base");
-var trade = require("./trade");
-var position = require("./position");
 var order = require("./order");
-var transaction = require("./transaction");
+var position = require("./position");
 var primitives = require("./primitives");
+var trade = require("./trade");
+var transaction = require("./transaction");
 exports.Account_Properties = [
     new base_1.Property('id', 'Account ID', "The Account's identifier", 'primitive', 'account.AccountID'),
     new base_1.Property('alias', 'Alias', 'Client-assigned alias for the Account. Only provided if the Account has an alias set', 'primitive', 'string'),
@@ -654,13 +654,11 @@ var EntitySpec = /** @class */ (function () {
                 //
                 // Assume standard error response with errorCode and errorMessage
                 //
-                else {
-                    if (msg['errorCode'] !== undefined) {
-                        response.body.errorCode = msg['errorCode'];
-                    }
-                    if (msg['errorMessage'] !== undefined) {
-                        response.body.errorMessage = msg['errorMessage'];
-                    }
+                if (msg['errorCode'] !== undefined) {
+                    response.body.errorCode = msg['errorCode'];
+                }
+                if (msg['errorMessage'] !== undefined) {
+                    response.body.errorMessage = msg['errorMessage'];
                 }
             }
             responseHandler(null, response);

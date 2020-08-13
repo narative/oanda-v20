@@ -1,11 +1,11 @@
-import * as context from './context'
 import * as accountAPI from './api/account'
+import * as instrumentAPI from './api/instrument'
+import * as orderAPI from './api/order'
 import * as positionAPI from './api/position'
 import * as pricingAPI from './api/pricing'
-import * as transactionAPI from './api/transaction'
 import * as tradeAPI from './api/trade'
-import * as orderAPI from './api/order'
-import * as instrumentAPI from './api/instrument'
+import * as transactionAPI from './api/transaction'
+import * as context from './context'
 
 export * from './context'
 export * as account from './api/account'
@@ -209,9 +209,9 @@ function resolver(resolve, reject) {
 }
 
 export function toOANDATime(date: Date, dateFormat: 'UNIX' | 'RFC3339' = 'UNIX') {
-  return dateFormat === 'UNIX' ? `${date.getTime() / 1000}` : date.toString()
+  return dateFormat === 'UNIX' ? `${date.getTime() / 1000}` : date.toISOString()
 }
 
 export function oandaTimeToDate(data: any, dateFormat: 'UNIX' | 'RFC3339' = 'UNIX') {
-  return dateFormat === 'UNIX' ? new Date(Number(data) * 1000) : new Date(data)
+  return dateFormat === 'UNIX' ? new Date(Number(data) * 1000) : Date.parse(data)
 }

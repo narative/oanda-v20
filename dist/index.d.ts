@@ -1,11 +1,11 @@
-import * as context from './context';
 import * as accountAPI from './api/account';
+import * as instrumentAPI from './api/instrument';
+import * as orderAPI from './api/order';
 import * as positionAPI from './api/position';
 import * as pricingAPI from './api/pricing';
-import * as transactionAPI from './api/transaction';
 import * as tradeAPI from './api/trade';
-import * as orderAPI from './api/order';
-import * as instrumentAPI from './api/instrument';
+import * as transactionAPI from './api/transaction';
+import * as context from './context';
 export * from './context';
 export * as account from './api/account';
 export * as position from './api/position';
@@ -54,4 +54,4 @@ export declare class APIError extends Error {
     constructor(message: string, helpURL: string, hostname: string, path: string, body: any);
 }
 export declare function toOANDATime(date: Date, dateFormat?: 'UNIX' | 'RFC3339'): string;
-export declare function oandaTimeToDate(data: any, dateFormat?: 'UNIX' | 'RFC3339'): Date;
+export declare function oandaTimeToDate(data: any, dateFormat?: 'UNIX' | 'RFC3339'): number | Date;

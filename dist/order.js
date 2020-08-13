@@ -14,8 +14,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var base_1 = require("./base");
-var transaction = require("./transaction");
 var primitives = require("./primitives");
+var transaction = require("./transaction");
 exports.OrderIdentifier_Properties = [
     new base_1.Property('orderID', 'orderID', 'The OANDA-assigned Order ID', 'primitive', 'order.OrderID'),
     new base_1.Property('clientOrderID', 'clientOrderID', 'The client-provided client Order ID', 'primitive', 'transaction.ClientID'),
@@ -1842,13 +1842,11 @@ var EntitySpec = /** @class */ (function () {
                 //
                 // Assume standard error response with errorCode and errorMessage
                 //
-                else {
-                    if (msg['errorCode'] !== undefined) {
-                        response.body.errorCode = msg['errorCode'];
-                    }
-                    if (msg['errorMessage'] !== undefined) {
-                        response.body.errorMessage = msg['errorMessage'];
-                    }
+                if (msg['errorCode'] !== undefined) {
+                    response.body.errorCode = msg['errorCode'];
+                }
+                if (msg['errorMessage'] !== undefined) {
+                    response.body.errorMessage = msg['errorMessage'];
                 }
             }
             responseHandler(null, response);

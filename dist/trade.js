@@ -14,8 +14,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var base_1 = require("./base");
-var transaction = require("./transaction");
 var order = require("./order");
+var transaction = require("./transaction");
 exports.Trade_Properties = [
     new base_1.Property('id', 'Trade ID', "The Trade's identifier, unique within the Trade's Account.", 'primitive', 'trade.TradeID'),
     new base_1.Property('instrument', 'Instrument', "The Trade's Instrument.", 'primitive', 'primitives.InstrumentName'),
@@ -457,13 +457,11 @@ var EntitySpec = /** @class */ (function () {
                 //
                 // Assume standard error response with errorCode and errorMessage
                 //
-                else {
-                    if (msg['errorCode'] !== undefined) {
-                        response.body.errorCode = msg['errorCode'];
-                    }
-                    if (msg['errorMessage'] !== undefined) {
-                        response.body.errorMessage = msg['errorMessage'];
-                    }
+                if (msg['errorCode'] !== undefined) {
+                    response.body.errorCode = msg['errorCode'];
+                }
+                if (msg['errorMessage'] !== undefined) {
+                    response.body.errorMessage = msg['errorMessage'];
                 }
             }
             responseHandler(null, response);

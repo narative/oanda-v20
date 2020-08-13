@@ -1,6 +1,6 @@
 import { Definition, Property } from './base';
-import * as transaction from './transaction';
 import * as primitives from './primitives';
+import * as transaction from './transaction';
 export declare const OrderIdentifier_Properties: Property[];
 export declare class OrderIdentifier extends Definition {
     /**
