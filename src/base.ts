@@ -46,7 +46,7 @@ export class Definition {
     const recursiveConvert = (value: any) => {
       if (Array.isArray(value)) {
         return value.map((v) => recursiveConvert(v))
-      } else if (value.toJSON) {
+      } else if (value?.toJSON) {
         return value.toJSON()
       } else {
         return value

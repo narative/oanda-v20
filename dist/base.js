@@ -45,7 +45,7 @@ var Definition = /** @class */ (function () {
             if (Array.isArray(value)) {
                 return value.map(function (v) { return recursiveConvert(v); });
             }
-            else if (value.toJSON) {
+            else if (value === null || value === void 0 ? void 0 : value.toJSON) {
                 return value.toJSON();
             }
             else {

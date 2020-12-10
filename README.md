@@ -20,3 +20,9 @@ const client = new oandaAPI.Rest('my-app-name', '1234567890qwfpgjluy1234567890',
 const result = await client.account.list()
 console.log('OANDA result', result) // should show the data from GET /v3/accounts (https://developer.oanda.com/rest-live-v20/account-ep/)
 ```
+
+## Publish
+
+- update version in package.json
+- `yarn build`
+- `npm publish`
