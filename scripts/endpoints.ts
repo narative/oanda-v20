@@ -1,11 +1,9 @@
 import * as path from 'path'
-
 import * as cheerio from 'cheerio'
-
-import { Request } from './request'
-import { parseComments, toModuleName, parseTypes, convertType } from './helpers/types'
-import { Filewriter } from './helpers/file'
 import { moduleNames as definitionModuleNames } from './definitions'
+import { Filewriter } from './helpers/file'
+import { convertType, parseComments, parseTypes, toModuleName } from './helpers/types'
+import { Request } from './request'
 
 export const moduleNames = [
   'account',
@@ -222,11 +220,6 @@ ${e.requests
 
         requests.push({ name, location, type })
       })
-
-    // doc error, forgot accountID
-    if (self.moduleName === 'pricing' && id === '#collapse_endpoint_5') {
-      requests.unshift({ name: 'accountID', location: 'path', type: 'account.AccountID' })
-    }
 
     $(paramID) // <div id=collapse_2_parameters />
       .find('.body_schema > .json_schema')

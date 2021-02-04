@@ -76,6 +76,8 @@ export interface StreamRequestQuery {
   instruments?: primitives.InstrumentName[]
 
   snapshot?: boolean
+
+  includeHomeConversions?: boolean
 }
 
 export type StreamResponse = void

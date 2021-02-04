@@ -38,6 +38,7 @@ export interface StreamRequest {
 export interface StreamRequestQuery {
     instruments?: primitives.InstrumentName[];
     snapshot?: boolean;
+    includeHomeConversions?: boolean;
 }
 export declare type StreamResponse = void;
 export interface CandlesRequest {

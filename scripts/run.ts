@@ -1,17 +1,14 @@
 import * as oanda from '../src'
-
 import { parseAll as parseAllDefinitions } from './definitions'
 import { parseAll as parseAllEndpoints } from './endpoints'
 
-async function main() {
+async function testLib() {
   // const client = new oanda.Rest('test', process.env.OANDA_TOKEN, true)
   // const accountIDs = await client.account.list({})
-
   // if (accountIDs.accounts.length === 0) {
   //   console.log(`No accounts`)
   //   return
   // }
-
   // const accounts = await Promise.all(
   //   accountIDs.accounts.map((a) => client.account.summary({ accountID: a.id })),
   // )
@@ -21,12 +18,10 @@ async function main() {
   //     `• ${a.account.id} balance=${a.account.balance} transactions=${a.lastTransactionID}`,
   //   )
   // })
-
   // const transactions = await client.transaction.range({
   //   accountID: `101-002-12706983-001`,
   //   query: { from: '1365', to: '1367' },
   // })
-
   // console.log(`Last transaction`)
   // transactions.transactions.forEach((t) => {
   //   const jsonObj: any = t.toJSON()
@@ -36,9 +31,16 @@ async function main() {
   //     }`,
   //   )
   // })
+}
 
+async function parse() {
   await parseAllDefinitions()
-  // await parseAllEndpoints()
+  await parseAllEndpoints()
+}
+
+async function main() {
+  // testLib()
+  parse()
 }
 
 main()

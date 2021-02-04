@@ -1,16 +1,14 @@
 import * as path from 'path'
-
 import * as cheerio from 'cheerio'
-
-import { Request } from './request'
-import {
-  convertType,
-  toModuleName,
-  convertEnumName,
-  parseTypes,
-  parseComments,
-} from './helpers/types'
 import { Filewriter } from './helpers/file'
+import {
+  convertEnumName,
+  convertType,
+  parseComments,
+  parseTypes,
+  toModuleName,
+} from './helpers/types'
+import { Request } from './request'
 
 export const moduleNames = [
   'account',
@@ -30,8 +28,9 @@ class Parser {
     private url = `https://developer.oanda.com/rest-live-v20/${moduleName}-df/`,
     private file = new Filewriter(
       path.join(__dirname, `../src/definitions/${toModuleName(moduleName)}.ts`),
-    ),
-  ) {
+    ), // private fileMain = new Filewriter( //   path.join(__dirname, `../src/${toModuleName(moduleName)}.ts`),
+  ) // ),
+  {
     this.file.clean()
   }
 
@@ -41,6 +40,7 @@ class Parser {
     const $ = cheerio.load(body)
     await this.parseDefinitions($)
     await this.file.flush()
+    // await this.fileMain.flush()
   }
 
   private async parseDefinitions($: CheerioStatic) {
@@ -51,12 +51,19 @@ class Parser {
     const resultTypes = []
     const resultEnums = []
     const resultUnknown = []
+    const resultSchema = []
+    const resultSchemaImport = []
 
     this.file.appendFile(
       `${moduleNames
         .map((m) => `import * as ${toModuleName(m)} from './${toModuleName(m)}'`)
         .join(`\n`)}\n`,
     )
+    // this.fileMain.appendFile(
+    //   `${moduleNames
+    //     .map((m) => `import * as ${toModuleName(m)} from './definitions/${toModuleName(m)}'`)
+    //     .join(`\n`)}\n`,
+    // )
 
     $('.endpoint_header').each(function () {
       const $this = $(this)
@@ -70,6 +77,7 @@ class Parser {
  * ${description} ${self.url}
  */
 export type ${name} = ${typeValue}`)
+        resultSchemaImport.push(name)
         return
       }
 
@@ -108,19 +116,22 @@ ${values
 ${values.map((v) => `  ${convertEnumName(v.value)}: '${v.description}',`).join('\n')}\n}`
 
         resultEnums.push(`${enumValue}\n\n${enumDescription}`)
+        resultSchemaImport.push(name)
         return
       }
 
       // handle schema
       const schema = $this.next().find('.json_schema').html()
       if (schema) {
+        const result = `export class ${name} ${parseTypes(parseComments(schema), self.moduleName)}`
+
         if (self.isMissing(name)) {
-          const result = parseTypes(parseComments(schema), self.moduleName)
-          missingImport.push(`export class ${name} ${result}`)
+          missingImport.push(`${result}`)
           return
         }
 
         resultExport.push(name)
+        resultSchema.push(result)
         return
       }
 
@@ -136,6 +147,8 @@ ${values.map((v) => `  ${convertEnumName(v.value)}: '${v.description}',`).join('
  * ${description} ${self.url}
  */
 export type ${name} = ${implementations.join(' | ')}`)
+
+        resultSchemaImport.push(name)
         return
       }
 
@@ -158,6 +171,13 @@ ${resultTypes.join('\n\n')}
 ${resultEnums.join('\n\n')}
 
 ${missingImport.join('\n\n')}`)
+
+    // this.fileMain.appendFile(
+    //   `import { ${resultSchemaImport.join(', ')} } from './definitions/${toModuleName(
+    //     this.moduleName,
+    //     true,
+    //   )}'\n\n${resultSchema.join('\n')}`,
+    // )
   }
 
   private isMissing(name: string) {
@@ -180,7 +200,13 @@ ${missingImport.join('\n\n')}`)
 
     if (
       this.moduleName === 'primitives' &&
-      ['Tag', 'FinancingDayOfWeek', 'InstrumentFinancing'].includes(name)
+      [
+        'Tag',
+        'FinancingDayOfWeek',
+        'InstrumentFinancing',
+        'ConversionFactor',
+        'HomeConversionFactors',
+      ].includes(name)
     ) {
       return true
     }

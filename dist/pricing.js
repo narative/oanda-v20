@@ -342,6 +342,9 @@ var EntitySpec = /** @class */ (function () {
         if (typeof queryParams['snapshot'] !== 'undefined') {
             path = path + 'snapshot=' + queryParams['snapshot'] + '&';
         }
+        if (typeof queryParams['includeHomeConversions'] !== 'undefined') {
+            path = path + 'includeHomeConversions=' + queryParams['includeHomeConversions'] + '&';
+        }
         var body = {};
         var handleResponse = function (err, response) {
             if (err) {

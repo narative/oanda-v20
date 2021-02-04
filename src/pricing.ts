@@ -587,6 +587,9 @@ export class EntitySpec {
     if (typeof queryParams['snapshot'] !== 'undefined') {
       path = path + 'snapshot=' + queryParams['snapshot'] + '&'
     }
+    if (typeof queryParams['includeHomeConversions'] !== 'undefined') {
+      path = path + 'includeHomeConversions=' + queryParams['includeHomeConversions'] + '&'
+    }
 
     let body = {}
 
